@@ -1,8 +1,11 @@
 package io.silv
 
-import com.squareup.moshi.adapter
+import android.util.Log
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -68,10 +71,23 @@ suspend fun Call.awaitSuccess(): Response {
  */
 class HttpException(val code: Int) : IllegalStateException("HTTP error $code")
 
+@OptIn(ExperimentalSerializationApi::class)
+val json = Json {
+    ignoreUnknownKeys = true
+    explicitNulls = false
+    encodeDefaults = true
+    isLenient = true
+}
+
+@OptIn(ExperimentalSerializationApi::class)
 inline fun <reified T> Response.decode(): T? {
     return runCatching {
-        val adapter = moshi.adapter(T::class.java)
-        adapter.fromJson(this.body!!.source())
+        if (isSuccessful) {
+            json.decodeFromStream<T>(this.body!!.source().inputStream())
+        } else {
+            Log.e("Error Response", "$message $code ${body?.string()}")
+            error("unsuccessful response")
+        }
     }
         .logError("Response.decode")
         .getOrNull()

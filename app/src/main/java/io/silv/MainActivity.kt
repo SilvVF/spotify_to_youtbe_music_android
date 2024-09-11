@@ -1,14 +1,21 @@
 package io.silv
 
+import SongItem
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -17,21 +24,30 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.squareup.moshi.Moshi
+import androidx.compose.ui.util.fastForEach
 import io.silv.types.SpotifyPlaylist
 import io.silv.ui.layout.EntryListItem
 import io.silv.ui.layout.PinnedTopBar
@@ -40,32 +56,46 @@ import io.silv.ui.layout.SpotifyTopBarLayout
 import io.silv.ui.layout.rememberTopBarState
 import io.silv.ui.theme.SptoytTheme
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.withContext
-
-val moshi = Moshi.Builder()
-    .build()
+import okhttp3.Cache
+import java.io.File
 
 class MainActivity : ComponentActivity() {
 
+    val cache by lazy { Cache(File(applicationContext.cacheDir, "net_cache"), 5000) }
+
+    @OptIn(ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val api by lazy { SpotifyApi(application) }
-        val ytApi by lazy { YtMusicApi() }
+        val api by lazy {
+            SpotifyApi(application) { cache(cache) }
+        }
+        val ytApi by lazy {
+            YtMusicApi { cache(cache) }
+        }
 
         enableEdgeToEdge()
         setContent {
 
             val resp by produceState<SpotifyPlaylist?>(null) {
-                val r = withContext(Dispatchers.IO) { api.playlist("3cEYpjA9oz9GiPac4AsH4n") }
+                val r = withContext(Dispatchers.IO) { api.playlist("37i9dQZF1EIXwW3DKBf9K8") }
                 value = r
             }
 
-            LaunchedEffect(Unit) {
-                withContext(Dispatchers.IO) {
-                    runCatching {
-                        Log.d("YtMusicApi", ytApi.search("ado").body?.string().orEmpty())
-                    }.logError("YtMusicApi")
+            val searchResult by produceState<SearchSongsResult?>(null) {
+                snapshotFlow { resp }.filterNotNull().collectLatest {
+                    withContext(Dispatchers.IO) {
+                        runCatching {
+                            resp?.let { r ->
+                                val result = ytApi.searchSongs(r.tracks)
+                                withContext(Dispatchers.Main) { value = result }
+                            }
+                        }.logError("YtMusicApi")
+                    }
                 }
             }
 
@@ -118,15 +148,55 @@ class MainActivity : ComponentActivity() {
                 ) { paddingValues ->
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = paddingValues
+                        contentPadding = paddingValues,
+                        state = lazyListState
                     ) {
                         items(resp?.tracks?.items.orEmpty()) { item ->
-                            ContentListItem(
-                                title = item.track.name,
-                                url = item.track.album.images.firstOrNull()?.url.orEmpty(),
-                                onClick = {},
-                                onLongClick = {}
-                            )
+                            var expanded by rememberSaveable { mutableStateOf(false) }
+                            Column(
+                                Modifier.animateContentSize()
+                            ) {
+                                ContentListItem(
+                                    title = item.track.name,
+                                    url = item.track.album.images.firstOrNull()?.url.orEmpty(),
+                                    onClick = {},
+                                    onLongClick = {}
+                                ) {
+                                    IconButton(
+                                        onClick = { expanded = !expanded }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Filled.KeyboardArrowDown,
+                                            modifier = Modifier.rotate(if (expanded) 180f else 0f),
+                                            contentDescription = null
+                                        )
+                                    }
+                                }
+                                searchResult?.matches?.get(item)?.let { (match, additional) ->
+                                    val items =  remember(expanded) {
+                                        if (!expanded) listOf(match) else buildList {
+                                            add(match)
+                                            addAll(additional.filterNot { it.id == match.id })
+                                        }
+                                    }
+                                    items.map { item ->
+                                        Box(
+                                            Modifier.graphicsLayer {
+                                                scaleX = 0.9f
+                                                scaleY = 0.9f
+                                                alpha = 0.9f
+                                            }
+                                        ) {
+                                            ContentListItem(
+                                                title = item.title + item.id,
+                                                url = item.thumbnail,
+                                                onClick = {},
+                                                onLongClick = {},
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

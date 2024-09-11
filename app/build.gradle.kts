@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp").version("1.9.0-1.0.12")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -72,9 +73,8 @@ dependencies {
 
     implementation("androidx.security:security-crypto:1.0.0")
     implementation("com.google.crypto.tink:tink-android:1.8.0")
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
-    implementation("com.squareup.moshi:moshi:1.15.1")
     implementation("io.coil-kt:coil:2.7.0")
     implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1")
 
 }

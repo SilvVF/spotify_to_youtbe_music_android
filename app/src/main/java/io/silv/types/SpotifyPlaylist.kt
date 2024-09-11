@@ -1,287 +1,287 @@
 package io.silv.types
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class SpotifyPlaylist(
-    @Json(name = "collaborative")
+    @SerialName("collaborative")
     val collaborative: Boolean,
-    @Json(name = "description")
+    @SerialName("description")
     val description: String,
-    @Json(name = "external_urls")
+    @SerialName("external_urls")
     val externalUrls: ExternalUrls,
-    @Json(name = "followers")
+    @SerialName("followers")
     val followers: Followers,
-    @Json(name = "href")
+    @SerialName("href")
     val href: String,
-    @Json(name = "id")
+    @SerialName("id")
     val id: String,
-    @Json(name = "images")
+    @SerialName("images")
     val images: List<Image>,
-    @Json(name = "name")
+    @SerialName("name")
     val name: String,
-    @Json(name = "owner")
+    @SerialName("owner")
     val owner: Owner,
-    @Json(name = "primary_color")
-    val primaryColor: Any?,
-    @Json(name = "public")
+    @SerialName("primary_color")
+    val primaryColor: String?,
+    @SerialName("public")
     val `public`: Boolean,
-    @Json(name = "snapshot_id")
+    @SerialName("snapshot_id")
     val snapshotId: String,
-    @Json(name = "tracks")
+    @SerialName("tracks")
     val tracks: Tracks,
-    @Json(name = "type")
+    @SerialName("type")
     val type: String,
-    @Json(name = "uri")
+    @SerialName("uri")
     val uri: String
 ) {
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class ExternalUrls(
-        @Json(name = "spotify")
+        @SerialName("spotify")
         val spotify: String
     )
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Followers(
-        @Json(name = "href")
-        val href: Any?,
-        @Json(name = "total")
+        @SerialName("href")
+        val href: String?,
+        @SerialName("total")
         val total: Int
     )
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Image(
-        @Json(name = "height")
-        val height: Any?,
-        @Json(name = "url")
+        @SerialName("height")
+        val height: Int?,
+        @SerialName("url")
         val url: String,
-        @Json(name = "width")
-        val width: Any?
+        @SerialName("width")
+        val width: Int?
     )
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Owner(
-        @Json(name = "display_name")
+        @SerialName("display_name")
         val displayName: String,
-        @Json(name = "external_urls")
+        @SerialName("external_urls")
         val externalUrls: ExternalUrls,
-        @Json(name = "href")
+        @SerialName("href")
         val href: String,
-        @Json(name = "id")
+        @SerialName("id")
         val id: String,
-        @Json(name = "type")
+        @SerialName("type")
         val type: String,
-        @Json(name = "uri")
+        @SerialName("uri")
         val uri: String
     ) {
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class ExternalUrls(
-            @Json(name = "spotify")
+            @SerialName("spotify")
             val spotify: String
         )
     }
 
-    @JsonClass(generateAdapter = true)
+    @Serializable
     data class Tracks(
-        @Json(name = "href")
+        @SerialName("href")
         val href: String,
-        @Json(name = "items")
+        @SerialName("items")
         val items: List<Item>,
-        @Json(name = "limit")
+        @SerialName("limit")
         val limit: Int,
-        @Json(name = "next")
-        val next: Any?,
-        @Json(name = "offset")
+        @SerialName("next")
+        val next: String?,
+        @SerialName("offset")
         val offset: Int,
-        @Json(name = "previous")
-        val previous: Any?,
-        @Json(name = "total")
+        @SerialName("previous")
+        val previous: String?,
+        @SerialName("total")
         val total: Int
     ) {
-        @JsonClass(generateAdapter = true)
+        @Serializable
         data class Item(
-            @Json(name = "added_at")
+            @SerialName("added_at")
             val addedAt: String,
-            @Json(name = "added_by")
+            @SerialName("added_by")
             val addedBy: AddedBy,
-            @Json(name = "is_local")
+            @SerialName("is_local")
             val isLocal: Boolean,
-            @Json(name = "primary_color")
-            val primaryColor: Any?,
-            @Json(name = "track")
+            @SerialName("primary_color")
+            val primaryColor: String?,
+            @SerialName("track")
             val track: Track,
-            @Json(name = "video_thumbnail")
+            @SerialName("video_thumbnail")
             val videoThumbnail: VideoThumbnail
         ) {
-            @JsonClass(generateAdapter = true)
+            @Serializable
             data class AddedBy(
-                @Json(name = "external_urls")
+                @SerialName("external_urls")
                 val externalUrls: ExternalUrls,
-                @Json(name = "href")
+                @SerialName("href")
                 val href: String,
-                @Json(name = "id")
+                @SerialName("id")
                 val id: String,
-                @Json(name = "type")
+                @SerialName("type")
                 val type: String,
-                @Json(name = "uri")
+                @SerialName("uri")
                 val uri: String
             ) {
-                @JsonClass(generateAdapter = true)
+                @Serializable
                 data class ExternalUrls(
-                    @Json(name = "spotify")
+                    @SerialName("spotify")
                     val spotify: String
                 )
             }
 
-            @JsonClass(generateAdapter = true)
+            @Serializable
             data class Track(
-                @Json(name = "album")
+                @SerialName("album")
                 val album: Album,
-                @Json(name = "artists")
+                @SerialName("artists")
                 val artists: List<Artist>,
-                @Json(name = "available_markets")
+                @SerialName("available_markets")
                 val availableMarkets: List<String>,
-                @Json(name = "disc_number")
+                @SerialName("disc_number")
                 val discNumber: Int,
-                @Json(name = "duration_ms")
+                @SerialName("duration_ms")
                 val durationMs: Int,
-                @Json(name = "episode")
+                @SerialName("episode")
                 val episode: Boolean,
-                @Json(name = "explicit")
+                @SerialName("explicit")
                 val explicit: Boolean,
-                @Json(name = "external_ids")
+                @SerialName("external_ids")
                 val externalIds: ExternalIds,
-                @Json(name = "external_urls")
+                @SerialName("external_urls")
                 val externalUrls: ExternalUrls,
-                @Json(name = "href")
+                @SerialName("href")
                 val href: String,
-                @Json(name = "id")
+                @SerialName("id")
                 val id: String,
-                @Json(name = "is_local")
+                @SerialName("is_local")
                 val isLocal: Boolean,
-                @Json(name = "name")
+                @SerialName("name")
                 val name: String,
-                @Json(name = "popularity")
+                @SerialName("popularity")
                 val popularity: Int,
-                @Json(name = "preview_url")
+                @SerialName("preview_url")
                 val previewUrl: String?,
-                @Json(name = "track")
+                @SerialName("track")
                 val track: Boolean,
-                @Json(name = "track_number")
+                @SerialName("track_number")
                 val trackNumber: Int,
-                @Json(name = "type")
+                @SerialName("type")
                 val type: String,
-                @Json(name = "uri")
+                @SerialName("uri")
                 val uri: String
             ) {
-                @JsonClass(generateAdapter = true)
+                @Serializable
                 data class Album(
-                    @Json(name = "album_type")
+                    @SerialName("album_type")
                     val albumType: String,
-                    @Json(name = "artists")
+                    @SerialName("artists")
                     val artists: List<Artist>,
-                    @Json(name = "available_markets")
+                    @SerialName("available_markets")
                     val availableMarkets: List<String>,
-                    @Json(name = "external_urls")
+                    @SerialName("external_urls")
                     val externalUrls: ExternalUrls,
-                    @Json(name = "href")
+                    @SerialName("href")
                     val href: String,
-                    @Json(name = "id")
+                    @SerialName("id")
                     val id: String,
-                    @Json(name = "images")
+                    @SerialName("images")
                     val images: List<Image>,
-                    @Json(name = "name")
+                    @SerialName("name")
                     val name: String,
-                    @Json(name = "release_date")
+                    @SerialName("release_date")
                     val releaseDate: String,
-                    @Json(name = "release_date_precision")
+                    @SerialName("release_date_precision")
                     val releaseDatePrecision: String,
-                    @Json(name = "total_tracks")
+                    @SerialName("total_tracks")
                     val totalTracks: Int,
-                    @Json(name = "type")
+                    @SerialName("type")
                     val type: String,
-                    @Json(name = "uri")
+                    @SerialName("uri")
                     val uri: String
                 ) {
-                    @JsonClass(generateAdapter = true)
+                    @Serializable
                     data class Artist(
-                        @Json(name = "external_urls")
+                        @SerialName("external_urls")
                         val externalUrls: ExternalUrls,
-                        @Json(name = "href")
+                        @SerialName("href")
                         val href: String,
-                        @Json(name = "id")
+                        @SerialName("id")
                         val id: String,
-                        @Json(name = "name")
+                        @SerialName("name")
                         val name: String,
-                        @Json(name = "type")
+                        @SerialName("type")
                         val type: String,
-                        @Json(name = "uri")
+                        @SerialName("uri")
                         val uri: String
                     ) {
-                        @JsonClass(generateAdapter = true)
+                        @Serializable
                         data class ExternalUrls(
-                            @Json(name = "spotify")
+                            @SerialName("spotify")
                             val spotify: String
                         )
                     }
 
-                    @JsonClass(generateAdapter = true)
+                    @Serializable
                     data class ExternalUrls(
-                        @Json(name = "spotify")
+                        @SerialName("spotify")
                         val spotify: String
                     )
 
-                    @JsonClass(generateAdapter = true)
+                    @Serializable
                     data class Image(
-                        @Json(name = "height")
+                        @SerialName("height")
                         val height: Int,
-                        @Json(name = "url")
+                        @SerialName("url")
                         val url: String,
-                        @Json(name = "width")
+                        @SerialName("width")
                         val width: Int
                     )
                 }
 
-                @JsonClass(generateAdapter = true)
+                @Serializable
                 data class Artist(
-                    @Json(name = "external_urls")
+                    @SerialName("external_urls")
                     val externalUrls: ExternalUrls,
-                    @Json(name = "href")
+                    @SerialName("href")
                     val href: String,
-                    @Json(name = "id")
+                    @SerialName("id")
                     val id: String,
-                    @Json(name = "name")
+                    @SerialName("name")
                     val name: String,
-                    @Json(name = "type")
+                    @SerialName("type")
                     val type: String,
-                    @Json(name = "uri")
+                    @SerialName("uri")
                     val uri: String
                 ) {
-                    @JsonClass(generateAdapter = true)
+                    @Serializable
                     data class ExternalUrls(
-                        @Json(name = "spotify")
+                        @SerialName("spotify")
                         val spotify: String
                     )
                 }
 
-                @JsonClass(generateAdapter = true)
+                @Serializable
                 data class ExternalIds(
-                    @Json(name = "isrc")
+                    @SerialName("isrc")
                     val isrc: String
                 )
 
-                @JsonClass(generateAdapter = true)
+                @Serializable
                 data class ExternalUrls(
-                    @Json(name = "spotify")
+                    @SerialName("spotify")
                     val spotify: String
                 )
             }
 
-            @JsonClass(generateAdapter = true)
+            @Serializable
             data class VideoThumbnail(
-                @Json(name = "url")
+                @SerialName("url")
                 val url: String?
             )
         }
