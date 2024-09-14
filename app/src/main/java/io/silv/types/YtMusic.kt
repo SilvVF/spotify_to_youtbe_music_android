@@ -2,6 +2,7 @@ import BrowseEndpoint.BrowseEndpointContextSupportedConfigs.BrowseEndpointContex
 import BrowseEndpoint.BrowseEndpointContextSupportedConfigs.BrowseEndpointContextMusicConfig.Companion.MUSIC_PAGE_TYPE_ARTIST
 import BrowseEndpoint.BrowseEndpointContextSupportedConfigs.BrowseEndpointContextMusicConfig.Companion.MUSIC_PAGE_TYPE_AUDIOBOOK
 import BrowseEndpoint.BrowseEndpointContextSupportedConfigs.BrowseEndpointContextMusicConfig.Companion.MUSIC_PAGE_TYPE_PLAYLIST
+import io.silv.Context
 import io.silv.parseTime
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -125,6 +126,62 @@ data class Artist(
 data class Album(
     val name: String,
     val id: String,
+)
+
+@Serializable
+data class AccountMenuResponse(
+    val actions: List<Action>,
+) {
+    @Serializable
+    data class Action(
+        val openPopupAction: OpenPopupAction,
+    ) {
+        @Serializable
+        data class OpenPopupAction(
+            val popup: Popup,
+        ) {
+            @Serializable
+            data class Popup(
+                val multiPageMenuRenderer: MultiPageMenuRenderer,
+            ) {
+                @Serializable
+                data class MultiPageMenuRenderer(
+                    val header: Header?,
+                ) {
+                    @Serializable
+                    data class Header(
+                        val activeAccountHeaderRenderer: ActiveAccountHeaderRenderer,
+                    ) {
+                        @Serializable
+                        data class ActiveAccountHeaderRenderer(
+                            val accountName: Runs,
+                            val email: Runs?,
+                            val channelHandle: Runs?,
+                        ) {
+                            fun toAccountInfo() = AccountInfo(
+                                name = accountName.runs!!.first().text,
+                                email = email?.runs?.first()?.text,
+                                channelHandle = channelHandle?.runs?.first()?.text
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+data class AccountInfo(
+    val name: String,
+    val email: String?,
+    val channelHandle: String?,
+)
+
+@Serializable
+data class AccountMenuBody(
+    val context: Context,
+    val deviceTheme: String = "DEVICE_THEME_SELECTED",
+    val userInterfaceTheme: String = "USER_INTERFACE_THEME_DARK",
 )
 
 data class SongItem(
@@ -254,7 +311,7 @@ data class MusicResponsiveListItemRenderer(
         get() = navigationEndpoint?.browseEndpoint?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType == MUSIC_PAGE_TYPE_ARTIST
 
     @Serializable
-    data class FlexColumn(
+    data class FlexColumn @OptIn(ExperimentalSerializationApi::class) constructor(
         @JsonNames("musicResponsiveListItemFixedColumnRenderer")
         val musicResponsiveListItemFlexColumnRenderer: MusicResponsiveListItemFlexColumnRenderer,
     ) {

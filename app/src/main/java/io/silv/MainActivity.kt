@@ -1,203 +1,147 @@
 package io.silv
 
-import SongItem
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastForEach
-import io.silv.types.SpotifyPlaylist
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import io.silv.ui.LoginScreen
+import io.silv.ui.PlaylistViewScreen
 import io.silv.ui.layout.EntryListItem
-import io.silv.ui.layout.PinnedTopBar
-import io.silv.ui.layout.Poster
-import io.silv.ui.layout.SpotifyTopBarLayout
-import io.silv.ui.layout.rememberTopBarState
 import io.silv.ui.theme.SptoytTheme
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.withContext
-import okhttp3.Cache
-import java.io.File
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationResponse
+import net.openid.appauth.AuthorizationService
 
 class MainActivity : ComponentActivity() {
 
-    val cache by lazy { Cache(File(applicationContext.cacheDir, "net_cache"), 5000) }
+    private var token by App.store.stored<String>("oauthToken")
+    private var refresh by App.store.stored<String>("refreshToken")
+    private var expiration by App.store.stored<Long>("oauthTokenExpiration")
 
-    @OptIn(ExperimentalFoundationApi::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var authorizationService: AuthorizationService
 
-        val api by lazy {
-            SpotifyApi(application) { cache(cache) }
-        }
-        val ytApi by lazy {
-            YtMusicApi { cache(cache) }
-        }
+    private val authRequestLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        callback = { result ->
+            val data = result.data ?: return@registerForActivityResult
 
-        enableEdgeToEdge()
-        setContent {
+            val response = AuthorizationResponse.fromIntent(data)
+            val ex = AuthorizationException.fromIntent(data)
 
-            val resp by produceState<SpotifyPlaylist?>(null) {
-                val r = withContext(Dispatchers.IO) { api.playlist("37i9dQZF1EIXwW3DKBf9K8") }
-                value = r
-            }
+            if (response != null && ex == null) {
+                authorizationService.performTokenRequest(response.createTokenExchangeRequest()) { tokenResponse, _ ->
+                    if (tokenResponse != null) {
+                        // Access and refresh tokens are available here
+                        val accessToken = tokenResponse.accessToken
+                        val refreshToken = tokenResponse.refreshToken
 
-            val searchResult by produceState<SearchSongsResult?>(null) {
-                snapshotFlow { resp }.filterNotNull().collectLatest {
-                    withContext(Dispatchers.IO) {
-                        runCatching {
-                            resp?.let { r ->
-                                val result = ytApi.searchSongs(r.tracks)
-                                withContext(Dispatchers.Main) { value = result }
-                            }
-                        }.logError("YtMusicApi")
+                        expiration = tokenResponse.accessTokenExpirationTime ?: 0L
+                        // Use the access token to make authenticated requests to the YouTube Data API
+                        Log.d("TOKEN", "$accessToken, $refreshToken")
+                        token = accessToken.orEmpty()
+                        refresh = refreshToken.orEmpty()
+                    } else {
+                        // Handle token exchange error
+                        Log.d("TOKEN", "error ex")
                     }
                 }
+            } else {
+                // Handle authorization error
+                Log.d("AuthRequestError", "${ex?.error}")
             }
+        }
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        if (expiration < epochSeconds()) {
+            authorizationService = AuthorizationService(this)
+
+            val authRequest = authenticationIntent(authorizationService)
+            authRequestLauncher.launch(authRequest)
+        }
+
+        setContent {
+
+            val navHostController = rememberNavController()
 
             SptoytTheme {
-
-                val lazyListState = rememberLazyListState()
-                val topBarState = rememberTopBarState(lazyListState)
-
-                SpotifyTopBarLayout(
-                    modifier =   Modifier.fillMaxSize()
-                    .nestedScroll(topBarState.connection)
-                    .imePadding(),
-                    topBarState = topBarState,
-                    poster = {
-                        Poster(
-                            url = resp?.images?.firstOrNull()?.url,
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .aspectRatio(1f)
-                        )
-                    },
-                    topAppBar = {
-                        PinnedTopBar(
-                            onBackPressed = {},
-                            onQueryChanged = {},
-                            query = "",
-                            topBarState = topBarState,
-                            name = resp?.name.orEmpty()
-                        )
-                    },
-                    info = {
-                        Text(
-                            text = resp?.name.orEmpty(),
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(12.dp)
-                        )
-                    },
-                    pinnedButton = {
-                        FilledIconButton(
-                            onClick = {},
-                            modifier = Modifier.size(48.dp)
+                NavHost(
+                    navHostController,
+                    startDestination = "home"
+                ) {
+                    composable("home") {
+                        var text by remember { mutableStateOf("") }
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Icon(
-                                imageVector = Icons.Filled.Refresh,
-                                contentDescription = null
+                            Text(token)
+                            Text(refresh)
+                            Text(expiration.toString())
+                            TextField(
+                                value = text,
+                                onValueChange = { text = it }
                             )
-                        }
-                    }
-                ) { paddingValues ->
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = paddingValues,
-                        state = lazyListState
-                    ) {
-                        items(resp?.tracks?.items.orEmpty()) { item ->
-                            var expanded by rememberSaveable { mutableStateOf(false) }
-                            Column(
-                                Modifier.animateContentSize()
+                            Button(
+                                onClick = {
+                                    val playlistId = SpotifyApi.extractPlaylistIdFromUrl(text)
+                                    Log.d("PlaylistId", playlistId.orEmpty())
+                                    if (playlistId != null) {
+                                        navHostController.navigate("playlist/$playlistId")
+                                    }
+                                }
                             ) {
-                                ContentListItem(
-                                    title = item.track.name,
-                                    url = item.track.album.images.firstOrNull()?.url.orEmpty(),
-                                    onClick = {},
-                                    onLongClick = {}
-                                ) {
-                                    IconButton(
-                                        onClick = { expanded = !expanded }
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Filled.KeyboardArrowDown,
-                                            modifier = Modifier.rotate(if (expanded) 180f else 0f),
-                                            contentDescription = null
-                                        )
-                                    }
+                                Text("Convert to Youtube Music")
+                            }
+                            Button(
+                                onClick = {
+                                    navHostController.navigate("login")
                                 }
-                                searchResult?.matches?.get(item)?.let { (match, additional) ->
-                                    val items =  remember(expanded) {
-                                        if (!expanded) listOf(match) else buildList {
-                                            add(match)
-                                            addAll(additional.filterNot { it.id == match.id })
-                                        }
-                                    }
-                                    items.map { item ->
-                                        Box(
-                                            Modifier.graphicsLayer {
-                                                scaleX = 0.9f
-                                                scaleY = 0.9f
-                                                alpha = 0.9f
-                                            }
-                                        ) {
-                                            ContentListItem(
-                                                title = item.title + item.id,
-                                                url = item.thumbnail,
-                                                onClick = {},
-                                                onLongClick = {},
-                                            )
-                                        }
-                                    }
-                                }
+                            ) {
+                                Text("Login to Youtube Music")
                             }
                         }
+                    }
+                    composable("login") {
+                        LoginScreen {
+                            navHostController.popBackStack()
+                        }
+                    }
+                    composable(
+                        route = "playlist/{id}",
+                        arguments = listOf(
+                            navArgument("id") { type = NavType.StringType }
+                        )
+                    ) {
+                        PlaylistViewScreen(
+                            onBack = { navHostController.popBackStack() }
+                        )
                     }
                 }
             }

@@ -465,7 +465,7 @@ private fun GridItemSelectable(
 private fun Modifier.selectedOutline(
     isSelected: Boolean,
     color: Color,
-) = this then drawBehind { if (isSelected) drawRect(color = color) }
+) = this.then(Modifier.drawBehind { if (isSelected) drawRect(color = color) })
 
 /**
  * Layout of list item.

@@ -15,6 +15,7 @@ interface Stored<out T> {
     val value: T
 }
 
+@Suppress("NOTHING_TO_INLINE")
 inline operator fun <T> Stored<T>.getValue(thisObj: Any?, property: KProperty<*>): T = value
 
 interface MutableStored<T> : Stored<T> {
@@ -23,6 +24,7 @@ interface MutableStored<T> : Stored<T> {
     operator fun component2(): (T) -> Unit
 }
 
+@Suppress("NOTHING_TO_INLINE")
 inline operator fun <T> MutableStored<T>.setValue(thisObj: Any?, property: KProperty<*>, value: T) {
     this.value = value
 }

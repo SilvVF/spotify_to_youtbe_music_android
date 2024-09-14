@@ -86,7 +86,7 @@ data class SpotifyPlaylist(
     @Serializable
     data class Tracks(
         @SerialName("href")
-        val href: String,
+        val href: String?,
         @SerialName("items")
         val items: List<Item>,
         @SerialName("limit")

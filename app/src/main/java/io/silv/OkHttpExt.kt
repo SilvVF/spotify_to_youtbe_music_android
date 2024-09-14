@@ -83,7 +83,7 @@ val json = Json {
 inline fun <reified T> Response.decode(): T? {
     return runCatching {
         if (isSuccessful) {
-            json.decodeFromStream<T>(this.body!!.source().inputStream())
+            json.decodeFromStream<T>(this.body!!.source().inputStream()).also { println(it) }
         } else {
             Log.e("Error Response", "$message $code ${body?.string()}")
             error("unsuccessful response")
@@ -92,3 +92,4 @@ inline fun <reified T> Response.decode(): T? {
         .logError("Response.decode")
         .getOrNull()
 }
+

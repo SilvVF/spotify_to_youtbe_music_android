@@ -1,11 +1,9 @@
 package io.silv
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.util.JsonReader
 import android.util.JsonToken
-import androidx.security.crypto.MasterKeys
-import androidx.security.crypto.EncryptedSharedPreferences
+import android.util.Log
 import io.silv.types.SpotifyPlaylist
 import kotlinx.coroutines.sync.Mutex
 import okhttp3.FormBody
@@ -13,21 +11,13 @@ import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import org.json.JSONObject
 import java.io.StringReader
 import kotlin.time.Duration.Companion.minutes
 
 data class SpotifyApi(
-    val context: Context,
+    val store: SharedPreferences,
     val builder: OkHttpClient.Builder.() -> Unit = {}
 ) {
-    private val store: SharedPreferences = EncryptedSharedPreferences.create(
-        "spotify-access-prefs",
-        MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
-        context,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-    )
 
     private val mutex = Mutex()
 
@@ -37,18 +27,34 @@ data class SpotifyApi(
     private val refreshClient = OkHttpClient.Builder().build()
 
     val client = OkHttpClient.Builder().apply(builder).addInterceptor { chain ->
+
         mutex.withLock {
-            if (token.isEmpty() || expiresAt < epochSeconds() - 5.minutes.inWholeSeconds) {
+            val expired = expiresAt < epochSeconds() - 5.minutes.inWholeSeconds
+            Log.d("TOKEN", "expr: $expiresAt, time: ${epochSeconds() - 5.minutes.inWholeSeconds} expired: $expired")
+            if (token.isEmpty() || expired) {
                 refreshAuthToken()
             }
         }
+
         check(token.isNotEmpty()) { "Auth token was not set" }
-        chain.proceed(
+        var res = chain.proceed(
             chain.request()
                 .newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()
         )
+        if (!res.isSuccessful && res.code == 401) {
+            refreshAuthToken()
+            res.close()
+            res = chain.proceed(
+                chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+            )
+        }
+
+        res
     }
         .build()
 
@@ -96,12 +102,16 @@ data class SpotifyApi(
         private const val CLIENT_SECRET = "01bbb0ccef5e4ac5ae6347f2cf180475"
 
         fun extractPlaylistIdFromUrl(url: String): String? {
-            val re1 = Regex("""playlist/(?<id>\w{22})\W?""")
-            val re2 = Regex("""playlist/(?<id>\w+)\W?""")
-            return when {
-                re1.matches(url) -> re1.find(url)?.groups?.get("id")?.value
-                re2.matches(url) -> re2.find(url)?.groups?.get("id")?.value
-                else -> null
+            val regex = Regex("playlist/(?<id>\\w{22})\\W?")
+            val match = regex.find(url)
+
+            return if (match != null) {
+                match.groups["id"]?.value
+            } else {
+                val regexAlt = Regex("playlist/(?<id>\\w+)\\W?")
+                val matchAlt = regexAlt.find(url)
+
+                 matchAlt?.groups?.get("id")?.value
             }
         }
     }
@@ -121,6 +131,14 @@ private suspend fun SpotifyApi.get(url: HttpUrl.Builder.() -> Unit): Response {
     ).await()
 }
 
+private suspend fun SpotifyApi.get(url: String): Response {
+    return client.newCall(
+        Request.Builder()
+            .url(url.also { println(it) })
+            .build()
+    ).await()
+}
+
 
 suspend fun SpotifyApi.playlist(
     id: String,
@@ -128,7 +146,8 @@ suspend fun SpotifyApi.playlist(
     additionalTypes: List<String> = listOf("tracks"),
     vararg fields: String
 ): SpotifyPlaylist? {
-    return get {
+
+    suspend fun playlist(offset: Int, limit: Int = 100) = get {
         addPathSegment("playlists")
         addPathSegment(id)
         addQueryParameter("market", market)
@@ -140,6 +159,30 @@ suspend fun SpotifyApi.playlist(
             "fields",
             fields.joinToString(",")
         )
+        addQueryParameter("offset", "$offset")
+        addQueryParameter("limit", "$limit")
     }
-        .decode<SpotifyPlaylist>()
+
+    var curr = playlist(0).decode<SpotifyPlaylist>() ?: return null
+    while (curr.tracks.items.size < curr.tracks.total) {
+        val r = get {
+            addPathSegment("playlists")
+            addPathSegment(curr.id)
+            addPathSegment("tracks")
+            addQueryParameter("offset", "${curr.tracks.items.size}")
+            addQueryParameter("limit", "100")
+            addQueryParameter(
+                "additional_types",
+                "track"
+            )
+        }
+            .decode<SpotifyPlaylist.Tracks>()!!
+        curr = curr.copy(
+            tracks = curr.tracks.copy(
+                items = curr.tracks.items + r.items,
+            )
+        )
+    }
+
+    return curr
 }

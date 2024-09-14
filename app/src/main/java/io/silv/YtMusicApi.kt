@@ -1,16 +1,23 @@
 package io.silv
 
+import AccountInfo
+import AccountMenuBody
+import AccountMenuResponse
+import SearchPage
 import SearchResponse
 import SearchResult
 import SongItem
-import YTItem
+import android.content.SharedPreferences
 import android.util.Log
 import getContinuation
 import io.silv.types.SpotifyPlaylist
 import kotlinx.coroutines.Dispatchers
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.decodeFromStream
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -47,9 +54,10 @@ data class YouTubeClient(
 }
 
 data class YtMusicApi(
+    val store: SharedPreferences,
     val builder: OkHttpClient.Builder.() -> Unit =  {}
 ) {
-    var visitorData: String = "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D"
+    var visitorData: String by store.stored<String>("visitorData")
     val WEB_REMIX = YouTubeClient(
         clientName = "WEB_REMIX",
         clientVersion = "1.20220606.03.00",
@@ -58,11 +66,23 @@ data class YtMusicApi(
         referer = REFERER_YOUTUBE_MUSIC
     )
 
-    fun Request.Builder.defaultHeaders() = apply {
+    var token by store.stored<String>("oauthToken")
+
+    fun Request.Builder.defaultHeaders(setLogin: Boolean = false) = apply {
         addHeader("X-Goog-Api-Format-Version", "1")
         addHeader("X-YouTube-Client-Name", WEB_REMIX.clientName)
         addHeader("X-YouTube-Client-Version", WEB_REMIX.clientVersion)
         addHeader("x-origin", "https://music.youtube.com")
+
+        if (setLogin) {
+            cookie?.let { cookie ->
+                addHeader("Cookie", cookie)
+                if ("SAPISID" !in cookieMap) return@let
+                val currentTime = System.currentTimeMillis() / 1000
+                val sapisidHash = sha1("$currentTime ${cookieMap["SAPISID"]} https://music.youtube.com")
+                addHeader("Authorization", "SAPISIDHASH ${currentTime}_${sapisidHash}")
+            }
+        }
     }
 
     fun defaultHttpUrl(additional:  HttpUrl.Builder.() -> Unit) = HttpUrl.Builder()
@@ -78,10 +98,19 @@ data class YtMusicApi(
     val client = OkHttpClient.Builder().apply(builder).build()
 
     companion object {
+
+        var cookie: String? = null
+            set(value) {
+                field = value
+                cookieMap = if (value == null) emptyMap() else parseCookieString(value)
+            }
+        private var cookieMap = emptyMap<String, String>()
+
         private const val REFERER_YOUTUBE_MUSIC = "https://music.youtube.com/"
         private const val USER_AGENT_WEB = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36"
     }
 }
+
 
 suspend fun YtMusicApi.get(url: HttpUrl.Builder.() -> Unit): Response {
     return client.newCall(
@@ -95,68 +124,21 @@ suspend fun YtMusicApi.get(url: HttpUrl.Builder.() -> Unit): Response {
 
 suspend fun YtMusicApi.post(
     body: RequestBody,
-    url: HttpUrl.Builder.() -> Unit
+    setLogin: Boolean = false,
+    url: HttpUrl.Builder.() -> Unit,
 ): Response {
 
     return client.newCall(
         Request.Builder()
-            .defaultHeaders()
+            .defaultHeaders(setLogin)
             .url(defaultHttpUrl(url))
             .post(body)
             .build()
+            .also { println(it.toString()) }
     )
         .await()
 }
 
-@Serializable
-data class Context(
-    val client: Client,
-    val thirdParty: ThirdParty? = null,
-) {
-    @Serializable
-    data class Client(
-        val clientName: String,
-        val clientVersion: String,
-        val gl: String,
-        val hl: String,
-        val visitorData: String?,
-    )
-    @Serializable
-    data class ThirdParty(
-        val embedUrl: String,
-    )
-}
-
-@Serializable
-data class SearchBody(
-    val context: Context,
-    val query: String?,
-    val params: String?,
-)
-
-@JvmInline
-value class SearchFilter(val value: String) {
-    companion object {
-        val FILTER_SONG = SearchFilter("EgWKAQIIAWoKEAkQBRAKEAMQBA%3D%3D")
-        val FILTER_VIDEO = SearchFilter("EgWKAQIQAWoKEAkQChAFEAMQBA%3D%3D")
-        val FILTER_ALBUM = SearchFilter("EgWKAQIYAWoKEAkQChAFEAMQBA%3D%3D")
-        val FILTER_ARTIST = SearchFilter("EgWKAQIgAWoKEAkQChAFEAMQBA%3D%3D")
-        val FILTER_FEATURED_PLAYLIST = SearchFilter("EgeKAQQoADgBagwQDhAKEAMQBRAJEAQ%3D")
-        val FILTER_COMMUNITY_PLAYLIST = SearchFilter("EgeKAQQoAEABagoQAxAEEAoQCRAF")
-    }
-}
-
-
-data class SearchSongsResult(
-    val notFound: List<SpotifyPlaylist.Tracks.Item>,
-    val matches: Map<SpotifyPlaylist.Tracks.Item, Match>
-) {
-
-    data class Match(
-        val closest: SongItem,
-        val other: List<SongItem>
-    )
-}
 
 suspend fun YtMusicApi.searchSongs(tracks: SpotifyPlaylist.Tracks): SearchSongsResult {
     val songs = tracks.items
@@ -203,6 +185,51 @@ suspend fun YtMusicApi.search(query: String, filter: SearchFilter) = runCatching
     )
 }
 
+suspend fun YtMusicApi.accountMenu(): AccountInfo? {
+    return post(
+        body = json.encodeToString(
+            AccountMenuBody(
+                context = WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" })
+            )
+        ).toRequestBody("application/json".toMediaType()),
+        setLogin = true
+    ) {
+        addPathSegment("account")
+        addPathSegment("account_menu")
+    }
+        .decode<AccountMenuResponse>()
+        ?.actions?.get(0)?.openPopupAction?.popup?.multiPageMenuRenderer
+        ?.header?.activeAccountHeaderRenderer
+        ?.toAccountInfo()
+}
+
+@Serializable
+data class PlaylistCreateRequest(
+    val title: String,
+    val description: String,
+    val privacyStatus: String,
+    val videoIds: List<String>,
+    val context: Context
+)
+
+@OptIn(ExperimentalSerializationApi::class)
+suspend fun YtMusicApi.createPlaylist(name: String, description: String, privacyStatus: PrivacyStatus, ids: List<String>) {
+    post(
+        body = json.encodeToString(
+            PlaylistCreateRequest(name, description, privacyStatus.value, ids, WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }))
+        ).toRequestBody("application/json".toMediaType())
+            .also { Log.d("CREATE", it.toString()) },
+        setLogin = true
+    ) {
+        addPathSegment("playlist")
+        addPathSegment("create")
+    }
+        .also {
+            val res = json.decodeFromStream<JsonObject>(it.body?.source()?.inputStream()!!)
+            Log.d("CREATE", res.toString())
+        }
+}
+
 @OptIn(ExperimentalStdlibApi::class)
 private suspend fun YtMusicApi.internalSearch(
     query: String? = null,
@@ -212,7 +239,7 @@ private suspend fun YtMusicApi.internalSearch(
     return post(
         body = json.encodeToString(
             SearchBody(
-                context = WEB_REMIX.toContext(visitorData),
+                context = WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }),
                 query = query,
                 params = params
             )
@@ -285,4 +312,81 @@ fun levenshteinDistance(s1: String, s2: String): Int {
 fun similarity(s1: String, s2: String): Double {
     val maxLen = maxOf(s1.length, s2.length)
     return if (maxLen == 0) 1.0 else (maxLen - levenshteinDistance(s1, s2)) / maxLen.toDouble()
+}
+
+@Serializable
+data class Context(
+    val client: Client,
+    val thirdParty: ThirdParty? = null,
+) {
+    @Serializable
+    data class Client(
+        val clientName: String,
+        val clientVersion: String,
+        val gl: String,
+        val hl: String,
+        val visitorData: String?,
+    )
+    @Serializable
+    data class ThirdParty(
+        val embedUrl: String,
+    )
+}
+
+@Serializable
+data class SearchBody(
+    val context: Context,
+    val query: String?,
+    val params: String?,
+)
+
+@JvmInline
+value class SearchFilter(val value: String) {
+    companion object {
+        val FILTER_SONG = SearchFilter("EgWKAQIIAWoKEAkQBRAKEAMQBA%3D%3D")
+        val FILTER_VIDEO = SearchFilter("EgWKAQIQAWoKEAkQChAFEAMQBA%3D%3D")
+        val FILTER_ALBUM = SearchFilter("EgWKAQIYAWoKEAkQChAFEAMQBA%3D%3D")
+        val FILTER_ARTIST = SearchFilter("EgWKAQIgAWoKEAkQChAFEAMQBA%3D%3D")
+        val FILTER_FEATURED_PLAYLIST = SearchFilter("EgeKAQQoADgBagwQDhAKEAMQBRAJEAQ%3D")
+        val FILTER_COMMUNITY_PLAYLIST = SearchFilter("EgeKAQQoAEABagoQAxAEEAoQCRAF")
+    }
+}
+
+
+data class SearchSongsResult(
+    val notFound: List<SpotifyPlaylist.Tracks.Item>,
+    val matches: Map<SpotifyPlaylist.Tracks.Item, Match>
+) {
+
+    data class Match(
+        val closest: SongItem,
+        val other: List<SongItem>
+    )
+}
+
+
+@JvmInline
+value class PrivacyStatus(val value: String) {
+    companion object {
+        val PRIVACY_PUBLIC = PrivacyStatus("PUBLIC")
+        val PRIVACY_PRIVATE = PrivacyStatus("PRIVATE")
+        val PRIVACY_UNLISTED = PrivacyStatus("UNLISTED")
+    }
+}
+
+@Serializable
+data class PlaylistRequest(
+    val snippet: Snippet,
+    val status: Status,
+) {
+    @Serializable
+    data class Snippet(
+        val title: String,
+        val description: String,
+        val defaultLanguage: String,
+    )
+    @Serializable
+    data class Status(
+        val privacyStatus: String,
+    )
 }

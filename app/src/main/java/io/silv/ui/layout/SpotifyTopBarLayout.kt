@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -34,7 +33,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -42,8 +40,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.surfaceColorAtElevation
@@ -86,9 +82,6 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-private val TopAppBarHeight = 64.dp
-private val TopBarMaxHeight = 482.dp
-private val SearchBarHeight = 38.dp
 
 @Composable
 fun rememberTopBarState(
@@ -150,7 +143,7 @@ class TopBarState(
     val scrollableState: ScrollableState,
     initialHeight: Float,
     initialSearching: Boolean,
-    maxHeightPx: Float,
+    val maxHeightPx: Float,
     pinnedHeightPx: Float,
     topAppBarHeightPx: Float,
     snapAnimationSpec: AnimationSpec<Float>,
@@ -260,7 +253,7 @@ fun SpotifyTopBarLayout(
             val tbp = topBar.measure(
                 constraints.copy(
                     minHeight = 0,
-                    maxHeight = TopBarMaxHeight.roundToPx()
+                    maxHeight = topBarState.maxHeightPx.roundToInt()
                 )
             )
             val content = measurables[1].measure(constraints.copy(
@@ -375,7 +368,7 @@ private fun TopBarLayout(
         val posterMaxHeight =
             minOf(
                 (state.spaceHeightPx - infoPlaceable.height - topPaddingPx - inset),
-                (TopBarMaxHeight.toPx() - infoPlaceable.height - state.connection.appBarPinnedHeight - topPaddingPx - inset),
+                (state.maxHeightPx - infoPlaceable.height - state.connection.appBarPinnedHeight - topPaddingPx - inset),
             )
 
         val posterMinHeight = minOf(
@@ -441,7 +434,7 @@ private fun TopBarLayout(
 }
 
 
-private fun Modifier.appBarDraggable(
+fun Modifier.appBarDraggable(
     topBarState: TopBarState,
 ): Modifier = this.composed {
     this.draggable(
@@ -479,14 +472,14 @@ private fun Modifier.appBarDraggable(
 }
 
 @Composable
-fun SearchField(modifier: Modifier = Modifier, topBarState: TopBarState) {
+fun SearchField(modifier: Modifier = Modifier, topBarState: TopBarState, background: Color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)) {
     Row(modifier) {
         Box(
             Modifier
                 .weight(0.8f)
                 .fillMaxHeight()
                 .clip(MaterialTheme.shapes.small)
-                .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
+                .background(background)
                 .clickable {
                     topBarState.searching = !topBarState.searching
                 }
@@ -600,7 +593,7 @@ class CollapsingAppBarNestedScrollConnection internal constructor(
 }
 
 
-private suspend fun settleBar(
+suspend fun settleBar(
     appBarOffset: () -> Float,
     appBarPinnedHeight: Float,
     appBarMaxHeight: Float,
