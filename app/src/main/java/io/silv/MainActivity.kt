@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -30,61 +31,12 @@ import io.silv.ui.LoginScreen
 import io.silv.ui.PlaylistViewScreen
 import io.silv.ui.layout.EntryListItem
 import io.silv.ui.theme.SptoytTheme
-import net.openid.appauth.AuthorizationException
-import net.openid.appauth.AuthorizationResponse
-import net.openid.appauth.AuthorizationService
 
 class MainActivity : ComponentActivity() {
-
-    private var token by App.store.stored<String>("oauthToken")
-    private var refresh by App.store.stored<String>("refreshToken")
-    private var expiration by App.store.stored<Long>("oauthTokenExpiration")
-
-    private lateinit var authorizationService: AuthorizationService
-
-    private val authRequestLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-        callback = { result ->
-            val data = result.data ?: return@registerForActivityResult
-
-            val response = AuthorizationResponse.fromIntent(data)
-            val ex = AuthorizationException.fromIntent(data)
-
-            if (response != null && ex == null) {
-                authorizationService.performTokenRequest(response.createTokenExchangeRequest()) { tokenResponse, _ ->
-                    if (tokenResponse != null) {
-                        // Access and refresh tokens are available here
-                        val accessToken = tokenResponse.accessToken
-                        val refreshToken = tokenResponse.refreshToken
-
-                        expiration = tokenResponse.accessTokenExpirationTime ?: 0L
-                        // Use the access token to make authenticated requests to the YouTube Data API
-                        Log.d("TOKEN", "$accessToken, $refreshToken")
-                        token = accessToken.orEmpty()
-                        refresh = refreshToken.orEmpty()
-                    } else {
-                        // Handle token exchange error
-                        Log.d("TOKEN", "error ex")
-                    }
-                }
-            } else {
-                // Handle authorization error
-                Log.d("AuthRequestError", "${ex?.error}")
-            }
-        }
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        if (expiration < epochSeconds()) {
-            authorizationService = AuthorizationService(this)
-
-            val authRequest = authenticationIntent(authorizationService)
-            authRequestLauncher.launch(authRequest)
-        }
-
         setContent {
 
             val navHostController = rememberNavController()
@@ -101,9 +53,6 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text(token)
-                            Text(refresh)
-                            Text(expiration.toString())
                             TextField(
                                 value = text,
                                 onValueChange = { text = it }
@@ -155,6 +104,7 @@ fun ContentListItem(
     url: String,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
+    badge: (@Composable RowScope.() -> Unit) = {},
     content: (@Composable () -> Unit)? = null,
 ) {
     EntryListItem(
@@ -163,7 +113,7 @@ fun ContentListItem(
         coverAlpha = 1f,
         onLongClick = onLongClick,
         onClick = onClick,
-        badge = {},
+        badge = badge,
         endButton = content,
     )
 }

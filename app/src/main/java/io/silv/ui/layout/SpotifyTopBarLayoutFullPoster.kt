@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
@@ -31,13 +32,16 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.coerceAtLeast
+import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import kotlin.math.roundToInt
 
 val TopAppBarHeight = 64.dp
 val TopBarMaxHeight
-    @Composable get() = minOf(LocalConfiguration.current.screenHeightDp.dp * 0.5f, 482.dp)
+    @Composable get() = (LocalConfiguration.current.screenHeightDp.dp * 0.6f).coerceIn(400.dp, 482.dp)
+
 val SearchBarHeight = 38.dp
 
 
@@ -46,6 +50,12 @@ val SearchBarHeight = 38.dp
 fun SpotifyTopBarLayoutFullPoster(
     topBarState: TopBarState,
     modifier: Modifier = Modifier,
+    gradiant: Brush = Brush.verticalGradient(
+        listOf(
+            MaterialTheme.colorScheme.primary,
+            Color.Transparent
+        )
+    ),
     snackBarHost:  @Composable () -> Unit = {},
     pinnedButton: @Composable () -> Unit = {},
     search: @Composable () -> Unit = { SearchField(Modifier.padding(horizontal = 18.dp), topBarState) },
@@ -57,6 +67,7 @@ fun SpotifyTopBarLayoutFullPoster(
                 .aspectRatio(1f)
         )
     },
+    title: @Composable () -> Unit = {},
     info: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
@@ -72,19 +83,12 @@ fun SpotifyTopBarLayoutFullPoster(
             {
                 TopBarLayout(
                     topBarState,
-                    Modifier
-                        .background(
-                            brush = Brush.verticalGradient(
-                                listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    Color.Transparent
-                                )
-                            )
-                        ),
+                    Modifier.background(brush = gradiant),
                     pinnedButton,
                     search,
                     topAppBar,
                     info,
+                    title,
                     poster
                 )
                 content(
@@ -133,6 +137,7 @@ private fun TopBarLayout(
     search: @Composable () -> Unit,
     topAppBar: @Composable () -> Unit,
     info: @Composable () -> Unit,
+    title: @Composable () -> Unit,
     poster: @Composable () -> Unit,
 ) {
     val inset = WindowInsets.systemBars.getTop(LocalDensity.current)
@@ -144,8 +149,11 @@ private fun TopBarLayout(
                 topAppBar()
             }
             Box(Modifier
-                .layoutId("info")
+                .layoutId("title")
             ) {
+            }
+            Column(Modifier.layoutId("info")) {
+                title()
                 info()
             }
             Box(Modifier.layoutId("search")) {
@@ -184,6 +192,7 @@ private fun TopBarLayout(
         val posterM = measurables.first { it.layoutId == "poster" }
         val infoM = measurables.first { it.layoutId == "info" }
         val topBar = measurables.first { it.layoutId == "topBar" }
+        val title = measurables.first { it.layoutId == "title" }
 
         val topBarPlaceable = topBar.measure(constraints)
 
@@ -198,13 +207,27 @@ private fun TopBarLayout(
             minHeight = 0
         ))
         val pinnedPadding = 14.dp.roundToPx()
-        val minH = infoM.minIntrinsicHeight(
+
+        val minHInfo = infoM.minIntrinsicHeight(
             constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
         )
+        val minHTitle = infoM.minIntrinsicHeight(
+            constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
+        )
+
+        val titlePlaceable = title.measure(
+            constraints.copy(
+                minHeight = minHTitle,
+                maxHeight = minHTitle,
+                minWidth = 0,
+                maxWidth = constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
+            )
+        )
+
         val infoPlaceable = infoM.measure(
             constraints.copy(
-                minHeight = minH,
-                maxHeight = minH,
+                minHeight = minHInfo,
+                maxHeight = minHInfo,
                 minWidth = 0,
                 maxWidth = constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
             )
@@ -257,7 +280,13 @@ private fun TopBarLayout(
             topBarPlaceable.placeRelative(
                 0,
                 0,
-                1f
+                5f
+            )
+
+            titlePlaceable.placeRelative(
+                0,
+                constraints.maxHeight - infoPlaceable.height - titlePlaceable.height,
+                3f
             )
 
             if (!state.searching) {
@@ -267,7 +296,7 @@ private fun TopBarLayout(
                         .coerceAtLeast(
                             TopAppBarHeight.roundToPx() + inset - pinnedPlaceable.height / 2
                         ),
-                    2f
+                    10f
                 )
             }
         }

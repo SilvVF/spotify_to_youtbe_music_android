@@ -26,6 +26,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.util.Locale
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.abs
 
 @Serializable
@@ -65,8 +66,6 @@ data class YtMusicApi(
         userAgent = USER_AGENT_WEB,
         referer = REFERER_YOUTUBE_MUSIC
     )
-
-    var token by store.stored<String>("oauthToken")
 
     fun Request.Builder.defaultHeaders(setLogin: Boolean = false) = apply {
         addHeader("X-Goog-Api-Format-Version", "1")
@@ -122,17 +121,17 @@ suspend fun YtMusicApi.get(url: HttpUrl.Builder.() -> Unit): Response {
         .await()
 }
 
-suspend fun YtMusicApi.post(
-    body: RequestBody,
+suspend inline fun<reified T> YtMusicApi.post(
+    body: T,
     setLogin: Boolean = false,
-    url: HttpUrl.Builder.() -> Unit,
+    noinline url: HttpUrl.Builder.() -> Unit,
 ): Response {
 
     return client.newCall(
         Request.Builder()
             .defaultHeaders(setLogin)
             .url(defaultHttpUrl(url))
-            .post(body)
+            .post(json.encodeToString(body).toRequestBody("application/json".toMediaType()))
             .build()
             .also { println(it.toString()) }
     )
@@ -140,10 +139,15 @@ suspend fun YtMusicApi.post(
 }
 
 
-suspend fun YtMusicApi.searchSongs(tracks: SpotifyPlaylist.Tracks): SearchSongsResult {
+suspend fun YtMusicApi.searchSongs(
+    tracks: SpotifyPlaylist.Tracks,
+    onProgress: (complete: Int, total: Int) -> Unit = {_,_ ->}
+): SearchSongsResult {
     val songs = tracks.items
     val notFound = mutableListOf<SpotifyPlaylist.Tracks.Item>()
     val matches = mutableMapOf<SpotifyPlaylist.Tracks.Item, Pair<SongItem, List<SongItem>>>()
+
+    val completed = AtomicInteger(0)
 
     songs.pForEach(dispatcher = Dispatchers.IO) { i, song ->
         val name = song.track.name
@@ -164,6 +168,7 @@ suspend fun YtMusicApi.searchSongs(tracks: SpotifyPlaylist.Tracks): SearchSongsR
         } else  {
             notFound.add(song)
         }
+        onProgress(completed.getAndIncrement(), songs.size)
     }
     return SearchSongsResult(
         notFound = notFound,
@@ -187,11 +192,11 @@ suspend fun YtMusicApi.search(query: String, filter: SearchFilter) = runCatching
 
 suspend fun YtMusicApi.accountMenu(): AccountInfo? {
     return post(
-        body = json.encodeToString(
-            AccountMenuBody(
-                context = WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" })
+        body = AccountMenuBody(
+            context = WEB_REMIX.toContext(
+                visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }
             )
-        ).toRequestBody("application/json".toMediaType()),
+        ),
         setLogin = true
     ) {
         addPathSegment("account")
@@ -212,39 +217,38 @@ data class PlaylistCreateRequest(
     val context: Context
 )
 
-@OptIn(ExperimentalSerializationApi::class)
-suspend fun YtMusicApi.createPlaylist(name: String, description: String, privacyStatus: PrivacyStatus, ids: List<String>) {
-    post(
-        body = json.encodeToString(
-            PlaylistCreateRequest(name, description, privacyStatus.value, ids, WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }))
-        ).toRequestBody("application/json".toMediaType())
-            .also { Log.d("CREATE", it.toString()) },
+suspend fun YtMusicApi.createPlaylist(
+    name: String,
+    description: String,
+    privacyStatus: PrivacyStatus,
+    ids: List<String>
+): Response {
+    return post(
+        body = PlaylistCreateRequest(
+            name,
+            description,
+            privacyStatus.value,
+            ids,
+            WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" })
+        ),
         setLogin = true
     ) {
         addPathSegment("playlist")
         addPathSegment("create")
     }
-        .also {
-            val res = json.decodeFromStream<JsonObject>(it.body?.source()?.inputStream()!!)
-            Log.d("CREATE", res.toString())
-        }
 }
 
-@OptIn(ExperimentalStdlibApi::class)
 private suspend fun YtMusicApi.internalSearch(
     query: String? = null,
     params: String? = null,
     continuation: String? = null,
 ): Response {
     return post(
-        body = json.encodeToString(
-            SearchBody(
-                context = WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }),
-                query = query,
-                params = params
-            )
+        body = SearchBody(
+            context = WEB_REMIX.toContext(visitorData.ifEmpty { "CgtsZG1ySnZiQWtSbyiMjuGSBg%3D%3D" }),
+            query = query,
+            params = params
         )
-            .toRequestBody("application/json".toMediaType())
     ) {
         addPathSegment("search")
         addQueryParameter("continuation", continuation)
@@ -364,7 +368,6 @@ data class SearchSongsResult(
     )
 }
 
-
 @JvmInline
 value class PrivacyStatus(val value: String) {
     companion object {
@@ -374,19 +377,3 @@ value class PrivacyStatus(val value: String) {
     }
 }
 
-@Serializable
-data class PlaylistRequest(
-    val snippet: Snippet,
-    val status: Status,
-) {
-    @Serializable
-    data class Snippet(
-        val title: String,
-        val description: String,
-        val defaultLanguage: String,
-    )
-    @Serializable
-    data class Status(
-        val privacyStatus: String,
-    )
-}

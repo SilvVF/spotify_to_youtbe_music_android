@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,9 +21,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -31,8 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import kotlin.math.ln
 
 
 @Composable
@@ -42,6 +50,7 @@ fun PinnedTopBar(
     query: () -> String,
     onQueryChanged: (String) -> Unit,
     name: String,
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors()
 ) {
     val fractionLerp by rememberUpdatedState(
         lerp(
@@ -116,10 +125,19 @@ fun PinnedTopBar(
             }
            Text(name,  modifier = Modifier.graphicsLayer { alpha = 1f - fractionLerp })
         },
-        colors = TopAppBarDefaults.topAppBarColors(
-            MaterialTheme.colorScheme.primaryContainer.copy(
-                alpha = 1f - fractionLerp
-            )
+        colors = colors.copy(
+            colors.containerColor.atElevation(3.dp).copy(alpha = 1f - fractionLerp)
         )
     )
+}
+
+@Stable
+@Composable
+fun Color.atElevation(
+    elevation: Dp,
+    surfaceTint: Color = MaterialTheme.colorScheme.surfaceTint
+): Color {
+    if (elevation == 0.dp) return this
+    val alpha = ((4.5f * ln(elevation.value + 1)) + 2f) / 100f
+    return surfaceTint.copy(alpha = alpha).compositeOver(this)
 }

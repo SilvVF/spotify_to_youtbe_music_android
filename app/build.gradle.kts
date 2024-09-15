@@ -84,5 +84,5 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("com.valentinilk.shimmer:compose-shimmer:1.3.1")
 
-    implementation("net.openid:appauth:0.11.1")
+    implementation("androidx.palette:palette:1.0.0")
 }

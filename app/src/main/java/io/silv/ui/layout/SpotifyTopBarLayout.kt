@@ -127,7 +127,7 @@ fun rememberTopBarState(
     ) {
         TopBarState(
             scrollableState,
-            0f,
+            -appBarPinnedHeightPx,
             false,
             appBarMaxHeightPx,
             appBarPinnedHeightPx,
@@ -144,7 +144,7 @@ class TopBarState(
     initialHeight: Float,
     initialSearching: Boolean,
     val maxHeightPx: Float,
-    pinnedHeightPx: Float,
+    val pinnedHeightPx: Float,
     topAppBarHeightPx: Float,
     snapAnimationSpec: AnimationSpec<Float>,
     flingAnimationSpec: DecayAnimationSpec<Float>,
@@ -197,6 +197,12 @@ class TopBarState(
 fun SpotifyTopBarLayout(
     topBarState: TopBarState,
     modifier: Modifier = Modifier,
+    gradiant: Brush = Brush.verticalGradient(
+        listOf(
+            MaterialTheme.colorScheme.primary,
+            Color.Transparent
+        )
+    ),
     snackBarHost:  @Composable () -> Unit = {},
     pinnedButton: @Composable () -> Unit = {},
     search: @Composable () -> Unit = { SearchField(Modifier.padding(horizontal = 18.dp), topBarState) },
@@ -225,12 +231,7 @@ fun SpotifyTopBarLayout(
                     topBarState,
                     Modifier
                         .background(
-                            brush = Brush.verticalGradient(
-                                listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    Color.Transparent
-                                )
-                            )
+                            brush = gradiant
                         ),
                     pinnedButton,
                     search,
@@ -287,6 +288,11 @@ private fun TopBarLayout(
     poster: @Composable () -> Unit,
 ) {
     val inset = WindowInsets.systemBars.getTop(LocalDensity.current)
+    val applyAlpha by remember(state.spaceHeightPx, state.pinnedHeightPx) {
+        derivedStateOf {
+            (state.maxHeightPx - state.pinnedHeightPx) > state.spaceHeightPx
+        }
+    }
     Layout(
         {
             Box(Modifier
@@ -310,13 +316,15 @@ private fun TopBarLayout(
                     .layoutId("poster")
                     .wrapContentWidth()
                     .graphicsLayer {
-                        alpha =  lerp(
+                        alpha = lerp(
                             0f,
                             1f,
                             FastOutLinearInEasing.transform(
                                 (state.fraction / 0.6f - 0.1f).coerceIn(0f..1f)
                             )
                         )
+                            .takeIf { applyAlpha }
+                            ?: 1f
                     }
                     .clipToBounds()
             ) {
