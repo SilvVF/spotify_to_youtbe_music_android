@@ -48,6 +48,10 @@ inline fun <T> Mutex.withLock(owner: Any? = null, crossinline action: () -> T): 
     }
 }
 
+inline fun <T> MutableList<T>.addAll(vararg values: T) {
+    for (value in values) add(value)
+}
+
 @OptIn(ExperimentalCoroutinesApi::class)
 suspend inline fun <T> Iterable<T>.pForEach(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,

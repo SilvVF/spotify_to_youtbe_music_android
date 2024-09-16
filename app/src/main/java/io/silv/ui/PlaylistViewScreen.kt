@@ -4,10 +4,8 @@ import ButtonPlaceholder
 import ListItemPlaceHolder
 import ShimmerHost
 import SongItem
-import android.graphics.drawable.BitmapDrawable
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,16 +27,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -46,11 +43,8 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.contentColorFor
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -62,72 +56,33 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.toColor
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.createSavedStateHandle
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.palette.graphics.Palette
 import coil.compose.AsyncImage
-import coil.compose.LocalImageLoader
-import coil.imageLoader
-import coil.request.ImageRequest
-import io.silv.App
 import io.silv.ContentListItem
-import io.silv.PrivacyStatus
-import io.silv.SearchSongsResult
-import io.silv.SpotifyApi
-import io.silv.YtMusicApi
-import io.silv.createPlaylist
-import io.silv.playlist
 import io.silv.removeHtmlTags
-import io.silv.searchSongs
 import io.silv.types.SpotifyPlaylist
 import io.silv.ui.layout.PinnedTopBar
 import io.silv.ui.layout.SearchField
 import io.silv.ui.layout.SpotifyTopBarLayout
-import io.silv.ui.layout.SpotifyTopBarLayoutFullPoster
 import io.silv.ui.layout.rememberTopBarState
 import io.silv.ui.theme.SeededMaterialTheme
 import io.silv.ui.theme.rememberDominantColor
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.cancellable
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.Serializable
-import java.net.URLDecoder
 
 @Composable
 fun PlaylistViewScreen(
@@ -174,36 +129,38 @@ fun PlaylistViewScreen(
     val dominantColor by rememberDominantColor(banner)
 
     SeededMaterialTheme(seedColor = dominantColor) {
-        when (val s = state) {
-            is PlaylistViewState.Error -> {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(s.message.orEmpty())
-                    Button(
-                        onClick = viewModel::refresh
+        Surface {
+            when (val s = state) {
+                is PlaylistViewState.Error -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("Retry")
+                        Text(s.message.orEmpty())
+                        Button(
+                            onClick = viewModel::refresh
+                        ) {
+                            Text("Retry")
+                        }
                     }
                 }
-            }
-            PlaylistViewState.Loading -> ListLoadingScreen(Modifier.fillMaxSize())
-            is PlaylistViewState.Success ->{
-                if (!dominantColor.isSpecified) {
-                    ListLoadingScreen(Modifier.fillMaxSize())
-                    return@SeededMaterialTheme
+                PlaylistViewState.Loading -> ListLoadingScreen(Modifier.fillMaxSize())
+                is PlaylistViewState.Success ->{
+                    if (!dominantColor.isSpecified) {
+                        ListLoadingScreen(Modifier.fillMaxSize())
+                        return@Surface
+                    }
+                    PlaylistSuccessScreen(
+                        state = s,
+                        query = { viewModel.query },
+                        onQueryChange = { viewModel.query = it },
+                        onBack = onBack,
+                        onCreate = viewModel::create,
+                        setClosest = viewModel::setClosest,
+                        snackbarHostState = snackBarHostState
+                    )
                 }
-                PlaylistSuccessScreen(
-                    state = s,
-                    query = { viewModel.query },
-                    onQueryChange = { viewModel.query = it },
-                    onBack = onBack,
-                    onCreate = viewModel::create,
-                    setClosest = viewModel::setClosest,
-                    snackbarHostState = snackBarHostState
-                )
             }
         }
     }
@@ -345,18 +302,28 @@ private fun PlaylistSuccessScreen(
                             IconButton(
                                 onClick = {}
                             ) {
-                                val hasMatch by remember(search.success?.result) {
+                                val status by remember(search.success?.result) {
                                     derivedStateOf {
-                                        search.success?.result?.matches?.get(item) != null
+                                        val result = search.success?.result
+                                        Pair(
+                                            result?.matches?.get(item)?.closest != null,
+                                            search.success?.result?.lowConfidence?.contains(item) == true
+                                        )
                                     }
                                 }
+
                                 Icon(
-                                    imageVector = if (hasMatch) {
-                                        Icons.Filled.CheckCircle
-                                    } else Icons.Filled.Info,
+                                    imageVector = when {
+                                        status.first && !status.second -> Icons.Filled.CheckCircle
+                                        status.first -> Icons.Filled.Info
+                                        else -> Icons.Filled.Warning
+                                    },
                                     contentDescription = null,
-                                    tint = if (hasMatch) MaterialTheme.colorScheme.primary
-                                    else MaterialTheme.colorScheme.error
+                                    tint = when {
+                                        status.first && !status.second -> MaterialTheme.colorScheme.primary
+                                        status.first -> MaterialTheme.colorScheme.secondary
+                                        else -> MaterialTheme.colorScheme.error
+                                    }
                                 )
                             }
                         }
@@ -399,7 +366,10 @@ private fun PlaylistSuccessScreen(
                                     if (!expanded)
                                         emptyList()
                                     else
-                                        buildList { add(match); addAll(additional.filterNot { it == match }) }
+                                        buildList {
+                                            match?.let(::add)
+                                            addAll(additional.filterNot { it == match })
+                                        }
                                 }
                                 songs.map { song ->
                                     Box(
@@ -410,7 +380,7 @@ private fun PlaylistSuccessScreen(
                                         )
                                     ) {
                                         ContentListItem(
-                                            title = song.title + song.id,
+                                            title = "${song.title} - ${song.artists.joinToString(", ") { it.name }}",
                                             url = song.thumbnail,
                                             onClick = { setClosest(item, song) },
                                             onLongClick = {},

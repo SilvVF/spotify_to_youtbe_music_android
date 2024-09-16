@@ -12,7 +12,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import io.silv.App
 import io.silv.PrivacyStatus
-import io.silv.SearchSongsResult
+import io.silv.PlaylistMatch
 import io.silv.SpotifyApi
 import io.silv.YtMusicApi
 import io.silv.createPlaylist
@@ -49,7 +49,7 @@ data class PlaylistArgs(
 sealed interface SearchSongState {
     data class Loading(val complete: Int, val total: Int): SearchSongState
     data class Error(val message: String): SearchSongState
-    data class Success(val result: SearchSongsResult): SearchSongState
+    data class Success(val result: PlaylistMatch): SearchSongState
 
     val success get() = this as? Success
 }
@@ -121,7 +121,7 @@ class PlaylistViewmodel(
         viewModelScope.launch { refresh() }
     }
 
-    private suspend fun getClosestFrom(tracks: SpotifyPlaylist.Tracks): Result<SearchSongsResult> {
+    private suspend fun getClosestFrom(tracks: SpotifyPlaylist.Tracks): Result<PlaylistMatch> {
         return withContext(Dispatchers.IO) {
             runCatching {
                 ytMusicApi.searchSongs(
@@ -146,7 +146,9 @@ class PlaylistViewmodel(
             _state.updateSuccess { s -> s.copy(creating = true) }
             val successState = state.value.success ?: return@launch
             val selectedIds = successState.searchSongsResult.success?.result?.matches
-                ?.map { it.value.closest.id }.orEmpty()
+                ?.map { it.value.closest?.id }
+                ?.filterNotNull()
+                .orEmpty()
 
             val response = runCatching {
                 ytMusicApi.createPlaylist(
@@ -167,8 +169,8 @@ class PlaylistViewmodel(
     }
 
     fun setClosest(
-        matches: SpotifyPlaylist.Tracks.Item,
-        new: SongItem
+        track: SpotifyPlaylist.Tracks.Item,
+        new: SongItem?
     ) = viewModelScope.launch {
         _state.updateSuccess { state ->
             val r = state.searchSongsResult.success ?: return@updateSuccess state
@@ -176,9 +178,9 @@ class PlaylistViewmodel(
                 searchSongsResult = SearchSongState.Success(
                     result = r.result.copy(
                         matches = r.result.matches.toMutableMap().apply {
-                            this[matches] = SearchSongsResult.Match(
-                                closest = new,
-                                other = this[matches]!!.other
+                            this[track] = PlaylistMatch.Result(
+                                closest = if (new == r.result.matches[track]?.closest) null else new,
+                                other = this[track]?.other.orEmpty()
                             )
                         }
                     )
