@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -41,17 +42,21 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val navHostController = rememberNavController()
+            val clientSecret = remember { SpotifyApi.CLIENT_SECRET }
+            val clientId = remember { SpotifyApi.CLIENT_ID }
 
             SptoytTheme {
                 Surface {
                     NavHost(
                         navHostController,
-                        startDestination = "home"
+                        startDestination = if (clientSecret.isEmpty() || clientId.isEmpty()) "setup" else "home"
                     ) {
                         composable("home") {
+
                             var text by remember { mutableStateOf("") }
+
                             Column(
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().imePadding(),
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -77,6 +82,43 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Text("Login to Youtube Music")
                                 }
+                                Button(
+                                    onClick = {
+                                        navHostController.navigate("setup")
+                                    }
+                                ) {
+                                    Text("Login to spotify")
+                                }
+                            }
+                        }
+                        composable("setup") {
+                            var cid by remember { mutableStateOf(SpotifyApi.CLIENT_ID) }
+                            var secret by remember { mutableStateOf(SpotifyApi.CLIENT_SECRET) }
+
+                            Column(
+                                modifier = Modifier.fillMaxSize().imePadding(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                TextField(
+                                    value = cid,
+                                    onValueChange = { cid = it },
+                                    label = { Text("Client id") }
+                                )
+                                TextField(
+                                    value = secret,
+                                    onValueChange = { secret = it },
+                                    label = { Text("Secret") }
+                                )
+                                Button(
+                                    onClick = {
+                                        SpotifyApi.CLIENT_ID = cid
+                                        SpotifyApi.CLIENT_SECRET = secret
+                                        navHostController.navigate("home")
+                                    }
+                                ) {
+                                    Text("Set values")
+                                }
                             }
                         }
                         composable("login") {
@@ -101,6 +143,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun ContentListItem(
     title: String,
@@ -119,20 +162,4 @@ fun ContentListItem(
         badge = badge,
         endButton = content,
     )
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SptoytTheme {
-        Greeting("Android")
-    }
 }

@@ -71,9 +71,9 @@ data class SpotifyApi(
                         .build()
                 )
                 .build()
-                .also { println(it) }
         )
             .execute()
+
         JsonReader(StringReader(res.body!!.string())).use { r ->
             r.beginObject()
             while(r.hasNext()) {
@@ -98,8 +98,9 @@ data class SpotifyApi(
     }
 
     companion object {
-        private const val CLIENT_ID = "e6f8c62b14de4e75972c8a38e3628eaa"
-        private const val CLIENT_SECRET = "01bbb0ccef5e4ac5ae6347f2cf180475"
+
+        var CLIENT_ID by App.store.stored<String>("spotifyClientId")
+        var CLIENT_SECRET by App.store.stored<String>("spotifyClientSecret")
 
         fun extractPlaylistIdFromUrl(url: String): String? {
             val regex = Regex("playlist/(?<id>\\w{22})\\W?")
