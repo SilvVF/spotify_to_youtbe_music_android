@@ -1,26 +1,21 @@
 # Spotify to youtube music playlist converter.
 Convert spotify playlists to youtube music playlists.
 
-Requires creating an app on https://developer.spotify.com/ and inputing the client secret and client id.
+# Setup
+1. Generate a new app at https://developer.spotify.com/dashboard
+2. input the client secret and client id in the text fields within the app.
+
 To sign in to youtube music hit the button which will open a webview and take the Cookie used to authenticate.
 
 All login info is stored using EncryptedSharedPreferences.
 
-# Setup
--------
-
-1. Generate a new app at https://developer.spotify.com/dashboard
-2. Run
-
-.. code-block::
-
-    spotify_to_ytmusic setup
-
-For backwards compatibility you can also create your own file and pass it using ``--file settings.ini``.
-
-If you want to transfer private playlists from Spotify (i.e. liked songs), choose "yes" for oAuth authentication, otherwise choose "no".
-For oAuth authentication you should set ``http://localhost`` as redirect URI for your app in Spotify's developer dashboard.
-
+### Libs
+- [InnerTune](https://github.com/z-huang/InnerTune): Youtube Music api implementation 
+- [spotify_to_ytmucic](https://github.com/sigma67/spotify_to_ytmusic): track scoring implementation
+- OkHttp: Http client
+- [Shimmer](https://github.com/valentinilk/compose-shimmer)
+- Coil: image loading
+- Android, Jetbrains - Compose, EncryptedShared, Navigation Compose, KotlinXSerialization, Palette
 
 <img src="https://github.com/user-attachments/assets/216945fb-0364-4a9c-a5e4-86b7eaf3ff3f" width="360" height="780">
 <img src="https://github.com/user-attachments/assets/98a3427c-061d-4ea3-b64e-d0d812cd095d" width="360" height="780">
