@@ -143,7 +143,7 @@ private suspend fun SpotifyApi.get(url: String): Response {
 
 suspend fun SpotifyApi.playlist(
     id: String,
-    market: String? = null,
+    market: String? = "US",
     additionalTypes: List<String> = listOf("tracks"),
     vararg fields: String
 ): SpotifyPlaylist? {

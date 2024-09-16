@@ -49,6 +49,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -153,7 +154,7 @@ fun PlaylistViewScreen(
                     }
                     PlaylistSuccessScreen(
                         state = s,
-                        query = { viewModel.query },
+                        query = viewModel.query,
                         onQueryChange = { viewModel.query = it },
                         onBack = onBack,
                         onCreate = viewModel::create,
@@ -172,7 +173,7 @@ fun PlaylistViewScreen(
 private fun PlaylistSuccessScreen(
     state: PlaylistViewState.Success,
     snackbarHostState: SnackbarHostState,
-    query: () -> String,
+    query: String,
     onBack: () -> Unit,
     onCreate: () -> Unit,
     setClosest: (SpotifyPlaylist.Tracks.Item, SongItem) -> Unit,
@@ -213,13 +214,13 @@ private fun PlaylistSuccessScreen(
             PinnedTopBar(
                 onBackPressed = onBack,
                 onQueryChanged = onQueryChange,
-                query = query,
+                query = { query },
                 topBarState = topBarState,
                 name = state.playlist.name,
             )
         },
         info = {
-            Column(Modifier.padding(horizontal = 12.dp, vertical = 4.dp),) {
+            Column(Modifier.padding(horizontal = 12.dp, vertical = 8.dp),) {
                 Text(
                     text = state.playlist.name,
                     style = MaterialTheme.typography.titleLarge,
@@ -230,7 +231,14 @@ private fun PlaylistSuccessScreen(
                     remember(state.playlist.description) { state.playlist.description.removeHtmlTags() },
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold,
-                    maxLines = 3,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    "Total: ${state.playlist.tracks.items.size}, Missing: ${state.searchSongsResult.success?.result?.notFound?.size}",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -255,6 +263,18 @@ private fun PlaylistSuccessScreen(
         }
     ) { paddingValues ->
         val search = state.searchSongsResult
+
+        var tracks by remember { mutableStateOf(state.playlist.tracks.items) }
+
+        LaunchedEffect(state.playlist.tracks, query) {
+            tracks = state.playlist.tracks.items.filter {
+                query.isEmpty()
+                        || it.track.name.contains(query, true)
+                        || it.track.artists.any { it.name.contains(query, true) }
+                        || it.track.album.name.contains(query, true)
+            }
+        }
+
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = paddingValues,
@@ -285,7 +305,7 @@ private fun PlaylistSuccessScreen(
                 }
             }
             items(
-                items = state.playlist.tracks.items,
+                items = tracks,
                 key = { it.track.id }
             ) { item ->
                 var expanded by rememberSaveable { mutableStateOf(false) }
@@ -294,7 +314,7 @@ private fun PlaylistSuccessScreen(
                     Modifier.animateContentSize()
                 ) {
                     ContentListItem(
-                        title = item.track.name,
+                        title = item.track.name + " - " + item.track.artists.joinToString(", ") { it.name },
                         url = item.track.album.images.firstOrNull()?.url.orEmpty(),
                         onClick = {},
                         onLongClick = {},

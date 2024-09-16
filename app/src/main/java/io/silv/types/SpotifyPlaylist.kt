@@ -142,7 +142,7 @@ data class SpotifyPlaylist(
                 @SerialName("artists")
                 val artists: List<Artist>,
                 @SerialName("available_markets")
-                val availableMarkets: List<String>,
+                val availableMarkets: List<String>? = null,
                 @SerialName("disc_number")
                 val discNumber: Int,
                 @SerialName("duration_ms")
@@ -183,7 +183,7 @@ data class SpotifyPlaylist(
                     @SerialName("artists")
                     val artists: List<Artist>,
                     @SerialName("available_markets")
-                    val availableMarkets: List<String>,
+                    val availableMarkets: List<String>? = null,
                     @SerialName("external_urls")
                     val externalUrls: ExternalUrls,
                     @SerialName("href")
