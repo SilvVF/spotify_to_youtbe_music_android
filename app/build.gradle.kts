@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "io.silv"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "io.silv"
@@ -85,4 +85,5 @@ dependencies {
     implementation("com.valentinilk.shimmer:compose-shimmer:1.3.1")
 
     implementation("androidx.palette:palette:1.0.0")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

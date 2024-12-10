@@ -12,6 +12,8 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Timber.plant(Timber.DebugTree())
+
         store = EncryptedSharedPreferences.create(
             "encrypted-prefs",
             MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),

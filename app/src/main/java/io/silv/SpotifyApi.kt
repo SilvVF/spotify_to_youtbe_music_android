@@ -3,9 +3,11 @@ package io.silv
 import android.content.SharedPreferences
 import android.util.JsonReader
 import android.util.JsonToken
-import android.util.Log
+import io.silv.types.SpotifyAlbum
 import io.silv.types.SpotifyPlaylist
+import io.silv.ui.PlaylistArgs
 import kotlinx.coroutines.sync.Mutex
+import okhttp3.Credentials
 import okhttp3.FormBody
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -30,13 +32,13 @@ data class SpotifyApi(
 
         mutex.withLock {
             val expired = expiresAt < epochSeconds() - 5.minutes.inWholeSeconds
-            Log.d("TOKEN", "expr: $expiresAt, time: ${epochSeconds() - 5.minutes.inWholeSeconds} expired: $expired")
             if (token.isEmpty() || expired) {
                 refreshAuthToken()
             }
         }
 
         check(token.isNotEmpty()) { "Auth token was not set" }
+        Timber.d { token }
         var res = chain.proceed(
             chain.request()
                 .newBuilder()
@@ -65,10 +67,12 @@ data class SpotifyApi(
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .post(
                     FormBody.Builder()
-                        .add("grant_type", "client_credentials")
-                        .add("client_id", CLIENT_ID)
-                        .add("client_secret", CLIENT_SECRET)
+                        .addEncoded("grant_type", "client_credentials")
                         .build()
+                )
+                .header(
+                    name = "Authorization",
+                    value = Credentials.basic(CLIENT_ID, CLIENT_SECRET)
                 )
                 .build()
         )
@@ -102,17 +106,18 @@ data class SpotifyApi(
         var CLIENT_ID by App.store.stored<String>("spotifyClientId")
         var CLIENT_SECRET by App.store.stored<String>("spotifyClientSecret")
 
-        fun extractPlaylistIdFromUrl(url: String): String? {
-            val regex = Regex("playlist/(?<id>\\w{22})\\W?")
+        fun extractPlaylistIdFromUrl(url: String): Pair<String?, String?> {
+            val regex = Regex("(?<type>playlist|album)/(?<id>\\w{22})\\W?")
             val match = regex.find(url)
 
             return if (match != null) {
-                match.groups["id"]?.value
+                match.groups["type"]?.value to match.groups["id"]?.value
             } else {
-                val regexAlt = Regex("playlist/(?<id>\\w+)\\W?")
+                val regexAlt = Regex("(?<type>playlist|album)/(?<id>\\w+)\\W?")
                 val matchAlt = regexAlt.find(url)
-
-                 matchAlt?.groups?.get("id")?.value
+                matchAlt?.let {
+                    matchAlt.groups["type"]?.value to matchAlt.groups["id"]?.value
+                } ?: Pair(null, null)
             }
         }
     }
@@ -141,13 +146,62 @@ private suspend fun SpotifyApi.get(url: String): Response {
 }
 
 
+suspend fun SpotifyApi.album(
+    id: String,
+    market: String? = "US",
+    additionalTypes: List<String> = listOf("tracks"),
+    vararg fields: String
+): SpotifyAlbum? {
+    // Looks sus but album doesn't have all the tracks after getting album
+    // fetch only the tracks if more than 100 exist
+    suspend fun album(offset: Int, limit: Int = 100) = get {
+        addPathSegment("albums")
+        addPathSegment(id)
+        addQueryParameter("market", market)
+        addQueryParameter(
+            "additional_types",
+            additionalTypes.joinToString(",")
+        )
+        addQueryParameter(
+            "fields",
+            fields.joinToString(",")
+        )
+        addQueryParameter("offset", "$offset")
+        addQueryParameter("limit", "$limit")
+    }
+
+    var curr = album(0).decode<SpotifyAlbum>() ?: return null
+    while (curr.tracks!!.items!!.size < curr.tracks!!.total!!) {
+        val r = get {
+            addPathSegment("albums")
+            addPathSegment(curr.id!!)
+            addPathSegment("tracks")
+            addQueryParameter("offset", "${curr.tracks!!.items!!.size}")
+            addQueryParameter("limit", "100")
+            addQueryParameter(
+                "additional_types",
+                "track"
+            )
+        }
+            .decode<SpotifyAlbum.Tracks>()!!
+        curr = curr.copy(
+            tracks = curr.tracks!!.copy(
+                items = curr.tracks!!.items!!.filterNotNull() + r.items!!.filterNotNull(),
+            )
+        )
+    }
+
+    return curr
+}
+
 suspend fun SpotifyApi.playlist(
     id: String,
     market: String? = "US",
     additionalTypes: List<String> = listOf("tracks"),
     vararg fields: String
 ): SpotifyPlaylist? {
-
+    // Looks sus but playlist doesn't have all the tracks after getting album
+    // fetch only the tracks if more than 100 exist
     suspend fun playlist(offset: Int, limit: Int = 100) = get {
         addPathSegment("playlists")
         addPathSegment(id)

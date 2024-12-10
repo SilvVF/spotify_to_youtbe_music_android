@@ -64,7 +64,6 @@ fun rememberDominantColor(data: Any?): State<Color> {
                 color.value = Color(dominant)
             }
                 .onFailure {
-                    Log.e("rememberDominantColor", it.stackTraceToString())
                     color.value = primary
                 }
         }

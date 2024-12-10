@@ -4,7 +4,6 @@ import SongItem
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -15,22 +14,23 @@ import io.silv.App
 import io.silv.PrivacyStatus
 import io.silv.PlaylistMatch
 import io.silv.SpotifyApi
+import io.silv.Timber
 import io.silv.YtMusicApi
+import io.silv.album
 import io.silv.createPlaylist
 import io.silv.playlist
 import io.silv.searchSongs
-import io.silv.types.SpotifyPlaylist
+import io.silv.types.Playlist
+import io.silv.types.Track
+import io.silv.ui.PlaylistArgs.Type.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -42,11 +42,27 @@ import java.io.Serializable
 import java.net.URLDecoder
 
 data class PlaylistArgs(
-    val playlistId: String
+    val id: String,
+    val type: Type
 ): Serializable {
 
+    enum class Type {
+        Playlist, Album;
+
+        companion object {
+            fun fromString(str: String): Type {
+                return when (str.lowercase()) {
+                    "playlist" -> Playlist
+                    "album" -> Album
+                    else -> Playlist
+                }
+            }
+        }
+    }
+
     constructor(savedStateHandle: SavedStateHandle): this(
-        URLDecoder.decode(savedStateHandle.get<String>("id")!!, Charsets.UTF_8.name())
+        URLDecoder.decode(savedStateHandle.get<String>("id")!!, Charsets.UTF_8.name()),
+        Type.fromString(URLDecoder.decode(savedStateHandle.get<String>("type")!!, Charsets.UTF_8.name())),
     )
 }
 
@@ -58,6 +74,17 @@ sealed interface SearchSongState {
     val success get() = this as? Success
 }
 
+fun PlaylistViewState.Success.updateMatchesAndGet(
+    update: MutableMap<Track, PlaylistMatch.Result>.() -> Unit
+): SearchSongState {
+    val r = this.searchSongsResult.success ?: return this.searchSongsResult
+    return r.copy(
+        result = r.result.copy(
+            matches = r.result.matches.toMutableMap().apply(update).toMap()
+        )
+    )
+}
+
 sealed interface PlaylistEvent {
     data object Created: PlaylistEvent
     data class CreateError(val message: String?): PlaylistEvent
@@ -67,7 +94,7 @@ sealed class PlaylistViewState {
     data object Loading: PlaylistViewState()
     data class Error(val message: String?): PlaylistViewState()
     data class Success(
-        val playlist: SpotifyPlaylist,
+        val playlist: Playlist,
         val searchSongsResult: SearchSongState,
         val creating: Boolean = false
     ): PlaylistViewState()
@@ -105,35 +132,38 @@ class PlaylistViewmodel(
         }
     }
 
-    private val tracksFlow = state.filterIsInstance<PlaylistViewState.Success>()
-        .map { it.playlist.tracks }
+    private val playlistFlow = state.filterIsInstance<PlaylistViewState.Success>()
+        .map { it.playlist }
         .distinctUntilChanged()
 
     init {
-        tracksFlow.onEach { tracks ->
-            val result = getClosestFrom(tracks)
+        playlistFlow.onEach { playlist ->
+            val result = getClosestFrom(playlist)
             _state.updateSuccess { state ->
                 state.copy(
                     searchSongsResult = result.fold(
                         onSuccess = { SearchSongState.Success(it) },
-                        onFailure = { t -> SearchSongState.Error(t.message.orEmpty()) }
+                        onFailure = { t ->
+                            Timber.e(t)
+                            SearchSongState.Error(t.message.orEmpty())
+                        }
                     )
                 )
             }
         }
             .launchIn(viewModelScope)
 
-        viewModelScope.launch { refresh() }
+        refresh()
     }
 
-    private suspend fun getClosestFrom(tracks: SpotifyPlaylist.Tracks): Result<PlaylistMatch> {
+    private suspend fun getClosestFrom(playlist: Playlist): Result<PlaylistMatch> {
         return withContext(Dispatchers.IO) {
             runCatching {
                 ytMusicApi.searchSongs(
-                    tracks,
+                    playlist.items,
                     onProgress = { complete, total ->
-                        _state.updateSuccess { s ->
-                            s.copy(
+                        _state.updateSuccess { state ->
+                            state.copy(
                                 searchSongsResult = SearchSongState.Loading(
                                     complete,
                                     total
@@ -174,22 +204,17 @@ class PlaylistViewmodel(
     }
 
     fun setClosest(
-        track: SpotifyPlaylist.Tracks.Item,
+        track: Track,
         new: SongItem?
     ) = viewModelScope.launch {
         _state.updateSuccess { state ->
-            val r = state.searchSongsResult.success ?: return@updateSuccess state
             state.copy(
-                searchSongsResult = SearchSongState.Success(
-                    result = r.result.copy(
-                        matches = r.result.matches.toMutableMap().apply {
-                            this[track] = PlaylistMatch.Result(
-                                closest = if (new == r.result.matches[track]?.closest) null else new,
-                                other = this[track]?.other.orEmpty()
-                            )
-                        }
+                searchSongsResult = state.updateMatchesAndGet {
+                    this[track] = PlaylistMatch.Result(
+                        closest = if (new == this[track]?.closest) null else new,
+                        other = this[track]?.other.orEmpty()
                     )
-                )
+                }
             )
         }
     }
@@ -199,13 +224,21 @@ class PlaylistViewmodel(
         refreshJob = viewModelScope.launch {
             _state.update { PlaylistViewState.Loading }
             val res = withContext(Dispatchers.IO) {
-                runCatching { spotifyApi.playlist(navArgs.playlistId)!! }
+                runCatching {
+                    when(navArgs.type) {
+                        Playlist -> spotifyApi.playlist(navArgs.id)!!.let(::Playlist)
+                        Album -> spotifyApi.album(navArgs.id)!!.let(::Playlist)
+                    }
+                }
             }
             _state.value = res.fold(
-                onFailure = { PlaylistViewState.Error(it.message) },
+                onFailure = {
+                    Timber.e(it)
+                    PlaylistViewState.Error(it.message)
+                },
                 onSuccess = { PlaylistViewState.Success(
                     playlist = it,
-                    searchSongsResult = SearchSongState.Loading(0, it.tracks.items.size)
+                    searchSongsResult = SearchSongState.Loading(0, it.items.size)
                 )}
             )
         }

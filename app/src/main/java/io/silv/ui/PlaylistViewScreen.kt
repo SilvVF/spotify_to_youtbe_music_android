@@ -51,9 +51,11 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,6 +78,7 @@ import coil.compose.AsyncImage
 import io.silv.ContentListItem
 import io.silv.removeHtmlTags
 import io.silv.types.SpotifyPlaylist
+import io.silv.types.Track
 import io.silv.ui.layout.PinnedTopBar
 import io.silv.ui.layout.SearchField
 import io.silv.ui.layout.SpotifyTopBarLayout
@@ -83,6 +86,8 @@ import io.silv.ui.layout.rememberTopBarState
 import io.silv.ui.theme.SeededMaterialTheme
 import io.silv.ui.theme.rememberDominantColor
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.withContext
 
 @Composable
@@ -125,7 +130,7 @@ fun PlaylistViewScreen(
     }
 
     val banner = remember(state.success?.playlist) {
-        state.success?.playlist?.images?.maxByOrNull { (it.height ?: 0) * (it.width ?: 0) }?.url
+        state.success?.playlist?.images?.maxByOrNull { (it.h ?: 0) * (it.w ?: 0) }?.url
     }
     val dominantColor by rememberDominantColor(banner)
 
@@ -176,14 +181,14 @@ private fun PlaylistSuccessScreen(
     query: String,
     onBack: () -> Unit,
     onCreate: () -> Unit,
-    setClosest: (SpotifyPlaylist.Tracks.Item, SongItem) -> Unit,
+    setClosest: (Track, SongItem) -> Unit,
     onQueryChange: (String) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val topBarState = rememberTopBarState(lazyListState)
 
     val banner = remember(state.playlist) {
-        state.playlist.images.maxByOrNull { (it.height ?: 0) * (it.width ?: 0) }?.url
+        state.playlist.images.maxByOrNull { (it.h ?: 0) * (it.w ?: 0) }?.url
     }
 
     SpotifyTopBarLayout(
@@ -235,7 +240,7 @@ private fun PlaylistSuccessScreen(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    "Total: ${state.playlist.tracks.items.size}, Missing: ${state.searchSongsResult.success?.result?.notFound?.size}",
+                    "Total: ${state.playlist.items.size}, Missing: ${state.searchSongsResult.success?.result?.notFound?.size}",
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
@@ -264,16 +269,18 @@ private fun PlaylistSuccessScreen(
     ) { paddingValues ->
         val search = state.searchSongsResult
 
-        var tracks by remember { mutableStateOf(state.playlist.tracks.items) }
-
-        LaunchedEffect(state.playlist.tracks, query) {
-            tracks = state.playlist.tracks.items.filter {
-                query.isEmpty()
-                        || it.track.name.contains(query, true)
-                        || it.track.artists.any { it.name.contains(query, true) }
-                        || it.track.album.name.contains(query, true)
+        val tracks by produceState(state.playlist.items) {
+            snapshotFlow { query }.collectLatest {
+                value = state.playlist.items.filter {
+                    query.isEmpty()
+                            || it.name.contains(query, true)
+                            || it.artists.any { artist -> artist.contains(query, true) }
+                            || it.album.contains(query, true)
+                }
             }
         }
+
+
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -306,7 +313,7 @@ private fun PlaylistSuccessScreen(
             }
             items(
                 items = tracks,
-                key = { it.track.id }
+                key = { it.id }
             ) { item ->
                 var expanded by rememberSaveable { mutableStateOf(false) }
 
@@ -314,8 +321,8 @@ private fun PlaylistSuccessScreen(
                     Modifier.animateContentSize()
                 ) {
                     ContentListItem(
-                        title = item.track.name + " - " + item.track.artists.joinToString(", ") { it.name },
-                        url = item.track.album.images.firstOrNull()?.url.orEmpty(),
+                        title = item.name + " - " + item.artists.joinToString(", "),
+                        url = item.images.firstOrNull()?.url.orEmpty(),
                         onClick = {},
                         onLongClick = {},
                         badge = {

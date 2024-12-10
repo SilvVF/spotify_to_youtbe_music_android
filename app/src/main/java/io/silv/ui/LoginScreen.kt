@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,15 +19,14 @@ import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import io.silv.App
-import io.silv.YtMusicApi
+import io.silv.Timber
 import io.silv.accountMenu
-import io.silv.getValue
-import io.silv.setValue
-import io.silv.stored
+import io.silv.producePreferenceAsState
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,14 +35,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
 @Composable
 fun LoginScreen(
-    onBack: () -> Unit
+    onBack:() -> Unit,
 ) {
-    val store = remember { App.store }
-    var visitorData by remember { store.stored<String>("visitorData") }
-    var innerTubeCookie by remember { store.stored<String>("innerTubeCookie") }
-    var accountName by remember { store.stored<String>("accountName") }
-    var accountEmail by remember { store.stored<String>("accountEmail") }
-    var accountChannelHandle by remember { store.stored<String>("accountChannelHandle") }
+    var visitorData by producePreferenceAsState("visitorData", "")
+    var innerTubeCookie by producePreferenceAsState("innerTubeCookie", "")
+    var accountName by producePreferenceAsState("accountName", "")
+    var accountEmail by producePreferenceAsState("accountEmail", "")
+    var accountChannelHandle by producePreferenceAsState("accountChannelHandle", "")
 
     var webView: WebView? = null
 
@@ -56,13 +55,12 @@ fun LoginScreen(
                     override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                         if (url.startsWith("https://music.youtube.com")) {
                             innerTubeCookie = CookieManager.getInstance().getCookie(url)
-                            YtMusicApi.cookie = innerTubeCookie
                             GlobalScope.launch {
                                 App.ytMusicApi.accountMenu()?.let {
                                     accountName = it.name
                                     accountEmail = it.email.orEmpty()
                                     accountChannelHandle = it.channelHandle.orEmpty()
-                                } ?: Log.d("AccountMenu", "Failed to get account")
+                                } ?: Timber.d { "AccountMenu Failed to get account" }
                             }
                         }
                     }
@@ -75,6 +73,7 @@ fun LoginScreen(
                     javaScriptEnabled = true
                     setSupportZoom(true)
                     builtInZoomControls = true
+                    domStorageEnabled = true
                 }
                 addJavascriptInterface(object {
                     @JavascriptInterface

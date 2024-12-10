@@ -616,7 +616,6 @@ suspend fun settleBar(
         // In case there is an initial velocity that was left after a previous user fling, animate to
         // continue the motion to expand or collapse the app bar.
         if (abs(superConsumed.y) > 1f) {
-            Log.d("Animating", "Animating")
             animate(
                 initial,
                 flingAnimationSpec.calculateTargetValue(initial, superConsumed.y)

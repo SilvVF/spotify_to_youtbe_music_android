@@ -10,7 +10,9 @@ import SongItem
 import android.content.SharedPreferences
 import android.util.Log
 import getContinuation
+import io.silv.types.Playlist
 import io.silv.types.SpotifyPlaylist
+import io.silv.types.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -135,22 +137,20 @@ suspend inline fun<reified T> YtMusicApi.post(
 
 
 suspend fun YtMusicApi.searchSongs(
-    tracks: SpotifyPlaylist.Tracks,
+    tracks: List<Track>,
     onProgress: (complete: Int, total: Int) -> Unit = {_,_ ->}
 ): PlaylistMatch {
-    val songs = tracks.items
 
-    val notFound = mutableSetOf<SpotifyPlaylist.Tracks.Item>()
-    val lowConfidence = mutableSetOf<SpotifyPlaylist.Tracks.Item>()
-    val matches = mutableMapOf<SpotifyPlaylist.Tracks.Item, Pair<SongItem?, List<SongItem>>>()
+    val notFound = mutableSetOf<Track>()
+    val lowConfidence = mutableSetOf<Track>()
+    val matches = mutableMapOf<Track, Pair<SongItem?, List<SongItem>>>()
 
     val completed = AtomicInteger(0)
 
-    songs.pForEach(dispatcher = Dispatchers.IO) { _, song ->
-        val name = song.track.name
+    tracks.pForEach(dispatcher = Dispatchers.IO) { _, song ->
+        val name = song.name
             .replace(Regex(""" \(feat.*\..+\)"""), "")
-        val names = song.track.artists
-            .joinToString(" ") { it.name } + " " + name
+        val names = song.artists.joinToString(" ") + " " + name
         val query = names.replace(" &", "")
 
         val results = search(query, filter = SearchFilter.FILTER_SONG).getOrNull()
@@ -168,7 +168,7 @@ suspend fun YtMusicApi.searchSongs(
         } else  {
             notFound.add(song)
         }
-        onProgress(completed.getAndIncrement(), songs.size)
+        onProgress(completed.getAndIncrement(), tracks.size)
     }
     return PlaylistMatch(
         notFound = notFound,
@@ -260,7 +260,7 @@ private suspend fun YtMusicApi.internalSearch(
 
 fun getBestFitSongId(
     songs: List<SongItem>,
-    target: SpotifyPlaylist.Tracks.Item
+    target: Track
 ): Pair<SongItem?, Map<SongItem, Double>> {
 
     val matchScore = mutableMapOf<SongItem, Double>()
@@ -270,40 +270,30 @@ fun getBestFitSongId(
         val scores = mutableListOf<Double>()
 
         val artists = song.artists.joinToString(" ") { it.name }
-        val targetArtists = target.track.artists.joinToString(" ") { it.name }
+        val targetArtists = target.artists.joinToString(" ")
 
-        val targetDuration = target.track.durationMs / 1000.0
+        val targetDuration = target.durationMs / 1000.0
 
-        val titleScore = similarity(song.title.lowercase(), target.track.name.lowercase())
+        val titleScore = similarity(song.title.lowercase(), target.name.lowercase())
         val artistScore = similarity(targetArtists.lowercase(), artists.lowercase())
 
         if (song.duration != null) {
-            val durationScore = 1 - abs(song.duration - targetDuration) * 2.0 / targetDuration
+            val durationScore = 1 - abs(song.duration - targetDuration.inWholeMilliseconds) * 2.0 / targetDuration.inWholeMilliseconds
             scores.add(durationScore * 5)
         }
 
         if (song.album != null) {
-            val albumScore = similarity(song.album.name.lowercase(), target.track.album.name.lowercase())
+            val albumScore = similarity(song.album.name.lowercase(), target.album.lowercase())
             scores.add(albumScore)
         }
         scores.addAll(titleScore, artistScore)
         matchScore[song] = (scores.sum() / scores.size)
-        Log.d(song.id,
-            """
-                title ${target.track.name} ${song.title}: $titleScore,
-                artist $targetArtists $artists: $artistScore,
-                duration: $targetDuration ${song.duration}: ${1 - abs((song.duration ?: 0) - targetDuration) * 2.0 / targetDuration}
-                album:  ${target.track.album.name} ${song.album?.name}: ${similarity(song.album?.name?.lowercase().orEmpty(), target.track.album.name.lowercase())}
-            """.trimIndent()
-        )
     }
-
-    Log.d("Matched ${target.track.name} \n - ", matchScore.map { it }.joinToString("\n - ") { "${it.key.id}, ${it.value}" })
 
     return matchScore.maxByOrNull { (_, score) -> score }?.key to matchScore
 }
 
-fun levenshteinDistance(s1: String, s2: String): Int {
+private fun levenshteinDistance(s1: String, s2: String): Int {
 
     val dp = Array(s1.length + 1) { IntArray(s2.length + 1) }
 
@@ -324,7 +314,7 @@ fun levenshteinDistance(s1: String, s2: String): Int {
     return dp[s1.length][s2.length]
 }
 
-fun similarity(s1: String, s2: String): Double {
+private fun similarity(s1: String, s2: String): Double {
     val distance = levenshteinDistance(s1, s2)
     val maxLength = maxOf(s1.length, s2.length)
     return if (maxLength == 0) 1.0 else (1.0 - distance.toDouble() / maxLength)
@@ -370,9 +360,9 @@ value class SearchFilter(val value: String) {
 
 
 data class PlaylistMatch(
-    val lowConfidence: Set<SpotifyPlaylist.Tracks.Item>,
-    val notFound: Set<SpotifyPlaylist.Tracks.Item>,
-    val matches: Map<SpotifyPlaylist.Tracks.Item, Result>
+    val lowConfidence: Set<Track>,
+    val notFound: Set<Track>,
+    val matches: Map<Track, Result>
 ) {
 
     data class Result(

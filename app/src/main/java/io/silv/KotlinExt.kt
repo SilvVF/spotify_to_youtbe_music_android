@@ -81,7 +81,7 @@ fun String.parseTime(): Int? {
     return null
 }
 
-fun <T> Result<T>.logError(tag: String) = onFailure { Log.e(tag, it.message, it) }
+fun <T> Result<T>.logError() = onFailure { Timber.e(it) }
 
 fun JSONObject.toMap(): Map<String, Any?> = keys().asSequence().associateWith { key ->
     when (val value = this[key])
