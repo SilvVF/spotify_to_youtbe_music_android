@@ -3,16 +3,16 @@ package io.silv.sp2yt
 import com.russhwolf.settings.ObservableSettings
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.headers
 import io.ktor.serialization.kotlinx.json.json
+import io.silv.sp2yt.api.SpotifyApi
+import io.silv.sp2yt.api.YoutubeMusicApi
 import kotlinx.serialization.json.Json
 
-lateinit var appScope: AppScope
+lateinit var appGraph: AppGraph
 
-abstract class AppScope {
+abstract class AppGraph {
 
     abstract val settings: ObservableSettings
 
@@ -32,6 +32,14 @@ abstract class AppScope {
                 json(json)
             }
         }
+    }
+
+    val spotifyApi by lazy {
+        SpotifyApi(client, settings)
+    }
+
+    val ytMusicApi by lazy {
+        YoutubeMusicApi(client, settings)
     }
 
     companion object {

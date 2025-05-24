@@ -1,4 +1,4 @@
-package io.silv.sp2yt
+package io.silv.sp2yt.ui
 
 import android.annotation.SuppressLint
 import android.webkit.CookieManager
@@ -19,7 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import io.silv.sp2yt.api.YtMusicApi
+import io.silv.sp2yt.appGraph
 
 @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
 @OptIn(markerClass = [ExperimentalMaterial3Api::class])
@@ -36,7 +36,7 @@ actual fun LoginScreen(onBack: () -> Unit) {
                 webViewClient = object : WebViewClient() {
                     override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                         if (url.startsWith("https://music.youtube.com")) {
-                            YtMusicApi.cookie = CookieManager.getInstance().getCookie(url)
+                            appGraph.ytMusicApi.cookie = CookieManager.getInstance().getCookie(url)
                         }
                     }
                     override fun onPageFinished(view: WebView, url: String?) {
@@ -53,7 +53,7 @@ actual fun LoginScreen(onBack: () -> Unit) {
                     @JavascriptInterface
                     fun onRetrieveVisitorData(newVisitorData: String?) {
                         if (newVisitorData != null) {
-                            YtMusicApi.visitorData = newVisitorData
+                            appGraph.ytMusicApi.visitorData = newVisitorData
                         }
                     }
                 }, "Android")

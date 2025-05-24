@@ -18,27 +18,30 @@ import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.crossfade
-import io.silv.sp2yt.api.SpotifyApi
+import io.silv.sp2yt.ui.HomeScreen
+import io.silv.sp2yt.ui.LoginScreen
+import io.silv.sp2yt.ui.PlaylistViewScreen
+import io.silv.sp2yt.ui.SetupSpotifyScreen
+import io.silv.sp2yt.ui.theme.AppTheme
 
 @Composable
 fun App() {
-
     setSingletonImageLoaderFactory { context ->
         ImageLoader.Builder(context)
             .components {
                 add(
-                    KtorNetworkFetcherFactory(httpClient = { appScope.client })
+                    KtorNetworkFetcherFactory(httpClient = { appGraph.client })
                 )
             }
             .crossfade(true)
             .build()
     }
 
-    MaterialTheme {
+    AppTheme {
         val navController = rememberNavController()
         val setupRequired by remember {
             derivedStateOf {
-                SpotifyApi.clientSecret.orEmpty().isEmpty() || SpotifyApi.clientId.orEmpty().isEmpty()
+                appGraph.spotifyApi.clientSecret.isEmpty() || appGraph.spotifyApi.clientId.isEmpty()
             }
         }
 
@@ -96,92 +99,6 @@ fun App() {
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-expect fun BackHandler(enabled: Boolean, callback: @DisallowComposableCalls () -> Unit)
-
-@Composable
-fun HomeScreen(
-    navigateToPlaylist: (type: String, id: String) -> Unit,
-    navigateToYtMusicLogin: () -> Unit,
-    navigateToSpotifyLogin: () -> Unit,
-) {
-    var text by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .imePadding(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TextField(
-            value = text,
-            onValueChange = { text = it }
-        )
-        Button(
-            onClick = {
-                val (type, playlistId) = SpotifyApi.extractPlaylistIdFromUrl(text)
-                if (playlistId != null && type != null) {
-                    navigateToPlaylist(type, playlistId)
-                }
-            }
-        ) {
-            Text("Convert to Youtube Music")
-        }
-        Button(
-            onClick = {
-                navigateToYtMusicLogin()
-            }
-        ) {
-            Text("Login to Youtube Music")
-        }
-        Button(
-            modifier = Modifier,
-            onClick = {
-                navigateToSpotifyLogin()
-            }
-        ) {
-            Text("Login to spotify")
-        }
-    }
-}
-
-@Composable
-fun SetupSpotifyScreen(
-    onBack: () -> Unit,
-) {
-
-    var cid by remember(SpotifyApi.clientId) { mutableStateOf(SpotifyApi.clientId.orEmpty()) }
-    var secret by remember { mutableStateOf(SpotifyApi.clientSecret.orEmpty()) }
-
-    Column(
-        modifier = Modifier.fillMaxSize().imePadding(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TextField(
-            value = cid,
-            onValueChange = { cid = it },
-            label = { Text("Client id") }
-        )
-        TextField(
-            value = secret,
-            onValueChange = { secret = it },
-            label = { Text("Secret") }
-        )
-        Button(
-            onClick = {
-                SpotifyApi.clientSecret = secret
-                SpotifyApi.clientId = cid
-
-                onBack()
-            }
-        ) {
-            Text("Set values")
         }
     }
 }

@@ -1,19 +1,15 @@
 package io.silv.sp2yt
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.silv.sp2yt.api.YtMusicApi
+import androidx.compose.ui.unit.dp
 import java.awt.Desktop
 import java.net.URI
 
@@ -26,63 +22,82 @@ private const val YT_AUTH_URL =
 @Composable
 fun YtMusciDesktopWebView(onBack: () -> Unit) {
 
-    var visitorData by remember { mutableStateOf(YtMusicApi.visitorData) }
-    var cookie by remember { mutableStateOf(YtMusicApi.cookie) }
+    var visitorData by remember { mutableStateOf(appGraph.ytMusicApi.visitorData) }
+    var cookie by remember { mutableStateOf(appGraph.ytMusicApi.cookie) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Login") },
+                title = {
+                    Text(
+                        "Login",
+                        color = LocalContentColor.current,
+                        style = LocalTextStyle.current
+                    )
+                },
                 navigationIcon = {
                     TextButton(onClick = onBack) {
-                        Text("<")
+                        Text("<", color = LocalContentColor.current)
                     }
                 }
             )
-        }
-    ) { paddingValues ->
-        Surface(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
-        ) {
+        },
+        floatingActionButton = {
             Column {
-                Button(
+                ExtendedFloatingActionButton(
                     onClick = {
                         val url = URI.create(YT_AUTH_URL)
                         Desktop.getDesktop().browse(url)
-
-                    }
-                ) {
-                    Text("open yt music")
-                }
-                Button(
-                    onClick = {
-                        YtMusicApi.visitorData = visitorData
-                        YtMusicApi.cookie = cookie
-                    }
-                ) {
-                    Text("Set values")
-                }
-                TextField(
-                    label = {
-                        Text("visitor data")
                     },
-                    value = visitorData,
-                    onValueChange = {
-                        visitorData = it
+                    icon = {},
+                    text = {
+                        Text("open yt music", color = LocalContentColor.current)
                     }
                 )
-                TextField(
-                    label = {
-                        Text("cookies")
+                Spacer(Modifier.height(6.dp))
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        appGraph.ytMusicApi.visitorData = visitorData
+                        appGraph.ytMusicApi.cookie = cookie
+                        onBack()
                     },
-                    value = cookie,
-                    onValueChange = {
-                        cookie = it
+                    icon = {},
+                    text = {
+                        Text("Set values", color = LocalContentColor.current)
                     }
                 )
             }
+        }
+    ) { paddingValues ->
+        Column(
+            Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            OutlinedTextField(
+                label = {
+                    Text("visitor data", color = LocalContentColor.current)
+                },
+                colors = OutlinedTextFieldDefaults.colors(),
+                value = visitorData,
+                onValueChange = {
+                    visitorData = it
+                }
+            )
+            OutlinedTextField(
+                label = {
+                    Text("cookies", color = LocalContentColor.current)
+                },
+                colors = OutlinedTextFieldDefaults.colors(),
+                value = cookie,
+                onValueChange = {
+                    cookie = it
+                }
+            )
         }
     }
 }

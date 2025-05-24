@@ -30,6 +30,16 @@ fun String.levenshteinDistance(other: String): Int {
     return dp[s1.length][s2.length]
 }
 
+fun String.removeHtmlTags(): String {
+    val regex = Regex("<[^>]+>")
+    var result = this
+    val tags = regex.findAll(this).map { it.value }
+    for (tag in tags) {
+        result = result.replace(tag, "")
+    }
+    return result
+}
+
 fun String.similarity(other: String, ignoreCase: Boolean = false): Double {
     var s1 = this
     var s2 = other

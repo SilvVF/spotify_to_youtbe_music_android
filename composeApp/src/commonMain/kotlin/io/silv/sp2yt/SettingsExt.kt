@@ -45,10 +45,10 @@ inline fun <reified T : Any> Settings.settingsMutableState(key: String, default:
     }
 }
 
-inline fun <reified T : Any> Settings.stored(key: String, default: T) = object : MutableStored<T> {
+inline fun <reified T : Any> Settings.mutableValue(key: String, default: T) = object : MutableStored<T> {
     override var value: T
-        get() = this@stored.get<T>(key) ?: default
-        set(value) = this@stored.set(key, value)
+        get() = this@mutableValue.get<T>(key) ?: default
+        set(value) = this@mutableValue.set(key, value)
 
     override fun component1(): T = value
     override fun component2(): (T) -> Unit = { v -> value = v }

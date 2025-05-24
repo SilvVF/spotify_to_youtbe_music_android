@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        appScope = object : AppScope() {
+        appGraph = object : AppGraph() {
             override val settings: ObservableSettings =
                 SharedPreferencesSettings.Factory(application).create(SETTINGS_NAME)
 

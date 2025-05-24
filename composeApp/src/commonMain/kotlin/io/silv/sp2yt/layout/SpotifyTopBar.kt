@@ -38,6 +38,7 @@ import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.Velocity
@@ -111,13 +112,6 @@ data class PosterData(
     val lastModified: Long,
     val inList: Boolean
 )
-
-object CommonEntryItemDefaults {
-    val GridHorizontalSpacer = 4.dp
-    val GridVerticalSpacer = 4.dp
-
-    const val BrowseFavoriteCoverAlpha = 0.34f
-}
 
 private val ContinueViewingButtonSize = 28.dp
 private val ContinueViewingButtonGridPadding = 6.dp
@@ -239,61 +233,6 @@ private fun BoxScope.CoverTextOverlay(
     }
 }
 
-/**
- * Layout of grid list item with title below the cover.
- */
-@Composable
-fun EntryComfortableGridItem(
-    isSelected: Boolean = false,
-    title: String,
-    onClick: () -> Unit,
-    onLongClick: () -> Unit,
-    titleMaxLines: Int = 2,
-    coverData: PosterData,
-    coverAlpha: Float = 1f,
-    coverBadgeStart: (@Composable RowScope.() -> Unit)? = null,
-    coverBadgeEnd: (@Composable RowScope.() -> Unit)? = null,
-    content: (@Composable () -> Unit)? = null,
-) {
-    GridItemSelectable(
-        isSelected = isSelected,
-        onClick = onClick,
-        onLongClick = onLongClick,
-    ) {
-        Column {
-            EntryGridCover(
-                cover = {
-                    ItemCover.Book(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .alpha(if (isSelected) GridSelectedCoverAlpha else coverAlpha),
-                        data = coverData,
-                    )
-                },
-                badgesStart = coverBadgeStart,
-                badgesEnd = coverBadgeEnd,
-                content = {
-                    if (content != null) {
-                        Box(
-                            modifier =  Modifier
-                                .padding(ContinueViewingButtonGridPadding)
-                                .align(Alignment.BottomEnd)
-                        ) {
-                            content()
-                        }
-                    }
-                },
-            )
-            GridItemTitle(
-                modifier = Modifier.padding(4.dp),
-                title = title,
-                style = MaterialTheme.typography.titleSmall,
-                minLines = 2,
-                maxLines = titleMaxLines,
-            )
-        }
-    }
-}
 
 /**
  * Common cover layout to add contents to be drawn on top of the cover.
@@ -342,72 +281,6 @@ fun BadgeGroup(
     Row(modifier = modifier.clip(shape)) {
         content()
     }
-}
-
-@Composable
-fun Badge(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.secondary,
-    textColor: Color = MaterialTheme.colorScheme.onSecondary,
-    shape: Shape = RectangleShape,
-) {
-    Text(
-        text = text,
-        modifier = modifier
-            .clip(shape)
-            .background(color)
-            .padding(horizontal = 3.dp, vertical = 1.dp),
-        color = textColor,
-        fontWeight = FontWeight.Medium,
-        maxLines = 1,
-        style = MaterialTheme.typography.bodySmall,
-    )
-}
-
-@Composable
-fun Badge(
-    imageVector: ImageVector,
-    modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.secondary,
-    iconColor: Color = MaterialTheme.colorScheme.onSecondary,
-    shape: Shape = RectangleShape,
-) {
-    val iconContentPlaceholder = "[icon]"
-    val text = buildAnnotatedString {
-        appendInlineContent(iconContentPlaceholder)
-    }
-    val inlineContent = mapOf(
-        Pair(
-            iconContentPlaceholder,
-            InlineTextContent(
-                Placeholder(
-                    width = MaterialTheme.typography.bodySmall.fontSize,
-                    height = MaterialTheme.typography.bodySmall.fontSize,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
-                ),
-            ) {
-                Icon(
-                    imageVector = imageVector,
-                    tint = iconColor,
-                    contentDescription = null,
-                )
-            },
-        ),
-    )
-
-    Text(
-        text = text,
-        inlineContent = inlineContent,
-        modifier = modifier
-            .clip(shape)
-            .background(color)
-            .padding(horizontal = 3.dp, vertical = 1.dp),
-        color = iconColor,
-        fontWeight = FontWeight.Medium,
-        maxLines = 1,
-        style = MaterialTheme.typography.bodySmall,
-    )
 }
 
 @Composable
@@ -527,30 +400,6 @@ fun EntryListItem(
     }
 }
 
-@Composable
-private fun ContinueViewingButton(
-    modifier: Modifier = Modifier,
-    onClickContinueViewing: () -> Unit,
-) {
-    Box(modifier = modifier) {
-        FilledIconButton(
-            onClick = onClickContinueViewing,
-            modifier = Modifier.size(ContinueViewingButtonSize),
-            shape = MaterialTheme.shapes.small,
-            colors = IconButtonDefaults.filledIconButtonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
-                contentColor = contentColorFor(MaterialTheme.colorScheme.primaryContainer),
-            ),
-        ) {
-//            Icon(
-//                imageVector = Icons.Filled.PlayArrow,
-//                contentDescription = "Resume",
-//                modifier = Modifier.size(16.dp),
-//            )
-        }
-    }
-}
-
 
 fun Modifier.selectedBackground(isSelected: Boolean): Modifier = if (isSelected) {
     composed {
@@ -569,8 +418,8 @@ fun Modifier.selectedBackground(isSelected: Boolean): Modifier = if (isSelected)
 fun PinnedTopBar(
     onBackPressed: () -> Unit,
     topBarState: TopBarState,
-    query: () -> String,
-    onQueryChanged: (String) -> Unit,
+    query: () -> TextFieldValue,
+    onQueryChanged: (TextFieldValue) -> Unit,
     name: String,
     colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors()
 ) {
@@ -611,8 +460,8 @@ fun PinnedTopBar(
                     placeholder = { Text("Search...") },
                     trailingIcon = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            AnimatedVisibility(visible = query.isNotEmpty()) {
-                                TextButton(onClick = { onQueryChanged("") }) {
+                            AnimatedVisibility(visible = query.text.isNotEmpty()) {
+                                TextButton(onClick = { onQueryChanged(query) }) {
                                     Text(
                                         "X"
                                     )
@@ -1223,264 +1072,4 @@ suspend fun settleBar(
         Velocity(0f, remainingVelocity)
     }
     return superConsumed
-}
-
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SpotifyTopBarLayoutFullPoster(
-    topBarState: TopBarState,
-    modifier: Modifier = Modifier,
-    gradiant: Brush = Brush.verticalGradient(
-        listOf(
-            MaterialTheme.colorScheme.primary,
-            Color.Transparent
-        )
-    ),
-    snackBarHost:  @Composable () -> Unit = {},
-    pinnedButton: @Composable () -> Unit = {},
-    search: @Composable () -> Unit = { SearchField(Modifier.padding(horizontal = 18.dp), topBarState) },
-    topAppBar: @Composable () -> Unit = { TopAppBar(title = { Text("Title") })},
-    poster: @Composable () -> Unit = {
-        Poster(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-        )
-    },
-    title: @Composable () -> Unit = {},
-    info: @Composable () -> Unit = {},
-    content: @Composable (PaddingValues) -> Unit,
-) {
-    BackHandler(topBarState.searching) {
-        topBarState.searching = false
-    }
-
-    Scaffold(
-        snackbarHost = snackBarHost,
-        modifier = modifier
-    ) { paddingValues ->
-        Layout(
-            {
-                TopBarLayout(
-                    topBarState,
-                    Modifier.background(brush = gradiant),
-                    pinnedButton,
-                    search,
-                    topAppBar,
-                    info,
-                    title,
-                    poster
-                )
-                content(
-                    PaddingValues(
-                        start = paddingValues.calculateStartPadding(LocalLayoutDirection.current),
-                        end = paddingValues.calculateEndPadding(LocalLayoutDirection.current),
-                        bottom = paddingValues.calculateBottomPadding()
-                    )
-                )
-            },
-            modifier = Modifier.fillMaxSize(),
-        ) { measurables, constraints ->
-            val topBar = measurables[0]
-
-            val tbp = topBar.measure(
-                constraints.copy(
-                    minHeight = 0,
-                    maxHeight = topBarState.maxHeightPx.roundToInt()
-                )
-            )
-            val content = measurables[1].measure(constraints.copy(
-                minHeight = 0,
-                maxHeight = (constraints.maxHeight - tbp.height).coerceAtLeast(0),
-            ))
-
-            layout(
-                constraints.maxWidth,
-                constraints.maxHeight,
-            ) {
-                tbp.place(0, 0,  1f)
-                content.place(
-                    0,
-                    tbp.height,
-                    0f
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun TopBarLayout(
-    state: TopBarState,
-    modifier: Modifier,
-    pinnedButton: @Composable () -> Unit,
-    search: @Composable () -> Unit,
-    topAppBar: @Composable () -> Unit,
-    info: @Composable () -> Unit,
-    title: @Composable () -> Unit,
-    poster: @Composable () -> Unit,
-) {
-    val inset = WindowInsets.systemBars.getTop(LocalDensity.current)
-    Layout(
-        {
-            Box(Modifier
-                .layoutId("topBar")
-            ) {
-                topAppBar()
-            }
-            Box(Modifier
-                .layoutId("title")
-            ) {
-            }
-            Column(Modifier.layoutId("info")) {
-                title()
-                info()
-            }
-            Box(Modifier.layoutId("search")) {
-                search()
-            }
-            Box(Modifier.layoutId("pinned")) {
-                pinnedButton()
-            }
-            Box(
-                Modifier
-                    .layoutId("poster")
-                    .wrapContentWidth()
-                    .graphicsLayer {
-                        alpha = lerp(
-                            0f,
-                            1f,
-                            FastOutLinearInEasing.transform(
-                                (state.fraction / 0.6f - 0.1f).coerceIn(0f..1f)
-                            )
-                        )
-                    }
-                    .clipToBounds()
-            ) {
-                poster()
-            }
-        },
-        modifier = modifier
-            .fillMaxWidth()
-            .appBarDraggable(state)
-            .height(
-                with(LocalDensity.current) { state.spaceHeightPx.toDp() }
-            )
-    ) { measurables, constraints ->
-        val searchM = measurables.first { it.layoutId == "search" }
-        val pinned = measurables.first { it.layoutId == "pinned" }
-        val posterM = measurables.first { it.layoutId == "poster" }
-        val infoM = measurables.first { it.layoutId == "info" }
-        val topBar = measurables.first { it.layoutId == "topBar" }
-        val title = measurables.first { it.layoutId == "title" }
-
-        val topBarPlaceable = topBar.measure(constraints)
-
-        val searchPlaceable = searchM.measure(
-            constraints.copy(
-                maxHeight = SearchBarHeight.roundToPx(),
-                minHeight = 0
-            )
-        )
-        val pinnedPlaceable = pinned.measure(constraints.copy(
-            minWidth = 0,
-            minHeight = 0
-        ))
-        val pinnedPadding = 14.dp.roundToPx()
-
-        val minHInfo = infoM.minIntrinsicHeight(
-            constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
-        )
-        val minHTitle = infoM.minIntrinsicHeight(
-            constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
-        )
-
-        val titlePlaceable = title.measure(
-            constraints.copy(
-                minHeight = minHTitle,
-                maxHeight = minHTitle,
-                minWidth = 0,
-                maxWidth = constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
-            )
-        )
-
-        val infoPlaceable = infoM.measure(
-            constraints.copy(
-                minHeight = minHInfo,
-                maxHeight = minHInfo,
-                minWidth = 0,
-                maxWidth = constraints.maxWidth - pinnedPlaceable.width - pinnedPadding
-            )
-        )
-
-        val searchY =
-            state.connection.appBarPinnedHeight + state.connection.appBarOffset - SearchBarHeight.toPx()
-
-        val posterMaxHeight = (constraints.maxHeight - infoPlaceable.height)
-
-        val posterMinHeight = minOf(
-            state.connection.appBarPinnedHeight
-        )
-            .coerceAtLeast(0f)
-
-        val posterPlaceable = posterM.measure(
-            constraints.copy(
-                minHeight = posterMinHeight
-                    .roundToInt()
-                    .coerceAtLeast(0),
-                maxHeight = posterMaxHeight.coerceAtLeast(posterMinHeight.roundToInt())
-            )
-        )
-
-
-        val posterY = constraints.maxHeight - posterPlaceable.height - infoPlaceable.height
-
-        val infoY = constraints.maxHeight - infoPlaceable.height
-
-        val posterOffset =  (infoY - (posterY + posterPlaceable.height)).coerceAtMost(0)
-
-        layout(constraints.maxWidth, constraints.maxHeight) {
-
-            searchPlaceable.placeRelative(
-                constraints.maxWidth / 2 - searchPlaceable.width / 2,
-                searchY.roundToInt(),
-                zIndex = 10f
-            )
-
-            posterPlaceable.placeRelative(
-                constraints.maxWidth / 2 - posterPlaceable.width / 2,
-                posterY + posterOffset
-            )
-
-            infoPlaceable.placeRelative(
-                0,
-                infoY
-            )
-
-            topBarPlaceable.placeRelative(
-                0,
-                0,
-                5f
-            )
-
-            titlePlaceable.placeRelative(
-                0,
-                constraints.maxHeight - infoPlaceable.height - titlePlaceable.height,
-                3f
-            )
-
-            if (!state.searching) {
-                pinnedPlaceable.placeRelative(
-                    constraints.maxWidth - pinnedPlaceable.width - pinnedPadding,
-                    (constraints.maxHeight - infoPlaceable.height - pinnedPlaceable.height / 2)
-                        .coerceAtLeast(
-                            TopAppBarHeight.roundToPx() + inset - pinnedPlaceable.height / 2
-                        ),
-                    10f
-                )
-            }
-        }
-    }
 }
