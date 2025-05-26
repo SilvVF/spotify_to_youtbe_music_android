@@ -34,7 +34,7 @@ import kotlin.time.ExperimentalTime
 
 class YoutubeMusicApi(
     val client: HttpClient,
-    val store: Settings,
+    store: Settings,
 ) {
     var visitorData by store.settingsMutableState<String>(Keys.YT_VISITOR, "")
 
