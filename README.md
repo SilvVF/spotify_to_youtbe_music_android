@@ -1,21 +1,22 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+# Spotify to youtube music playlist converter.
+Convert spotify playlists to youtube music playlists.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+# Setup
+1. Generate a new app at https://developer.spotify.com/dashboard
+2. input the client secret and client id in the text fields within the app.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+To sign in to youtube music hit the button which will open a webview and take the Cookie used to authenticate.
 
+All login info is stored using EncryptedSharedPreferences.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+### Libs
+- [InnerTune](https://github.com/z-huang/InnerTune): Youtube Music api implementation 
+- [spotify_to_ytmusic](https://github.com/sigma67/spotify_to_ytmusic): track scoring implementation
+- OkHttp: Http client
+- Coil: image loading
+- Kotlin Multiplatform
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
-
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+<img src="https://github.com/user-attachments/assets/216945fb-0364-4a9c-a5e4-86b7eaf3ff3f" width="360" height="780">
+<img src="https://github.com/user-attachments/assets/98a3427c-061d-4ea3-b64e-d0d812cd095d" width="360" height="780">
+<img src="https://github.com/user-attachments/assets/f9f1afc4-98e7-44d3-bad6-9d646dbf83f0" width="360" height="780">
+<img src="https://github.com/user-attachments/assets/6f8a85c9-111c-417e-b463-2b1f9d2f81e9" width="360" height="780">
