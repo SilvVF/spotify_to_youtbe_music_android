@@ -21,11 +21,15 @@ import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.request.crossfade
-import io.silv.sp2yt.ui.HomeScreen
-import io.silv.sp2yt.ui.LoginScreen
-import io.silv.sp2yt.ui.PlaylistViewScreen
-import io.silv.sp2yt.ui.SetupSpotifyScreen
+import io.silv.sp2yt.ui.home.HomeScreen
+import io.silv.sp2yt.ui.youtube_music.YoutubeLoginScreen
+import io.silv.sp2yt.ui.playlist.PlaylistViewScreen
+import io.silv.sp2yt.ui.home.homePresenter
+import io.silv.sp2yt.ui.playlist.PlaylistViewmodel
+import io.silv.sp2yt.ui.spotify.SpotifySetupScreen
+import io.silv.sp2yt.ui.spotify.spotifySetupPresenter
 import io.silv.sp2yt.ui.theme.AppTheme
+import io.silv.sp2yt.ui.youtube_music.youtubeLoginPresenter
 import kotlin.math.PI
 import kotlin.math.tan
 
@@ -62,10 +66,11 @@ fun App() {
                 startDestination = if (setupRequired) "setup" else "home"
             ) {
                 composable("home") {
+
+                    val state = homePresenter(navController)
+
                     HomeScreen(
-                        navigateToPlaylist = { type, playlistId ->
-                            navController.navigate("playlist/$type/$playlistId")
-                        },
+                        state = state,
                         navigateToYtMusicLogin = {
                             navController.navigate("login")
                         },
@@ -75,12 +80,19 @@ fun App() {
                     )
                 }
                 composable("setup") {
-                    SetupSpotifyScreen {
+                    val state = spotifySetupPresenter()
+
+                    SpotifySetupScreen(
+                        state = state
+                    ) {
                         navController.navigate("home")
                     }
                 }
                 composable("login") {
-                    LoginScreen {
+
+                    val state = youtubeLoginPresenter(appGraph.ytMusicApi)
+
+                    YoutubeLoginScreen(state) {
                         navController.popBackStack()
                     }
                 }

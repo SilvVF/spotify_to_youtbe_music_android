@@ -1,4 +1,4 @@
-package io.silv.sp2yt.ui
+package io.silv.sp2yt.ui.youtube_music
 
 import android.annotation.SuppressLint
 import android.webkit.CookieManager
@@ -19,12 +19,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import io.silv.sp2yt.appGraph
 
 @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
 @OptIn(markerClass = [ExperimentalMaterial3Api::class])
 @Composable
-actual fun LoginScreen(onBack: () -> Unit) {
+actual fun YoutubeLoginScreen(
+    state: YoutubeLoginState,
+    onBack: () -> Unit
+) {
     var webView: WebView? = null
 
     AndroidView(
@@ -36,7 +38,8 @@ actual fun LoginScreen(onBack: () -> Unit) {
                 webViewClient = object : WebViewClient() {
                     override fun doUpdateVisitedHistory(view: WebView, url: String, isReload: Boolean) {
                         if (url.startsWith("https://music.youtube.com")) {
-                            appGraph.ytMusicApi.cookie = CookieManager.getInstance().getCookie(url)
+                            state.events(YoutubeLoginEvent.SetCookie(CookieManager.getInstance().getCookie(url)))
+                            state.events(YoutubeLoginEvent.ConfirmValues)
                         }
                     }
                     override fun onPageFinished(view: WebView, url: String?) {
@@ -53,7 +56,8 @@ actual fun LoginScreen(onBack: () -> Unit) {
                     @JavascriptInterface
                     fun onRetrieveVisitorData(newVisitorData: String?) {
                         if (newVisitorData != null) {
-                            appGraph.ytMusicApi.visitorData = newVisitorData
+                            state.events(YoutubeLoginEvent.SetVisitorData(newVisitorData))
+                            state.events(YoutubeLoginEvent.ConfirmValues)
                         }
                     }
                 }, "Android")

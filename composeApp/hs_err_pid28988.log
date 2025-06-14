@@ -1,0 +1,1949 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffc6eef89c5, pid=28988, tid=27476
+#
+# JRE version: OpenJDK Runtime Environment JBR-21.0.7+9-895.130-jcef (21.0.7+9) (build 21.0.7+9-b895.130)
+# Java VM: OpenJDK 64-Bit Server VM JBR-21.0.7+9-895.130-jcef (21.0.7+9-b895.130, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# Problematic frame:
+# C  [skiko-windows-x64.dll+0xa89c5]
+#
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   https://youtrack.jetbrains.com/issues/JBR
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dcompose.reload.argfile=C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\desktopMain.argfile -Dcompose.reload.build.continuous=true -Dcompose.reload.buildSystem=Gradle -Dcompose.reload.devToolsClasspath=C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-devtools\1.0.0-alpha10\ee507b92edfc2f6d141c99fef34f72bbd6edffe6\hot-reload-devtools-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-api-jvm\1.0.0-alpha10\e784fec47791cba1a21f056aed2408a90bb72576\hot-reload-runtime-api-jvm-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-jvm\1.0.0-alpha10\19cd5339659ab9ec29090d0e6df7c3fcf6b88d5d\hot-reload-runtime-jvm-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.desktop\desktop-jvm\1.8.0\7a5516c08efe9fef2e6aa38a10e5fc17fb556148\desktop-jvm-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material3\material3-desktop\1.8.0\127c5b21d15ddb0a91765d59d02c68d69130cdd0\material3-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.components\components-resources-desktop\1.8.0\10110d785f486bc13235f40e1d0b91a48b5f3ee6\library-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.sellmair\evas-compose-jvm\1.3.0\1214dcce9040d1b9f856b02b443cf8c2ebe1573a\evas-compose-jvm-1.3.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-desktop\1.8.0\eb68e7add6287443a90854fa65af432823e8271e\material-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-ripple-desktop\1.8.0\5364a917218879742c9f08f55791adb3a7c26c8a\material-ripple-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.foundation\foundation-desktop\1.8.0\95a4ab44a0b846ca6889e76ee974abe09e940fc7\foundation-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-icons-core-desktop\1.7.3\414b3096050fe647b0638832eace80f-Dcompose.reload.devToolsEnabled=true -Dcompose.reload.devToolsTransparencyEnabled=true -Dcompose.reload.dirtyResolveDepthLimit=5 -Dcompose.reload.launchMode=GradleBlocking -Dcompose.reload.mainClass=io.silv.sp2yt.MainKt -Dcompose.reload.pidFile=C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\desktopMain.pid -Dcompose.reload.virtualMethodResolveEnabled=true -Dgradle.build.project=:composeApp -Dgradle.build.root=C:\Users\david\dev\kotlin\Sp2yt -Dgradle.build.task=hotReloadDesktopMain -Dorg.gradle.java.home=C:\Users\david\.jdks\corretto-17.0.14 -XX:+IgnoreUnrecognizedVMOptions -XX:+AllowEnhancedClassRedefinition -javaagent:C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-agent\1.0.0-alpha10\37d1bd8b8b8f9efc0f1cad3762448e2e1251cacf\hot-reload-agent-1.0.0-alpha10.jar -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant io.silv.sp2yt.MainKt
+
+Host: 13th Gen Intel(R) Core(TM) i9-13900K, 32 cores, 31G,  Windows 11 , 64 bit Build 26100 (10.0.26100.3912)
+Time: Mon May 26 00:09:57 2025 Eastern Daylight Time elapsed time: 140.070013 seconds (0d 0h 2m 20s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000027b6f9be8a0):  JavaThread "AWT-EventQueue-0"        [_thread_in_native, id=27476, stack(0x000000b9a7400000,0x000000b9a7500000) (1024K)]
+
+Stack: [0x000000b9a7400000,0x000000b9a7500000],  sp=0x000000b9a74f7ff0,  free space=991k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [skiko-windows-x64.dll+0xa89c5]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J 10804  org.jetbrains.skia.ImageKt._nMakeFromBitmap(J)J (0 bytes) @ 0x0000027b5463a199 [0x0000027b5463a140+0x0000000000000059]
+j  org.jetbrains.skia.ImageKt.access$_nMakeFromBitmap(J)J+1
+j  org.jetbrains.skia.Image$Companion.makeFromBitmap(Lorg/jetbrains/skia/Bitmap;)Lorg/jetbrains/skia/Image;+20
+j  androidx.compose.ui.graphics.SkiaBackedCanvas.drawImageRect-cI72Soc(Landroidx/compose/ui/graphics/ImageBitmap;JJJJLandroidx/compose/ui/graphics/Paint;)V+11
+j  androidx.compose.ui.graphics.SkiaBackedCanvas.drawImageRect-HPBpro0(Landroidx/compose/ui/graphics/ImageBitmap;JJJJLandroidx/compose/ui/graphics/Paint;)V+277
+j  androidx.compose.ui.graphics.drawscope.CanvasDrawScope.drawImage-AZ2fEMs(Landroidx/compose/ui/graphics/ImageBitmap;JJJJFLandroidx/compose/ui/graphics/drawscope/DrawStyle;Landroidx/compose/ui/graphics/ColorFilter;II)V+43
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawImage-AZ2fEMs(Landroidx/compose/ui/graphics/ImageBitmap;JJJJFLandroidx/compose/ui/graphics/drawscope/DrawStyle;Landroidx/compose/ui/graphics/ColorFilter;II)V+37
+j  androidx.compose.ui.graphics.drawscope.DrawScope.drawImage-AZ2fEMs$default(Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/graphics/ImageBitmap;JJJJFLandroidx/compose/ui/graphics/drawscope/DrawStyle;Landroidx/compose/ui/graphics/ColorFilter;IIILjava/lang/Object;)V+197
+j  androidx.compose.ui.graphics.painter.BitmapPainter.onDraw(Landroidx/compose/ui/graphics/drawscope/DrawScope;)V+148
+j  androidx.compose.ui.graphics.painter.Painter.draw-x_KDEd0(Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/graphics/ColorFilter;)V+485
+j  coil3.compose.AsyncImagePainter.onDraw(Landroidx/compose/ui/graphics/drawscope/DrawScope;)V+40
+j  androidx.compose.ui.graphics.painter.Painter.draw-x_KDEd0(Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/graphics/ColorFilter;)V+485
+j  coil3.compose.internal.AbstractContentPainterNode.draw(Landroidx/compose/ui/graphics/drawscope/ContentDrawScope;)V+180
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawDirect-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/node/DrawModifierNode;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+210
+j  androidx.compose.ui.node.LayoutNodeDrawScope.draw-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/Modifier$Node;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+81
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb114 [0x0000027b4c4baf80+0x0000000000000194]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17338 c1 androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (105 bytes) @ 0x0000027b4c7ed27c [0x0000027b4c7eca40+0x000000000000083c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$17(Landroidx/compose/ui/node/NodeCoordinator;)Lkotlin/Unit;+13
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a6f48.invoke()Ljava/lang/Object;+4
+J 16474 c2 androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.observe(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V (195 bytes) @ 0x0000027b5481b714 [0x0000027b5481aec0+0x0000000000000854]
+j  androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+166
+j  androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui(Landroidx/compose/ui/node/OwnerScope;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+25
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$18(Landroidx/compose/ui/node/NodeCoordinator;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)Lkotlin/Unit;+39
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a73a0.invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+16
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.recordLambda$lambda$3(Landroidx/compose/ui/platform/GraphicsLayerOwnerLayer;Landroidx/compose/ui/graphics/drawscope/DrawScope;)Lkotlin/Unit;+55
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer$$Lambda+0x0000027b014a8218.invoke(Ljava/lang/Object;)Ljava/lang/Object;+8
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record_mL_hObY$lambda$3(Landroidx/compose/ui/graphics/layer/GraphicsLayer;Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;Landroidx/compose/ui/graphics/SkiaBackedCanvas;)Lkotlin/Unit;+204
+J 17322 c1 androidx.compose.ui.graphics.layer.GraphicsLayer$$Lambda+0x0000027b014ad1d8.invoke(Ljava/lang/Object;)Ljava/lang/Object; (28 bytes) @ 0x0000027b4c4c128c [0x0000027b4c4c11c0+0x00000000000000cc]
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.recordWithTracking(Lkotlin/jvm/functions/Function1;)V+141
+J 17392 c1 androidx.compose.ui.graphics.layer.GraphicsLayer.record-mL-hObY(Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;)V (43 bytes) @ 0x0000027b4c63452c [0x0000027b4c6338a0+0x0000000000000c8c]
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.updateDisplayList()V+164
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.drawLayer(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+8
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb3a4 [0x0000027b4c7eb200+0x00000000000001a4]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$17(Landroidx/compose/ui/node/NodeCoordinator;)Lkotlin/Unit;+13
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a6f48.invoke()Ljava/lang/Object;+4
+J 16474 c2 androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.observe(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V (195 bytes) @ 0x0000027b5481b714 [0x0000027b5481aec0+0x0000000000000854]
+j  androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+166
+j  androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui(Landroidx/compose/ui/node/OwnerScope;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+25
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$18(Landroidx/compose/ui/node/NodeCoordinator;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)Lkotlin/Unit;+39
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a73a0.invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+16
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.recordLambda$lambda$3(Landroidx/compose/ui/platform/GraphicsLayerOwnerLayer;Landroidx/compose/ui/graphics/drawscope/DrawScope;)Lkotlin/Unit;+55
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer$$Lambda+0x0000027b014a8218.invoke(Ljava/lang/Object;)Ljava/lang/Object;+8
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record_mL_hObY$lambda$3(Landroidx/compose/ui/graphics/layer/GraphicsLayer;Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;Landroidx/compose/ui/graphics/SkiaBackedCanvas;)Lkotlin/Unit;+204
+J 17322 c1 androidx.compose.ui.graphics.layer.GraphicsLayer$$Lambda+0x0000027b014ad1d8.invoke(Ljava/lang/Object;)Ljava/lang/Object; (28 bytes) @ 0x0000027b4c4c128c [0x0000027b4c4c11c0+0x00000000000000cc]
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.recordWithTracking(Lkotlin/jvm/functions/Function1;)V+141
+J 17392 c1 androidx.compose.ui.graphics.layer.GraphicsLayer.record-mL-hObY(Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;)V (43 bytes) @ 0x0000027b4c63452c [0x0000027b4c6338a0+0x0000000000000c8c]
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.updateDisplayList()V+164
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.drawLayer(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+8
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb3a4 [0x0000027b4c7eb200+0x00000000000001a4]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17338 c1 androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (105 bytes) @ 0x0000027b4c7ed27c [0x0000027b4c7eca40+0x000000000000083c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb03c [0x0000027b4c4baf80+0x00000000000000bc]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+J 17357 c1 androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (40 bytes) @ 0x0000027b4c7e816c [0x0000027b4c7e7f60+0x000000000000020c]
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawContent()V+428
+j  androidx.compose.foundation.BackgroundNode.draw(Landroidx/compose/ui/graphics/drawscope/ContentDrawScope;)V+30
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawDirect-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/node/DrawModifierNode;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+210
+j  androidx.compose.ui.node.LayoutNodeDrawScope.draw-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/Modifier$Node;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+81
+J 17323 c1 androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (51 bytes) @ 0x0000027b4c4bb114 [0x0000027b4c4baf80+0x0000000000000194]
+J 17354 c1 androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V (76 bytes) @ 0x0000027b4c7eb46c [0x0000027b4c7eb200+0x000000000000026c]
+j  androidx.compose.ui.node.LayoutNode.draw$ui(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+75
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutNode.draw$ui(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+75
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutNode.draw$ui(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+75
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$17(Landroidx/compose/ui/node/NodeCoordinator;)Lkotlin/Unit;+13
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a6f48.invoke()Ljava/lang/Object;+4
+J 16474 c2 androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.observe(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V (195 bytes) @ 0x0000027b5481b714 [0x0000027b5481aec0+0x0000000000000854]
+j  androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+166
+j  androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui(Landroidx/compose/ui/node/OwnerScope;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+25
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$18(Landroidx/compose/ui/node/NodeCoordinator;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)Lkotlin/Unit;+39
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a73a0.invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+16
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.recordLambda$lambda$3(Landroidx/compose/ui/platform/GraphicsLayerOwnerLayer;Landroidx/compose/ui/graphics/drawscope/DrawScope;)Lkotlin/Unit;+55
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer$$Lambda+0x0000027b014a8218.invoke(Ljava/lang/Object;)Ljava/lang/Object;+8
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record_mL_hObY$lambda$3(Landroidx/compose/ui/graphics/layer/GraphicsLayer;Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;Landroidx/compose/ui/graphics/SkiaBackedCanvas;)Lkotlin/Unit;+204
+j  androidx.compose.ui.graphics.layer.GraphicsLayer$$Lambda+0x0000027b014ad1d8.invoke(Ljava/lang/Object;)Ljava/lang/Object;+24
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.recordWithTracking(Lkotlin/jvm/functions/Function1;)V+141
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record-mL-hObY(Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;)V+39
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.updateDisplayList()V+164
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.drawLayer(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+8
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawContent()V+428
+j  androidx.compose.foundation.BackgroundNode.draw(Landroidx/compose/ui/graphics/drawscope/ContentDrawScope;)V+30
+j  androidx.compose.ui.node.LayoutNodeDrawScope.drawDirect-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/node/DrawModifierNode;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+210
+j  androidx.compose.ui.node.LayoutNodeDrawScope.draw-eZhPAX0$ui(Landroidx/compose/ui/graphics/Canvas;JLandroidx/compose/ui/node/NodeCoordinator;Landroidx/compose/ui/Modifier$Node;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+81
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+47
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutModifierNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator.draw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+60
+j  androidx.compose.ui.node.LayoutNode.draw$ui(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+13
+j  androidx.compose.ui.node.InnerNodeCoordinator.performDraw(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+75
+j  androidx.compose.ui.node.NodeCoordinator.drawContainedDrawModifiers(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V+19
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$17(Landroidx/compose/ui/node/NodeCoordinator;)Lkotlin/Unit;+13
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a6f48.invoke()Ljava/lang/Object;+4
+J 16474 c2 androidx.compose.runtime.snapshots.SnapshotStateObserver$ObservedScopeMap.observe(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V (195 bytes) @ 0x0000027b5481c204 [0x0000027b5481aec0+0x0000000000001344]
+j  androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads(Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+166
+j  androidx.compose.ui.node.OwnerSnapshotObserver.observeReads$ui(Landroidx/compose/ui/node/OwnerScope;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V+25
+j  androidx.compose.ui.node.NodeCoordinator._get_drawBlock_$lambda$18(Landroidx/compose/ui/node/NodeCoordinator;Lkotlin/jvm/functions/Function0;Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)Lkotlin/Unit;+39
+j  androidx.compose.ui.node.NodeCoordinator$$Lambda+0x0000027b014a73a0.invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;+16
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.recordLambda$lambda$3(Landroidx/compose/ui/platform/GraphicsLayerOwnerLayer;Landroidx/compose/ui/graphics/drawscope/DrawScope;)Lkotlin/Unit;+55
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer$$Lambda+0x0000027b014a8218.invoke(Ljava/lang/Object;)Ljava/lang/Object;+8
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record_mL_hObY$lambda$3(Landroidx/compose/ui/graphics/layer/GraphicsLayer;Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;Landroidx/compose/ui/graphics/SkiaBackedCanvas;)Lkotlin/Unit;+204
+j  androidx.compose.ui.graphics.layer.GraphicsLayer$$Lambda+0x0000027b014ad1d8.invoke(Ljava/lang/Object;)Ljava/lang/Object;+24
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.recordWithTracking(Lkotlin/jvm/functions/Function1;)V+141
+j  androidx.compose.ui.graphics.layer.GraphicsLayer.record-mL-hObY(Landroidx/compose/ui/unit/Density;Landroidx/compose/ui/unit/LayoutDirection;JLkotlin/jvm/functions/Function1;)V+39
+j  androidx.compose.ui.platform.GraphicsLayerOwnerLayer.updateDisplayList()V+164
+j  androidx.compose.ui.node.RootNodeOwner$OwnedLayerManagerImpl.draw(Landroidx/compose/ui/graphics/Canvas;)V+68
+j  androidx.compose.ui.node.RootNodeOwner.draw(Landroidx/compose/ui/graphics/Canvas;)V+21
+j  androidx.compose.ui.scene.CanvasLayersComposeSceneImpl.draw(Landroidx/compose/ui/graphics/Canvas;)V+122
+j  androidx.compose.ui.scene.BaseComposeScene.render(Landroidx/compose/ui/graphics/Canvas;J)V+187
+j  androidx.compose.ui.scene.ComposeSceneMediator.onRender$lambda$20$lambda$19(Landroidx/compose/ui/scene/ComposeSceneMediator;Lorg/jetbrains/skia/Canvas;J)Lkotlin/Unit;+216
+j  androidx.compose.ui.scene.ComposeSceneMediator$$Lambda+0x0000027b0146f150.invoke()Ljava/lang/Object;+12
+j  androidx.compose.ui.viewinterop.SwingInteropContainer.postponingExecutingScheduledUpdates(Lkotlin/jvm/functions/Function0;)V+84
+j  androidx.compose.ui.scene.ComposeSceneMediator.onRender(Lorg/jetbrains/skia/Canvas;IIJ)V+30
+j  org.jetbrains.skiko.SkiaLayer.update$skiko(J)V+223
+j  org.jetbrains.skiko.redrawer.AWTRedrawer.update(J)V+57
+j  org.jetbrains.skiko.redrawer.Direct3DRedrawer$frameDispatcher$1.invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;+56
+j  org.jetbrains.skiko.redrawer.Direct3DRedrawer$frameDispatcher$1.invoke(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;+11
+j  org.jetbrains.skiko.redrawer.Direct3DRedrawer$frameDispatcher$1.invoke(Ljava/lang/Object;)Ljava/lang/Object;+5
+j  org.jetbrains.skiko.FrameDispatcher$job$1.invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;+100
+j  kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(Ljava/lang/Object;)V+40
+j  kotlinx.coroutines.DispatchedTask.run()V+301
+j  java.awt.event.InvocationEvent.dispatch()V+47 java.desktop
+j  java.awt.EventQueue.dispatchEventImpl(Ljava/awt/AWTEvent;Ljava/lang/Object;)V+21 java.desktop
+j  java.awt.EventQueue$4.run()Ljava/lang/Void;+32 java.desktop
+j  java.awt.EventQueue$4.run()Ljava/lang/Object;+1 java.desktop
+j  java.security.AccessController.executePrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;Ljava/lang/Class;)Ljava/lang/Object;+29 java.base@21.0.7
+j  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;+13 java.base@21.0.7
+j  java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;Ljava/security/AccessControlContext;)Ljava/lang/Object;+18 java.base@21.0.7
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+46 java.desktop
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)V+81 java.desktop
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+35 java.desktop
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11 java.desktop
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4 java.desktop
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3 java.desktop
+j  java.awt.EventDispatchThread.run()V+18 java.desktop
+v  ~StubRoutines::call_stub 0x0000027b5379100d
+
+siginfo: EXCEPTION_ACCESS_VIOLATION (0xc0000005), reading address 0x0000000000000000
+
+
+Registers:
+RAX=0x0000783c78860bf2, RBX=0x0000027b6e51cd40, RCX=0x000000b9a74f8048, RDX=0x0000000000000000
+RSP=0x000000b9a74f7ff0, RBP=0x000000b9a74f80c0, RSI=0x0000027b01235120, RDI=0x0000027b01200f70
+R8 =0x0000000000000000, R9 =0x0000000604f4f210, R10=0x00007ffc5c896dfe, R11=0x0000027b5463a160
+R12=0x0000000000000000, R13=0x000000b9a74f80d8, R14=0x000000b9a74f80b0, R15=0x0000027b6f9be8a0
+RIP=0x00007ffc6eef89c5, EFLAGS=0x0000000000010206
+
+XMM[0]=0x0000000000000000 0x0000000043860000
+XMM[1]=0x0000000000000000 0x000000003f800000
+XMM[2]=0x0000000000000000 0x0000000043860000
+XMM[3]=0x0000000000000000 0x0000000000000000
+XMM[4]=0x0000000000000000 0x0000000000000000
+XMM[5]=0x0000000000000000 0x0000000000000000
+XMM[6]=0x0000000000000000 0x0000000042200000
+XMM[7]=0x0000000000000000 0x0000000042200000
+XMM[8]=0x0000000000000000 0x0000000000000000
+XMM[9]=0x0000000000000000 0x0000000041000000
+XMM[10]=0x0000000000000000 0x000000002a8d668d
+XMM[11]=0x0000000000000000 0x4e35b4dfcbe97156
+XMM[12]=0x0000000000000000 0x000000007db3bc77
+XMM[13]=0x0000000000000000 0x000000060d488888
+XMM[14]=0x0000000000000000 0x0000000000000000
+XMM[15]=0x0000000000000000 0x0000000000000000
+  MXCSR=0x00001fa1
+
+
+Register to memory mapping:
+
+RAX=0x0000783c78860bf2 is an unknown value
+RBX={method} {0x0000027b6e51cd48} '_nMakeFromBitmap' '(J)J' in 'org/jetbrains/skia/ImageKt'
+RCX=0x000000b9a74f8048 is pointing into the stack for thread: 0x0000027b6f9be8a0
+RDX=0x0 is null
+RSP=0x000000b9a74f7ff0 is pointing into the stack for thread: 0x0000027b6f9be8a0
+RBP=0x000000b9a74f80c0 is pointing into the stack for thread: 0x0000027b6f9be8a0
+RSI=0x0000027b01235120 is a pointer to class: 
+androidx.compose.ui.graphics.colorspace.Connector {0x0000027b01235128}
+ - instance size:     5
+ - klass size:        70
+ - access:            public synchronized 
+ - flags:             rewritten has_nonstatic_fields should_verify_class has_localvariable_table has_final_method 
+ - state:             fully_initialized
+ - name:              'androidx/compose/ui/graphics/colorspace/Connector'
+ - super:             'java/lang/Object'
+ - sub:               'androidx/compose/ui/graphics/colorspace/Connector$RgbConnector'   'androidx/compose/ui/graphics/colorspace/Connector$Companion$identity$1'   
+ - arrays:            null
+ - methods:           Array<T>(0x0000027b6c2d78a0)
+ - method ordering:   Array<T>(0x0000027b6c2d8708)
+ - local interfaces:  Array<T>(0x0000027b00693c80)
+ - trans. interfaces: Array<T>(0x0000027b00693c80)
+ - constants:         constant pool [219] {0x0000027b6c2d7118} for 'androidx/compose/ui/graphics/colorspace/Connector' cache=0x0000027b6c2d8738
+ - class loader data:  loader data: 0x0000027b668baa40 for instance a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000006045e9f78}
+ - source file:       'Connector.kt'
+ - class annotations:       Array<T>(0x0000027b6c2d85e8)
+ - inner classes:     Array<T>(0x0000027b6c2d8680)
+ - nest members:     Array<T>(0x0000027b00693c08)
+ - permitted subclasses:     Array<T>(0x0000027b00693c08)
+ - java mirror:       a 'java/lang/Class'{0x0000000604f65980} = 'androidx/compose/ui/graphics/colorspace/Connector'
+ - vtable length      7  (start addr: 0x0000027b01235300)
+ - itable length      2 (start addr: 0x0000027b01235338)
+ - ---- static fields (1 words):
+ - public static final 'Companion' 'Landroidx/compose/ui/graphics/colorspace/Connector$Companion;' @112 
+ - ---- non-static fields (6 words):
+ - private final 'renderIntent' 'I' @12 
+ - private final 'source' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @16 
+ - private final 'destination' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @20 
+ - private final 'transformSource' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @24 
+ - private final 'transformDestination' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @28 
+ - private final 'transform' '[F' @32 
+ - non-static oop maps: 16-32 
+RDI=0x0000027b01200f70 is a pointer to class: 
+org.jetbrains.skia.Bitmap {0x0000027b01200f78}
+ - instance size:     4
+ - klass size:        88
+ - access:            public final synchronized 
+ - flags:             rewritten has_nonstatic_fields should_verify_class has_localvariable_table has_final_method 
+ - state:             fully_initialized
+ - name:              'org/jetbrains/skia/Bitmap'
+ - super:             'org/jetbrains/skia/impl/Managed'
+ - sub:               
+ - arrays:            null
+ - methods:           Array<T>(0x0000027b6c10b810)
+ - method ordering:   Array<T>(0x0000027b6c110380)
+ - local interfaces:  Array<T>(0x0000027b6c10aca0)
+ - trans. interfaces: Array<T>(0x0000027b6c10ffe0)
+ - constants:         constant pool [668] {0x0000027b6c109628} for 'org/jetbrains/skia/Bitmap' cache=0x0000027b6e520060
+ - class loader data:  loader data: 0x0000027b668baa40 for instance a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000006045e9f78}
+ - source file:       'Bitmap.kt'
+ - class annotations:       Array<T>(0x0000027b6c110188)
+ - inner classes:     Array<T>(0x0000027b6c110300)
+ - nest members:     Array<T>(0x0000027b00693c08)
+ - permitted subclasses:     Array<T>(0x0000027b00693c08)
+ - java mirror:       a 'java/lang/Class'{0x0000000604dfe7e0} = 'org/jetbrains/skia/Bitmap'
+ - vtable length      8  (start addr: 0x0000027b01201150)
+ - itable length      18 (start addr: 0x0000027b01201190)
+ - ---- static fields (1 words):
+ - public static final 'Companion' 'Lorg/jetbrains/skia/Bitmap$Companion;' @112 
+ - ---- non-static fields (4 words):
+ - private '_ptr' 'J' @16 
+ - private 'cleanable' 'Lorg/jetbrains/skia/impl/Cleanable;' @12 
+ - private '_imageInfo' 'Lorg/jetbrains/skia/ImageInfo;' @24 
+ - non-static oop maps: 12-12 24-24 
+R8 =0x0 is null
+R9 =0x0000000604f4f210 is an oop: java.lang.Class 
+{0x0000000604f4f210} - klass: 'java/lang/Class'
+ - ---- fields (total size 17 words):
+ - private volatile transient 'classRedefinedCount' 'I' @12  0 (0x00000000)
+ - injected 'klass' 'J' @16  2727323210800 (0x0000027b01219430)
+ - injected 'array_klass' 'J' @24  0 (0x0000000000000000)
+ - injected 'oop_size' 'I' @32  17 (0x00000011)
+ - injected 'static_oop_field_count' 'I' @36  2 (0x00000002)
+ - private volatile transient 'cachedConstructor' 'Ljava/lang/reflect/Constructor;' @40  null (0x00000000)
+ - private transient 'name' 'Ljava/lang/String;' @44  "org.jetbrains.skia.impl.Stats"{0x0000000604f4f2e8} (0xc09e9e5d)
+ - private transient 'module' 'Ljava/lang/Module;' @48  a 'java/lang/Module'{0x000000060460e9d8} (0xc08c1d3b)
+ - private final 'classLoader' 'Ljava/lang/ClassLoader;' @52  a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000006045e9f78} (0xc08bd3ef)
+ - private transient 'classData' 'Ljava/lang/Object;' @56  null (0x00000000)
+ - private transient 'packageName' 'Ljava/lang/String;' @60  "org.jetbrains.skia.impl"{0x0000000604db4d60} (0xc09b69ac)
+ - private final 'componentType' 'Ljava/lang/Class;' @64  null (0x00000000)
+ - private volatile transient 'reflectionData' 'Ljava/lang/ref/SoftReference;' @68  null (0x00000000)
+ - private volatile transient 'genericInfo' 'Lsun/reflect/generics/repository/ClassRepository;' @72  null (0x00000000)
+ - private volatile transient 'enumConstants' '[Ljava/lang/Object;' @76  null (0x00000000)
+ - private volatile transient 'enumConstantDirectory' 'Ljava/util/Map;' @80  null (0x00000000)
+ - private volatile transient 'annotationData' 'Ljava/lang/Class$AnnotationData;' @84  null (0x00000000)
+ - private volatile transient 'annotationType' 'Lsun/reflect/annotation/AnnotationType;' @88  null (0x00000000)
+ - transient 'classValueMap' 'Ljava/lang/ClassValue$ClassValueMap;' @92  null (0x00000000)
+ - injected 'protection_domain' 'Ljava/lang/Object;' @96  a 'java/security/ProtectionDomain'{0x0000000604c0dbc8} (0xc0981b79)
+ - injected 'signers_name' 'Ljava/lang/Object;' @100  null (0x00000000)
+ - injected 'source_file' 'Ljava/lang/Object;' @104  null (0x00000000)
+ - injected '<init_lock>' 'Ljava/lang/Object;' @108  null (0x00000000)
+ - signature: Lorg/jetbrains/skia/impl/Stats;
+ - ---- static fields (2):
+ - public static final 'INSTANCE' 'Lorg/jetbrains/skia/impl/Stats;' @112  a 'org/jetbrains/skia/impl/Stats'{0x0000000604f4f2d8} (0xc09e9e5b)
+ - private static 'enabled' 'Z' @128  false (0x00)
+ - private static 'nativeCalls' 'J' @120  0 (0x0000000000000000)
+ - private static 'allocated' 'Ljava/util/Map;' @116  a 'java/util/concurrent/ConcurrentHashMap'{0x0000000604f4f298} (0xc09e9e53)
+R10=0x00007ffc5c896dfe jvm.dll::DTraceMethodProbes + 0x0
+R11=0x0000027b5463a160 is at entry_point+32 in (nmethod*)0x0000027b54639f90
+Compiled method (n/a) 140110 10804     n 0       org.jetbrains.skia.ImageKt::_nMakeFromBitmap (native)
+ total in heap  [0x0000027b54639f90,0x0000027b5463a378] = 1000
+ relocation     [0x0000027b5463a0f0,0x0000027b5463a128] = 56
+ main code      [0x0000027b5463a140,0x0000027b5463a36c] = 556
+ stub code      [0x0000027b5463a36c,0x0000027b5463a370] = 4
+ oops           [0x0000027b5463a370,0x0000027b5463a378] = 8
+R12=0x0 is null
+R13=0x000000b9a74f80d8 is pointing into the stack for thread: 0x0000027b6f9be8a0
+R14=0x000000b9a74f80b0 is pointing into the stack for thread: 0x0000027b6f9be8a0
+R15=0x0000027b6f9be8a0 is a thread
+
+Top of Stack: (sp=0x000000b9a74f7ff0)
+0x000000b9a74f7ff0:   00000000ffffffff 0000000000000000
+0x000000b9a74f8000:   0000000000000004 000000b9a74f80a0
+0x000000b9a74f8010:   0000027b01235120 00007ffc6ee5d0b0
+0x000000b9a74f8020:   000000b9a74f80a0 0000027b6f9be8a0
+0x000000b9a74f8030:   000000b9a74f80a0 0000027b53f81600
+0x000000b9a74f8040:   00007ffc5be2c49b 0000027b6f9be8a0
+0x000000b9a74f8050:   0000783c78860bf2 0000027b5463a230
+0x000000b9a74f8060:   0000027b6f9be8a0 0000000000000001
+0x000000b9a74f8070:   0000000604f633c8 0000000604f633c8
+0x000000b9a74f8080:   0000000000000000 0000000000000000
+0x000000b9a74f8090:   0000027b6f9be8a0 000000b9a74fa210
+0x000000b9a74f80a0:   0000027b6c270348 00007ffc6eeb4767
+0x000000b9a74f80b0:   00000006053dac48 0000000000000004
+0x000000b9a74f80c0:   000000b9a74f8130 0000027b5379893e
+0x000000b9a74f80d0:   0000027b5379893e 0000000000000000
+0x000000b9a74f80e0:   0000000000000000 000000b9a74f80e8
+0x000000b9a74f80f0:   0000027b6e51da49 0000000000000003
+0x000000b9a74f8100:   0000027b6e51e688 0000027b6e702fb0
+0x000000b9a74f8110:   00000006053dac48 0000027b6e51da60
+0x000000b9a74f8120:   000000b9a74f80d8 000000b9a74f8140
+0x000000b9a74f8130:   000000b9a74f8198 0000027b5379893e
+0x000000b9a74f8140:   0000000000000000 0000000000000000
+0x000000b9a74f8150:   000000b9a74f8150 0000027b6e51b144
+0x000000b9a74f8160:   0000000000000005 0000027b6e51b740
+0x000000b9a74f8170:   0000027b6e7028e8 00000006053db1d0
+0x000000b9a74f8180:   0000027b6e51b1d8 000000b9a74f8140
+0x000000b9a74f8190:   000000b9a74f81b8 000000b9a74f8210
+0x000000b9a74f81a0:   0000027b537989d2 0000000000000000
+0x000000b9a74f81b0:   0000000000000000 00000006053cc100
+0x000000b9a74f81c0:   00000006053e31a8 000000b9a74f81c8
+0x000000b9a74f81d0:   0000027b6d3f1d73 0000000000000019
+0x000000b9a74f81e0:   0000027b6d3f3c50 0000027b6e7021e0 
+
+Instructions: (pc=0x00007ffc6eef89c5)
+0x00007ffc6eef88c5:   11 99 00 48 89 07 4c 8d 77 40 4c 89 f1 e8 19 21
+0x00007ffc6eef88d5:   fb ff 4d 8b 47 20 4c 89 f1 48 89 da e8 fa 25 fb
+0x00007ffc6eef88e5:   ff 4c 89 7c 24 30 48 8d 54 24 30 4c 89 f1 45 31
+0x00007ffc6eef88f5:   c0 45 31 c9 e8 c2 29 fb ff c6 47 78 01 48 89 3e
+0x00007ffc6eef8905:   48 8b 4c 24 28 48 85 c9 74 15 f0 ff 49 08 75 0f
+0x00007ffc6eef8915:   48 8b 01 ff 50 08 eb 07 48 c7 06 00 00 00 00 48
+0x00007ffc6eef8925:   8b 4c 24 38 48 31 e1 e8 8f a7 89 00 48 89 f0 48
+0x00007ffc6eef8935:   83 c4 40 5b 5f 5e 41 5e 41 5f c3 56 57 48 83 ec
+0x00007ffc6eef8945:   28 89 d7 48 89 ce 48 8d 05 0e 11 99 00 48 89 01
+0x00007ffc6eef8955:   48 83 c1 40 e8 92 21 fb ff 48 89 f1 e8 9a d5 0b
+0x00007ffc6eef8965:   00 85 ff 74 08 48 89 f1 e8 56 c1 89 00 48 89 f0
+0x00007ffc6eef8975:   48 83 c4 28 5f 5e c3 cc cc cc cc 56 57 48 83 ec
+0x00007ffc6eef8985:   28 48 89 d6 48 89 cf 48 8d 51 58 48 89 f1 e8 88
+0x00007ffc6eef8995:   5a fb ff 48 8b 47 68 48 89 46 10 48 89 f0 48 83
+0x00007ffc6eef89a5:   c4 28 5f 5e c3 cc cc cc cc cc cc b8 03 00 00 00
+0x00007ffc6eef89b5:   c3 cc cc cc cc cc cc cc cc cc cc 56 48 83 ec 20
+0x00007ffc6eef89c5:   48 83 3a 00 74 10 48 89 ce 45 31 c0 e8 aa 83 0a
+0x00007ffc6eef89d5:   00 48 89 f0 eb 0a 48 c7 01 00 00 00 00 48 89 c8
+0x00007ffc6eef89e5:   48 83 c4 20 5e c3 cc cc cc cc cc 56 48 83 ec 20
+0x00007ffc6eef89f5:   48 89 ce 45 31 c0 e8 10 00 00 00 48 89 f0 48 83
+0x00007ffc6eef8a05:   c4 20 5e c3 cc cc cc cc cc cc cc 41 57 41 56 56
+0x00007ffc6eef8a15:   57 53 48 83 ec 50 44 89 c7 49 89 d6 48 89 ce 48
+0x00007ffc6eef8a25:   8b 05 9d 17 b1 00 48 31 e0 48 89 44 24 48 48 8b
+0x00007ffc6eef8a35:   52 08 49 8d 5e 10 4c 8d 44 24 38 48 89 d9 e8 78
+0x00007ffc6eef8a45:   01 00 00 84 c0 74 76 49 8b 16 48 85 d2 74 6e 4c
+0x00007ffc6eef8a55:   8b 44 24 38 48 8d 4c 24 30 e8 5d 40 fc ff 4d 8b
+0x00007ffc6eef8a65:   76 08 b9 70 00 00 00 e8 d3 a1 89 00 49 89 c7 48
+0x00007ffc6eef8a75:   8b 44 24 30 48 c7 44 24 30 00 00 00 00 48 89 44
+0x00007ffc6eef8a85:   24 40 89 7c 24 20 4c 8d 44 24 40 4c 89 f9 48 89
+0x00007ffc6eef8a95:   da 4d 89 f1 e8 62 7a 0a 00 4c 89 3e 48 8b 7c 24
+0x00007ffc6eef8aa5:   30 48 85 ff 74 1e f0 ff 0f 75 19 48 89 f9 e8 48
+0x00007ffc6eef8ab5:   3d fc ff 48 89 f9 e8 e0 3d fc ff eb 07 48 c7 06 
+
+
+Stack slot to memory mapping:
+
+stack at sp + 0 slots: 0x00000000ffffffff is an unknown value
+stack at sp + 1 slots: 0x0 is null
+stack at sp + 2 slots: 0x0000000000000004 is an unknown value
+stack at sp + 3 slots: 0x000000b9a74f80a0 is pointing into the stack for thread: 0x0000027b6f9be8a0
+stack at sp + 4 slots: 0x0000027b01235120 is a pointer to class: 
+androidx.compose.ui.graphics.colorspace.Connector {0x0000027b01235128}
+ - instance size:     5
+ - klass size:        70
+ - access:            public synchronized 
+ - flags:             rewritten has_nonstatic_fields should_verify_class has_localvariable_table has_final_method 
+ - state:             fully_initialized
+ - name:              'androidx/compose/ui/graphics/colorspace/Connector'
+ - super:             'java/lang/Object'
+ - sub:               'androidx/compose/ui/graphics/colorspace/Connector$RgbConnector'   'androidx/compose/ui/graphics/colorspace/Connector$Companion$identity$1'   
+ - arrays:            null
+ - methods:           Array<T>(0x0000027b6c2d78a0)
+ - method ordering:   Array<T>(0x0000027b6c2d8708)
+ - local interfaces:  Array<T>(0x0000027b00693c80)
+ - trans. interfaces: Array<T>(0x0000027b00693c80)
+ - constants:         constant pool [219] {0x0000027b6c2d7118} for 'androidx/compose/ui/graphics/colorspace/Connector' cache=0x0000027b6c2d8738
+ - class loader data:  loader data: 0x0000027b668baa40 for instance a 'jdk/internal/loader/ClassLoaders$AppClassLoader'{0x00000006045e9f78}
+ - source file:       'Connector.kt'
+ - class annotations:       Array<T>(0x0000027b6c2d85e8)
+ - inner classes:     Array<T>(0x0000027b6c2d8680)
+ - nest members:     Array<T>(0x0000027b00693c08)
+ - permitted subclasses:     Array<T>(0x0000027b00693c08)
+ - java mirror:       a 'java/lang/Class'{0x0000000604f65980} = 'androidx/compose/ui/graphics/colorspace/Connector'
+ - vtable length      7  (start addr: 0x0000027b01235300)
+ - itable length      2 (start addr: 0x0000027b01235338)
+ - ---- static fields (1 words):
+ - public static final 'Companion' 'Landroidx/compose/ui/graphics/colorspace/Connector$Companion;' @112 
+ - ---- non-static fields (6 words):
+ - private final 'renderIntent' 'I' @12 
+ - private final 'source' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @16 
+ - private final 'destination' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @20 
+ - private final 'transformSource' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @24 
+ - private final 'transformDestination' 'Landroidx/compose/ui/graphics/colorspace/ColorSpace;' @28 
+ - private final 'transform' '[F' @32 
+ - non-static oop maps: 16-32 
+stack at sp + 5 slots: 0x00007ffc6ee5d0b0 skiko-windows-x64.dll
+stack at sp + 6 slots: 0x000000b9a74f80a0 is pointing into the stack for thread: 0x0000027b6f9be8a0
+stack at sp + 7 slots: 0x0000027b6f9be8a0 is a thread
+
+
+Compiled method (n/a) 140120 10804     n 0       org.jetbrains.skia.ImageKt::_nMakeFromBitmap (native)
+ total in heap  [0x0000027b54639f90,0x0000027b5463a378] = 1000
+ relocation     [0x0000027b5463a0f0,0x0000027b5463a128] = 56
+ main code      [0x0000027b5463a140,0x0000027b5463a36c] = 556
+ stub code      [0x0000027b5463a36c,0x0000027b5463a370] = 4
+ oops           [0x0000027b5463a370,0x0000027b5463a378] = 8
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000027b6e51cd48} '_nMakeFromBitmap' '(J)J' in 'org/jetbrains/skia/ImageKt'
+  # parm0:    rdx:rdx   = long
+  #           [sp+0x70]  (sp of caller)
+  0x0000027b5463a140: 448b 5208 | 49bb 0000 | 0000 7b02 | 0000 4d03 | d349 3bc2 | 0f84 0600 
+
+  0x0000027b5463a158: ;   {runtime_call ic_miss_stub}
+  0x0000027b5463a158: 0000 e921 | 461a ff90 
+[Verified Entry Point]
+  0x0000027b5463a160: 8984 2400 | 80ff ff55 | 488b ec48 | 83ec 6090 | 4181 7f20 | 0c00 0000 
+
+  0x0000027b5463a178: ;   {runtime_call StubRoutines (final stubs)}
+  0x0000027b5463a178: 7405 e8e1 | ab18 ff4c 
+
+  0x0000027b5463a180: ;   {oop(a 'java/lang/Class'{0x00000006053dac48} = 'org/jetbrains/skia/ImageKt')}
+  0x0000027b5463a180: 8bc2 49be | 48ac 3d05 | 0600 0000 | 4c89 7424 | 504c 8d74 | 2450 498b | d6c5 f877 
+
+  0x0000027b5463a19c: ;   {internal_word}
+  0x0000027b5463a19c: 49ba 99a1 | 6354 7b02 | 0000 4d89 | 97a0 0300 | 0049 89a7 | 9803 0000 
+
+  0x0000027b5463a1b4: ;   {external_word}
+  0x0000027b5463a1b4: 49ba fe6d | 895c fc7f | 0000 4180 | 3a00 0f84 | 4a00 0000 
+
+  0x0000027b5463a1c8: ;   {metadata({method} {0x0000027b6e51cd48} '_nMakeFromBitmap' '(J)J' in 'org/jetbrains/skia/ImageKt')}
+  0x0000027b5463a1c8: 5241 5048 | ba40 cd51 | 6e7b 0200 | 0049 8bcf | 4883 ec20 | 40f6 c40f | 0f84 1900 | 0000 4883 
+  0x0000027b5463a1e8: ;   {runtime_call SharedRuntime::dtrace_method_exit}
+  0x0000027b5463a1e8: ec08 48b8 | 60d3 325c | fc7f 0000 | ffd0 4883 | c408 e90c 
+
+  0x0000027b5463a1fc: ;   {runtime_call SharedRuntime::dtrace_method_exit}
+  0x0000027b5463a1fc: 0000 0048 | b860 d332 | 5cfc 7f00 | 00ff d048 | 83c4 2041 | 585a 498d | 8fb8 0300 | 0041 c787 
+  0x0000027b5463a21c: 4404 0000 | 0400 0000 
+
+  0x0000027b5463a224: ;   {runtime_call}
+  0x0000027b5463a224: 48b8 90d0 | e56e fc7f | 0000 ffd0 | c5f8 7741 | c787 4404 | 0000 0500 | 0000 f083 | 4424 c000 
+  0x0000027b5463a244: 493b af48 | 0400 000f | 870e 0000 | 0041 83bf | 4004 0000 | 000f 842b | 0000 00c5 | f877 4889 
+  0x0000027b5463a264: 45f8 498b | cf4c 8be4 | 4883 ec20 | 4883 e4f0 
+
+  0x0000027b5463a274: ;   {runtime_call JavaThread::check_special_condition_for_native_trans}
+  0x0000027b5463a274: 48b8 10c8 | fd5b fc7f | 0000 ffd0 | 498b e44d | 33e4 488b | 45f8 41c7 | 8744 0400 | 0008 0000 
+  0x0000027b5463a294: 0041 83bf | c004 0000 | 020f 849c 
+
+  0x0000027b5463a2a0: ;   {external_word}
+  0x0000027b5463a2a0: 0000 0049 | bafe 6d89 | 5cfc 7f00 | 0041 803a | 000f 844c | 0000 0048 
+
+  0x0000027b5463a2b8: ;   {metadata({method} {0x0000027b6e51cd48} '_nMakeFromBitmap' '(J)J' in 'org/jetbrains/skia/ImageKt')}
+  0x0000027b5463a2b8: 8945 f848 | ba40 cd51 | 6e7b 0200 | 0049 8bcf | 4883 ec20 | 40f6 c40f | 0f84 1900 | 0000 4883 
+  0x0000027b5463a2d8: ;   {runtime_call SharedRuntime::dtrace_method_exit}
+  0x0000027b5463a2d8: ec08 48b8 | 60d3 325c | fc7f 0000 | ffd0 4883 | c408 e90c 
+
+  0x0000027b5463a2ec: ;   {runtime_call SharedRuntime::dtrace_method_exit}
+  0x0000027b5463a2ec: 0000 0048 | b860 d332 | 5cfc 7f00 | 00ff d048 | 83c4 2048 | 8b45 f849 | c787 9803 | 0000 0000 
+  0x0000027b5463a30c: 0000 49c7 | 87a0 0300 | 0000 0000 | 00c5 f877 | 498b 8f28 | 0400 00c7 | 8100 0100 | 0000 0000 
+  0x0000027b5463a32c: 00c9 4983 | 7f08 000f | 8501 0000 
+
+  0x0000027b5463a338: ;   {runtime_call StubRoutines (initial stubs)}
+  0x0000027b5463a338: 00c3 e9c1 | 6b15 ffc5 | f877 4889 | 45f8 4c8b | e448 83ec | 2048 83e4 
+
+  0x0000027b5463a350: ;   {runtime_call SharedRuntime::reguard_yellow_pages}
+  0x0000027b5463a350: f048 b800 | 0b33 5cfc | 7f00 00ff | d049 8be4 | 4d33 e448 | 8b45 f8e9 | 37ff ffff 
+[Stub Code]
+  0x0000027b5463a36c: f4f4 f4f4 
+[/MachCode]
+
+
+Compiled method (c1) 140124 17323       2       androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers (51 bytes)
+ total in heap  [0x0000027b4c4bad90,0x0000027b4c4bb430] = 1696
+ relocation     [0x0000027b4c4baef0,0x0000027b4c4baf78] = 136
+ main code      [0x0000027b4c4baf80,0x0000027b4c4bb1c0] = 576
+ stub code      [0x0000027b4c4bb1c0,0x0000027b4c4bb248] = 136
+ oops           [0x0000027b4c4bb248,0x0000027b4c4bb250] = 8
+ metadata       [0x0000027b4c4bb250,0x0000027b4c4bb2a8] = 88
+ scopes data    [0x0000027b4c4bb2a8,0x0000027b4c4bb330] = 136
+ scopes pcs     [0x0000027b4c4bb330,0x0000027b4c4bb3f0] = 192
+ dependencies   [0x0000027b4c4bb3f0,0x0000027b4c4bb410] = 32
+ nul chk table  [0x0000027b4c4bb410,0x0000027b4c4bb430] = 32
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000027b6c241fe0} 'drawContainedDrawModifiers' '(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V' in 'androidx/compose/ui/node/NodeCoordinator'
+  # this:     rdx:rdx   = 'androidx/compose/ui/node/NodeCoordinator'
+  # parm0:    r8:r8     = 'androidx/compose/ui/graphics/Canvas'
+  # parm1:    r9:r9     = 'androidx/compose/ui/graphics/layer/GraphicsLayer'
+  #           [sp+0xb0]  (sp of caller)
+  0x0000027b4c4baf80: 448b 5208 | 49bb 0000 | 0000 7b02 | 0000 4d03 | d34c 3bd0 
+
+  0x0000027b4c4baf94: ;   {runtime_call ic_miss_stub}
+  0x0000027b4c4baf94: 0f85 e637 | 3207 660f | 1f44 0000 
+[Verified Entry Point]
+  0x0000027b4c4bafa0: 8984 2400 | 80ff ff55 | 4881 eca0 | 0000 0090 | 4181 7f20 | 0c00 0000 
+
+  0x0000027b4c4bafb8: ;   {runtime_call StubRoutines (final stubs)}
+  0x0000027b4c4bafb8: 7405 e8a1 | 9d30 0748 | 8994 2480 | 0000 004c | 8944 2470 | 4c89 4c24 | 7848 be38 | 7352 6d7b 
+  0x0000027b4c4bafd8: 0200 008b | 7e08 83c7 | 0289 7e08 | 81e7 fe0f | 0000 85ff | 0f84 4001 | 0000 41b8 | 0400 0000 
+  0x0000027b4c4baff8: 488b fa48 
+
+  0x0000027b4c4baffc: ;   {optimized virtual_call}
+  0x0000027b4c4baffc: 8bd7 90e8 
+
+  0x0000027b4c4bb000: ; ImmutableOopMap {[112]=Oop [120]=Oop [128]=Oop }
+                      ;*invokevirtual head-H91voCI {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@8 (line 446)
+  0x0000027b4c4bb000: fce4 3200 
+
+  0x0000027b4c4bb004: ;   {other}
+  0x0000027b4c4bb004: 0f1f 8400 | 7402 0000 | 4885 c00f | 8545 0000 | 004c 8b44 | 2470 4c8b | 4c24 7848 | 8b94 2480 
+  0x0000027b4c4bb024: 0000 0066 | 0f1f 4400 | 0048 b8ff | ffff ffff 
+
+  0x0000027b4c4bb034: ;   {virtual_call}
+  0x0000027b4c4bb034: ffff ffe8 
+
+  0x0000027b4c4bb038: ; ImmutableOopMap {}
+                      ;*invokevirtual performDraw {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@19 (line 448)
+  0x0000027b4c4bb038: 6419 3207 
+
+  0x0000027b4c4bb03c: ;   {other}
+  0x0000027b4c4bb03c: 0f1f 8400 | ac02 0001 | 4881 c4a0 | 0000 005d 
+
+  0x0000027b4c4bb04c: ;   {poll_return}
+  0x0000027b4c4bb04c: 493b a748 | 0400 000f | 87fa 0000 | 00c3 4889 | 8424 8800 | 0000 488b | 9424 8000 | 0000 8b72 
+  0x0000027b4c4bb06c: 5848 c1e6 | 0348 3b06 
+
+  0x0000027b4c4bb074: ;   {static_call}
+  0x0000027b4c4bb074: 488b d6e8 
+
+  0x0000027b4c4bb078: ; ImmutableOopMap {[112]=Oop [120]=Oop [128]=Oop [136]=Oop }
+                      ;*invokestatic requireOwner {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.LayoutNode::getMDrawScope$ui@1 (line 821)
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@29 (line 450)
+  0x0000027b4c4bb078: a473 fd00 
+
+  0x0000027b4c4bb07c: ;   {other}
+  0x0000027b4c4bb07c: 0f1f 8400 | ec02 0002 | 4885 c00f | 8428 0000 
+
+  0x0000027b4c4bb08c: ;   {metadata('androidx/compose/ui/node/RootNodeOwner$OwnerImpl')}
+  0x0000027b4c4bb08c: 0048 bb78 | 1822 017b | 0200 008b | 7008 49ba | 0000 0000 | 7b02 0000 | 4903 f248 | 3bde 0f85 
+  0x0000027b4c4bb0ac: be00 0000 | e900 0000 | 0048 8bd0 
+
+  0x0000027b4c4bb0b8: ; implicit exception: dispatches to 0x0000027b4c4bb173
+  0x0000027b4c4bb0b8: 8b70 1848 | c1e6 0348 | 8b94 2480 | 0000 0048 | 8b7a 1048 | 8bd7 4889 | b424 9000 
+
+  0x0000027b4c4bb0d4: ;   {static_call}
+  0x0000027b4c4bb0d4: 0000 90e8 
+
+  0x0000027b4c4bb0d8: ; ImmutableOopMap {[112]=Oop [120]=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokestatic toSize-ozmzZPI {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@41 (line 451)
+  0x0000027b4c4bb0d8: c4d5 0300 
+
+  0x0000027b4c4bb0dc: ;   {other}
+  0x0000027b4c4bb0dc: 0f1f 8400 | 4c03 0003 | 488b 9424 | 9000 0000 
+
+  0x0000027b4c4bb0ec: ; implicit exception: dispatches to 0x0000027b4c4bb178
+  0x0000027b4c4bb0ec: 483b 024c | 8b44 2470 | 4c8b c848 | 8bbc 2480 | 0000 0048 | 8bb4 2488 | 0000 0048 | 8b4c 2478 
+  0x0000027b4c4bb10c: ;   {optimized virtual_call}
+  0x0000027b4c4bb10c: 6666 90e8 
+
+  0x0000027b4c4bb110: ; ImmutableOopMap {}
+                      ;*invokevirtual draw-eZhPAX0$ui {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@47 (line 451)
+  0x0000027b4c4bb110: ed00 0000 
+
+  0x0000027b4c4bb114: ;   {other}
+  0x0000027b4c4bb114: 0f1f 8400 | 8403 0004 | 4881 c4a0 | 0000 005d 
+
+  0x0000027b4c4bb124: ;   {poll_return}
+  0x0000027b4c4bb124: 493b a748 | 0400 000f | 874c 0000 
+
+  0x0000027b4c4bb130: ;   {metadata({method} {0x0000027b6c241fe0} 'drawContainedDrawModifiers' '(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V' in 'androidx/compose/ui/node/NodeCoordinator')}
+  0x0000027b4c4bb130: 00c3 49ba | d81f 246c | 7b02 0000 | 4c89 5424 | 0848 c704 | 24ff ffff 
+
+  0x0000027b4c4bb148: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000027b4c4bb148: ffe8 b200 
+
+  0x0000027b4c4bb14c: ; ImmutableOopMap {rdx=Oop r8=Oop r9=Oop [112]=Oop [120]=Oop [128]=Oop }
+                      ;*synchronization entry
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@-1 (line 446)
+  0x0000027b4c4bb14c: 3f07 e99f 
+
+  0x0000027b4c4bb150: ;   {internal_word}
+  0x0000027b4c4bb150: feff ff49 | ba4c b04b | 4c7b 0200 | 004d 8997 | 6004 0000 
+
+  0x0000027b4c4bb164: ;   {runtime_call SafepointBlob}
+  0x0000027b4c4bb164: e997 a532 
+
+  0x0000027b4c4bb168: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c4bb168: 07e8 129c 
+
+  0x0000027b4c4bb16c: ; ImmutableOopMap {rdx=Oop rsi=Oop [112]=Oop [120]=Oop [128]=Oop [136]=Oop }
+                      ;*invokevirtual getMDrawScope$ui {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@29 (line 450)
+                      ;   {runtime_call throw_incompatible_class_change_error Runtime1 stub}
+  0x0000027b4c4bb16c: 3e07 e88d 
+
+  0x0000027b4c4bb170: ; ImmutableOopMap {rax=Oop [112]=Oop [120]=Oop [128]=Oop [136]=Oop }
+                      ;*invokeinterface getSharedDrawScope {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.LayoutNode::getMDrawScope$ui@4 (line 821)
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@29 (line 450)
+                      ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c4bb170: d63e 07e8 
+
+  0x0000027b4c4bb174: ; ImmutableOopMap {[112]=Oop [120]=Oop [128]=Oop [136]=Oop }
+                      ;*invokeinterface getSharedDrawScope {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.LayoutNode::getMDrawScope$ui@4 (line 821)
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@29 (line 450)
+  0x0000027b4c4bb174: 089c 3e07 
+
+  0x0000027b4c4bb178: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c4bb178: e803 9c3e 
+
+  0x0000027b4c4bb17c: ; ImmutableOopMap {rdx=Oop [112]=Oop [120]=Oop [128]=Oop [136]=Oop }
+                      ;*invokevirtual draw-eZhPAX0$ui {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::drawContainedDrawModifiers@47 (line 451)
+                      ;   {internal_word}
+  0x0000027b4c4bb17c: 0749 ba24 | b14b 4c7b | 0200 004d | 8997 6004 
+
+  0x0000027b4c4bb18c: ;   {runtime_call SafepointBlob}
+  0x0000027b4c4bb18c: 0000 e96d | a532 0749 | 8b87 f804 | 0000 49c7 | 87f8 0400 | 0000 0000 | 0049 c787 | 0005 0000 
+  0x0000027b4c4bb1ac: 0000 0000 | 4881 c4a0 | 0000 005d 
+
+  0x0000027b4c4bb1b8: ;   {runtime_call unwind_exception Runtime1 stub}
+  0x0000027b4c4bb1b8: e9c3 8c3e | 07f4 f4f4 
+[Stub Code]
+  0x0000027b4c4bb1c0: ;   {no_reloc}
+  0x0000027b4c4bb1c0: 0f1f 4400 
+
+  0x0000027b4c4bb1c4: ;   {static_stub}
+  0x0000027b4c4bb1c4: 0048 bb00 | 0000 0000 
+
+  0x0000027b4c4bb1cc: ;   {runtime_call nmethod}
+  0x0000027b4c4bb1cc: 0000 00e9 | fbff ffff 
+
+  0x0000027b4c4bb1d4: ;   {static_stub}
+  0x0000027b4c4bb1d4: 48bb 48e8 | 236c 7b02 
+
+  0x0000027b4c4bb1dc: ;   {runtime_call I2C/C2I adapters}
+  0x0000027b4c4bb1dc: 0000 e984 
+
+  0x0000027b4c4bb1e0: ;   {static_stub}
+  0x0000027b4c4bb1e0: 8b32 0748 | bb00 0000 | 0000 0000 
+
+  0x0000027b4c4bb1ec: ;   {runtime_call nmethod}
+  0x0000027b4c4bb1ec: 00e9 fbff 
+
+  0x0000027b4c4bb1f0: ;   {static_stub}
+  0x0000027b4c4bb1f0: ffff 48bb | 0000 0000 | 0000 0000 
+
+  0x0000027b4c4bb1fc: ;   {runtime_call nmethod}
+  0x0000027b4c4bb1fc: e9fb ffff 
+
+  0x0000027b4c4bb200: ;   {static_stub}
+  0x0000027b4c4bb200: ff48 bbf0 | d930 6c7b 
+
+  0x0000027b4c4bb208: ;   {runtime_call I2C/C2I adapters}
+  0x0000027b4c4bb208: 0200 00e9 | 678d 4807 
+[Exception Handler]
+  0x0000027b4c4bb210: ;   {runtime_call handle_exception_from_callee Runtime1 stub}
+  0x0000027b4c4bb210: e8eb cc3e 
+
+  0x0000027b4c4bb214: ;   {external_word}
+  0x0000027b4c4bb214: 0748 b910 | 645f 5cfc | 7f00 0048 
+
+  0x0000027b4c4bb220: ;   {runtime_call MacroAssembler::debug64}
+  0x0000027b4c4bb220: 83e4 f048 | b830 a321 | 5cfc 7f00 | 00ff d0f4 
+[Deopt Handler Code]
+  0x0000027b4c4bb230: ;   {section_word}
+  0x0000027b4c4bb230: 49ba 30b2 | 4b4c 7b02 | 0000 4152 
+
+  0x0000027b4c4bb23c: ;   {runtime_call DeoptimizationBlob}
+  0x0000027b4c4bb23c: e95f 9732 | 07f4 f4f4 | f4f4 f4f4 
+[/MachCode]
+
+
+Compiled method (c1) 140127 17354       2       androidx.compose.ui.node.NodeCoordinator::draw (76 bytes)
+ total in heap  [0x0000027b4c7eaf90,0x0000027b4c7eb9b8] = 2600
+ relocation     [0x0000027b4c7eb0f0,0x0000027b4c7eb1e8] = 248
+ main code      [0x0000027b4c7eb200,0x0000027b4c7eb610] = 1040
+ stub code      [0x0000027b4c7eb610,0x0000027b4c7eb6e0] = 208
+ oops           [0x0000027b4c7eb6e0,0x0000027b4c7eb6f0] = 16
+ metadata       [0x0000027b4c7eb6f0,0x0000027b4c7eb748] = 88
+ scopes data    [0x0000027b4c7eb748,0x0000027b4c7eb838] = 240
+ scopes pcs     [0x0000027b4c7eb838,0x0000027b4c7eb978] = 320
+ dependencies   [0x0000027b4c7eb978,0x0000027b4c7eb998] = 32
+ nul chk table  [0x0000027b4c7eb998,0x0000027b4c7eb9b8] = 32
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x0000027b6c241e98} 'draw' '(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V' in 'androidx/compose/ui/node/NodeCoordinator'
+  # this:     rdx:rdx   = 'androidx/compose/ui/node/NodeCoordinator'
+  # parm0:    r8:r8     = 'androidx/compose/ui/graphics/Canvas'
+  # parm1:    r9:r9     = 'androidx/compose/ui/graphics/layer/GraphicsLayer'
+  #           [sp+0xc0]  (sp of caller)
+  0x0000027b4c7eb200: 448b 5208 | 49bb 0000 | 0000 7b02 | 0000 4d03 | d34c 3bd0 
+
+  0x0000027b4c7eb214: ;   {runtime_call ic_miss_stub}
+  0x0000027b4c7eb214: 0f85 6635 | ff06 660f | 1f44 0000 
+[Verified Entry Point]
+  0x0000027b4c7eb220: 8984 2400 | 80ff ff55 | 4881 ecb0 | 0000 0090 | 4181 7f20 | 0c00 0000 
+
+  0x0000027b4c7eb238: ;   {runtime_call StubRoutines (final stubs)}
+  0x0000027b4c7eb238: 7405 e821 | 9bfd 0648 | 8994 2480 | 0000 004c | 8984 2488 | 0000 004c | 898c 2490 | 0000 0048 
+  0x0000027b4c7eb258: bed8 7252 | 6d7b 0200 | 008b 7e08 | 83c7 0289 | 7e08 81e7 | fe0f 0000 | 85ff 0f84 | de02 0000 
+  0x0000027b4c7eb278: 4d85 c00f | 85bb 0000 | 000f 1f80 | 0000 0000 
+
+  0x0000027b4c7eb288: ;   {no_reloc}
+  0x0000027b4c7eb288: e9f9 0200 | 0000 0000 | 0000 498b | 87b8 0100 | 0048 8d78 | 3049 3bbf | c801 0000 | 0f87 e602 
+  0x0000027b4c7eb2a8: 0000 4989 | bfb8 0100 | 0048 c700 | 0100 0000 | 488b ca49 | ba00 0000 | 007b 0200 | 0049 2bca 
+  0x0000027b4c7eb2c8: 8948 0848 | 33c9 8948 | 0c48 33c9 | 4889 4810 | 4889 4818 | 4889 4820 | 4889 4828 
+
+  0x0000027b4c7eb2e4: ;   {oop("canvas"{0x0000000604dfe9b8})}
+  0x0000027b4c7eb2e4: 48ba b8e9 | df04 0600 | 0000 4889 | 4424 780f 
+
+  0x0000027b4c7eb2f4: ;   {static_call}
+  0x0000027b4c7eb2f4: 1f40 00e8 
+
+  0x0000027b4c7eb2f8: ; ImmutableOopMap {[120]=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokestatic createParameterIsNullExceptionMessage {reexecute=0 rethrow=0 return_oop=0}
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@5 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb2f8: 843d ff06 
+
+  0x0000027b4c7eb2fc: ;   {other}
+  0x0000027b4c7eb2fc: 0f1f 8400 | 6c03 0000 | 4c8b c048 | 8b54 2478 
+
+  0x0000027b4c7eb30c: ;   {optimized virtual_call}
+  0x0000027b4c7eb30c: 6666 90e8 
+
+  0x0000027b4c7eb310: ; ImmutableOopMap {[120]=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokespecial <init> {reexecute=0 rethrow=0 return_oop=0}
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@8 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb310: 6c37 ff06 
+
+  0x0000027b4c7eb314: ;   {other}
+  0x0000027b4c7eb314: 0f1f 8400 | 8403 0001 
+
+  0x0000027b4c7eb31c: ;   {oop(a 'java/lang/Class'{0x00000006047a8678} = 'kotlin/jvm/internal/Intrinsics')}
+  0x0000027b4c7eb31c: 49b8 7886 | 7a04 0600 | 0000 418b | 702c 48c1 | e603 4885 | f60f 84ab | 0100 00e9 | c301 0000 
+  0x0000027b4c7eb33c: 8bb2 9000 | 0000 48c1 | e603 4885 | f60f 8473 | 0000 0048 | 85f6 0f84 | 2900 0000 
+
+  0x0000027b4c7eb358: ;   {metadata('androidx/compose/ui/platform/GraphicsLayerOwnerLayer')}
+  0x0000027b4c7eb358: 48bf e877 | 4a01 7b02 | 0000 448b | 4e08 49ba | 0000 0000 | 7b02 0000 | 4d03 ca49 | 3bf9 0f85 
+  0x0000027b4c7eb378: 2602 0000 | e900 0000 | 004c 8bc6 
+
+  0x0000027b4c7eb384: ; implicit exception: dispatches to 0x0000027b4c7eb5a7
+  0x0000027b4c7eb384: 483b 064c | 8b84 2488 | 0000 004c | 8b8c 2490 | 0000 0048 | 8bd6 0f1f 
+
+  0x0000027b4c7eb39c: ;   {optimized virtual_call}
+  0x0000027b4c7eb39c: 4400 00e8 
+
+  0x0000027b4c7eb3a0: ; ImmutableOopMap {}
+                      ;*invokeinterface drawLayer {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@19 (line 435)
+  0x0000027b4c7eb3a0: 7102 0000 
+
+  0x0000027b4c7eb3a4: ;   {other}
+  0x0000027b4c7eb3a4: 0f1f 8400 | 1404 0002 | 4881 c4b0 | 0000 005d 
+
+  0x0000027b4c7eb3b4: ;   {poll_return}
+  0x0000027b4c7eb3b4: 493b a748 | 0400 000f | 87eb 0100 | 00c3 488b | 7248 488b | d666 0f1f 
+
+  0x0000027b4c7eb3cc: ;   {static_call}
+  0x0000027b4c7eb3cc: 4400 00e8 
+
+  0x0000027b4c7eb3d0: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokestatic getX-impl {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@31 (line 437)
+  0x0000027b4c7eb3d0: 2ca1 8c07 
+
+  0x0000027b4c7eb3d4: ;   {other}
+  0x0000027b4c7eb3d4: 0f1f 8400 | 4404 0003 | c5fa 2ac0 | 488b 9424 | 8000 0000 | 488b 7248 | 488b d6c5 | fa11 8424 
+  0x0000027b4c7eb3f4: 9800 0000 | 0f1f 8000 
+
+  0x0000027b4c7eb3fc: ;   {static_call}
+  0x0000027b4c7eb3fc: 0000 00e8 
+
+  0x0000027b4c7eb400: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokestatic getY-impl {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@41 (line 438)
+  0x0000027b4c7eb400: fca6 8c07 
+
+  0x0000027b4c7eb404: ;   {other}
+  0x0000027b4c7eb404: 0f1f 8400 | 7404 0004 | c5ea 2ad0 | c5fa 1084 | 2498 0000 | 00c5 f828 | ca48 8b94 | 2488 0000 
+  0x0000027b4c7eb424: 00c5 fa11 | 9424 9c00 | 0000 0f1f | 8000 0000 | 0048 b8ff | ffff ffff 
+
+  0x0000027b4c7eb43c: ;   {virtual_call}
+  0x0000027b4c7eb43c: ffff ffe8 
+
+  0x0000027b4c7eb440: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokeinterface translate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@52 (line 439)
+  0x0000027b4c7eb440: 1c18 ff06 
+
+  0x0000027b4c7eb444: ;   {other}
+  0x0000027b4c7eb444: 0f1f 8400 | b404 0005 | 4c8b 8424 | 8800 0000 | 4c8b 8c24 | 9000 0000 | 488b 9424 | 8000 0000 
+  0x0000027b4c7eb464: ;   {optimized virtual_call}
+  0x0000027b4c7eb464: 6666 90e8 
+
+  0x0000027b4c7eb468: ; ImmutableOopMap {[136]=Oop }
+                      ;*invokespecial drawContainedDrawModifiers {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@60 (line 440)
+  0x0000027b4c7eb468: 34fb ccff 
+
+  0x0000027b4c7eb46c: ;   {other}
+  0x0000027b4c7eb46c: 0f1f 8400 | dc04 0006 | c5fa 1084 | 2498 0000 
+
+  0x0000027b4c7eb47c: ;   {external_word}
+  0x0000027b4c7eb47c: 0049 bab0 | 8788 5cfc | 7f00 00c4 | c178 5702 | c5fa 1094 | 249c 0000 | 00c5 f828 
+
+  0x0000027b4c7eb498: ;   {external_word}
+  0x0000027b4c7eb498: ca49 bab0 | 8788 5cfc | 7f00 00c4 | c170 570a | 488b 9424 | 8800 0000 | 0f1f 4400 | 0048 b8ff 
+  0x0000027b4c7eb4b8: ffff ffff 
+
+  0x0000027b4c7eb4bc: ;   {virtual_call}
+  0x0000027b4c7eb4bc: ffff ffe8 
+
+  0x0000027b4c7eb4c0: ; ImmutableOopMap {}
+                      ;*invokeinterface translate {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@70 (line 441)
+  0x0000027b4c7eb4c0: 5c17 ff06 
+
+  0x0000027b4c7eb4c4: ;   {other}
+  0x0000027b4c7eb4c4: 0f1f 8400 | 3405 0007 | 4881 c4b0 | 0000 005d 
+
+  0x0000027b4c7eb4d4: ;   {poll_return}
+  0x0000027b4c7eb4d4: 493b a748 | 0400 000f | 87e1 0000 
+
+  0x0000027b4c7eb4e0: ;   {oop(a 'java/lang/Class'{0x00000006047a8678} = 'kotlin/jvm/internal/Intrinsics')}
+  0x0000027b4c7eb4e0: 00c3 48ba | 7886 7a04 | 0600 0000 
+
+  0x0000027b4c7eb4ec: ;   {optimized virtual_call}
+  0x0000027b4c7eb4ec: 6666 90e8 
+
+  0x0000027b4c7eb4f0: ; ImmutableOopMap {[120]=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokevirtual initClassName {reexecute=0 rethrow=0 return_oop=0}
+                      ; - java.lang.Class::getName@14 (line 948)
+                      ; - kotlin.jvm.internal.Intrinsics::sanitizeStackTrace@3 (line 253)
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@11 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb4f0: 8c35 ff06 
+
+  0x0000027b4c7eb4f4: ;   {other}
+  0x0000027b4c7eb4f4: 0f1f 8400 | 6405 0008 | 488b f048 | 8b44 2478 | 488b d04c | 8bc6 0f1f 
+
+  0x0000027b4c7eb50c: ;   {static_call}
+  0x0000027b4c7eb50c: 4400 00e8 
+
+  0x0000027b4c7eb510: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*invokestatic sanitizeStackTrace {reexecute=0 rethrow=0 return_oop=0}
+                      ; - kotlin.jvm.internal.Intrinsics::sanitizeStackTrace@6 (line 253)
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@11 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb510: 6c3b ff06 
+
+  0x0000027b4c7eb514: ;   {other}
+  0x0000027b4c7eb514: 0f1f 8400 | 8405 0009 | 4885 c00f | 8429 0000 
+
+  0x0000027b4c7eb524: ;   {metadata('java/lang/NullPointerException')}
+  0x0000027b4c7eb524: 0048 bbc8 | bf07 007b | 0200 008b | 7808 49ba | 0000 0000 | 7b02 0000 | 4903 fa48 | 3b5f 500f 
+  0x0000027b4c7eb544: 858f 0000 | 00e9 0000 | 0000 483b | 00e9 ad00 
+
+  0x0000027b4c7eb554: ;   {metadata({method} {0x0000027b6c241e98} 'draw' '(Landroidx/compose/ui/graphics/Canvas;Landroidx/compose/ui/graphics/layer/GraphicsLayer;)V' in 'androidx/compose/ui/node/NodeCoordinator')}
+  0x0000027b4c7eb554: 0000 49ba | 901e 246c | 7b02 0000 | 4c89 5424 | 0848 c704 | 24ff ffff 
+
+  0x0000027b4c7eb56c: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x0000027b4c7eb56c: ffe8 8efc 
+
+  0x0000027b4c7eb570: ; ImmutableOopMap {rdx=Oop r8=Oop r9=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*synchronization entry
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@-1
+  0x0000027b4c7eb570: 0b07 e901 
+
+  0x0000027b4c7eb574: ;   {metadata(nullptr)}
+  0x0000027b4c7eb574: fdff ff48 | ba00 0000 | 0000 0000 | 00b8 000f 
+
+  0x0000027b4c7eb584: ;   {runtime_call load_klass_patching Runtime1 stub}
+  0x0000027b4c7eb584: 050a e8f5 
+
+  0x0000027b4c7eb588: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*new {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@0 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb588: eb0b 07e9 | f8fc ffff 
+
+  0x0000027b4c7eb590: ;   {runtime_call fast_new_instance Runtime1 stub}
+  0x0000027b4c7eb590: 488b d2e8 
+
+  0x0000027b4c7eb594: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*new {reexecute=0 rethrow=0 return_oop=0}
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@0 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb594: e8a0 0b07 | e947 fdff 
+
+  0x0000027b4c7eb59c: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c7eb59c: ffe8 de97 
+
+  0x0000027b4c7eb5a0: ; ImmutableOopMap {[120]=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*getfield name {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.lang.Class::getName@1 (line 947)
+                      ; - kotlin.jvm.internal.Intrinsics::sanitizeStackTrace@3 (line 253)
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@11 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+                      ;   {runtime_call throw_incompatible_class_change_error Runtime1 stub}
+  0x0000027b4c7eb5a0: 0b07 e859 
+
+  0x0000027b4c7eb5a4: ; ImmutableOopMap {rsi=Oop [136]=Oop [144]=Oop }
+                      ;*invokeinterface drawLayer {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@19 (line 435)
+                      ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c7eb5a4: d20b 07e8 
+
+  0x0000027b4c7eb5a8: ; ImmutableOopMap {rsi=Oop [136]=Oop [144]=Oop }
+                      ;*invokeinterface drawLayer {reexecute=0 rethrow=0 return_oop=0}
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@19 (line 435)
+  0x0000027b4c7eb5a8: d497 0b07 
+
+  0x0000027b4c7eb5ac: ;   {internal_word}
+  0x0000027b4c7eb5ac: 49ba b4b3 | 7e4c 7b02 | 0000 4d89 | 9760 0400 
+
+  0x0000027b4c7eb5bc: ;   {runtime_call SafepointBlob}
+  0x0000027b4c7eb5bc: 00e9 3ea1 
+
+  0x0000027b4c7eb5c0: ;   {internal_word}
+  0x0000027b4c7eb5c0: ff06 49ba | d4b4 7e4c | 7b02 0000 | 4d89 9760 
+
+  0x0000027b4c7eb5d0: ;   {runtime_call SafepointBlob}
+  0x0000027b4c7eb5d0: 0400 00e9 | 28a1 ff06 | 4889 0424 
+
+  0x0000027b4c7eb5dc: ;   {runtime_call throw_class_cast_exception Runtime1 stub}
+  0x0000027b4c7eb5dc: e81f cf0b 
+
+  0x0000027b4c7eb5e0: ; ImmutableOopMap {[128]=Oop [136]=Oop [144]=Oop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@14 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+                      ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x0000027b4c7eb5e0: 07e8 9a97 
+
+  0x0000027b4c7eb5e4: ; ImmutableOopMap {rax=Oop [128]=Oop [136]=Oop [144]=Oop }
+                      ;*athrow {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) kotlin.jvm.internal.Intrinsics::throwParameterIsNullNPE@17 (line 140)
+                      ; - kotlin.jvm.internal.Intrinsics::checkNotNullParameter@5 (line 131)
+                      ; - androidx.compose.ui.node.NodeCoordinator::draw@4
+  0x0000027b4c7eb5e4: 0b07 498b | 87f8 0400 | 0049 c787 | f804 0000 | 0000 0000 | 49c7 8700 | 0500 0000 | 0000 0048 
+  0x0000027b4c7eb604: 81c4 b000 
+
+  0x0000027b4c7eb608: ;   {runtime_call unwind_exception Runtime1 stub}
+  0x0000027b4c7eb608: 0000 5de9 | 7088 0b07 
+[Stub Code]
+  0x0000027b4c7eb610: ;   {no_reloc}
+  0x0000027b4c7eb610: 0f1f 4400 
+
+  0x0000027b4c7eb614: ;   {static_stub}
+  0x0000027b4c7eb614: 0048 bbd0 | 454e 6d7b 
+
+  0x0000027b4c7eb61c: ;   {runtime_call I2C/C2I adapters}
+  0x0000027b4c7eb61c: 0200 00e9 | 47f7 fe06 
+
+  0x0000027b4c7eb624: ;   {static_stub}
+  0x0000027b4c7eb624: 9048 bb00 | 0000 0000 
+
+  0x0000027b4c7eb62c: ;   {runtime_call nmethod}
+  0x0000027b4c7eb62c: 0000 00e9 | fbff ffff 
+
+  0x0000027b4c7eb634: ;   {static_stub}
+  0x0000027b4c7eb634: 9048 bb00 | 0000 0000 
+
+  0x0000027b4c7eb63c: ;   {runtime_call nmethod}
+  0x0000027b4c7eb63c: 0000 00e9 | fbff ffff 
+
+  0x0000027b4c7eb644: ;   {static_stub}
+  0x0000027b4c7eb644: 48bb 0000 | 0000 0000 
+
+  0x0000027b4c7eb64c: ;   {runtime_call nmethod}
+  0x0000027b4c7eb64c: 0000 e9fb 
+
+  0x0000027b4c7eb650: ;   {static_stub}
+  0x0000027b4c7eb650: ffff ff48 | bb00 0000 | 0000 0000 
+
+  0x0000027b4c7eb65c: ;   {runtime_call nmethod}
+  0x0000027b4c7eb65c: 00e9 fbff 
+
+  0x0000027b4c7eb660: ;   {static_stub}
+  0x0000027b4c7eb660: ffff 48bb | 0000 0000 | 0000 0000 
+
+  0x0000027b4c7eb66c: ;   {runtime_call nmethod}
+  0x0000027b4c7eb66c: e9fb ffff 
+
+  0x0000027b4c7eb670: ;   {static_stub}
+  0x0000027b4c7eb670: ff48 bb00 | 0000 0000 
+
+  0x0000027b4c7eb678: ;   {runtime_call nmethod}
+  0x0000027b4c7eb678: 0000 00e9 | fbff ffff 
+
+  0x0000027b4c7eb680: ;   {static_stub}
+  0x0000027b4c7eb680: 48bb 0000 | 0000 0000 
+
+  0x0000027b4c7eb688: ;   {runtime_call nmethod}
+  0x0000027b4c7eb688: 0000 e9fb 
+
+  0x0000027b4c7eb68c: ;   {static_stub}
+  0x0000027b4c7eb68c: ffff ff48 | bb00 0000 | 0000 0000 
+
+  0x0000027b4c7eb698: ;   {runtime_call nmethod}
+  0x0000027b4c7eb698: 00e9 fbff 
+
+  0x0000027b4c7eb69c: ;   {static_stub}
+  0x0000027b4c7eb69c: ffff 48bb | 0000 0000 | 0000 0000 
+
+  0x0000027b4c7eb6a8: ;   {runtime_call nmethod}
+  0x0000027b4c7eb6a8: e9fb ffff 
+
+  0x0000027b4c7eb6ac: ;   {runtime_call handle_exception_from_callee Runtime1 stub}
+  0x0000027b4c7eb6ac: ffe8 4ec8 
+
+  0x0000027b4c7eb6b0: ;   {external_word}
+  0x0000027b4c7eb6b0: 0b07 48b9 | 1064 5f5c | fc7f 0000 | 4883 e4f0 
+
+  0x0000027b4c7eb6c0: ;   {runtime_call MacroAssembler::debug64}
+  0x0000027b4c7eb6c0: 48b8 30a3 | 215c fc7f | 0000 ffd0 
+
+  0x0000027b4c7eb6cc: ;   {section_word}
+  0x0000027b4c7eb6cc: f449 bacd | b67e 4c7b | 0200 0041 
+
+  0x0000027b4c7eb6d8: ;   {runtime_call DeoptimizationBlob}
+  0x0000027b4c7eb6d8: 52e9 c292 | ff06 f4f4 
+[/MachCode]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000027b7f079180, length=72, elements={
+0x0000027b47f367a0, 0x0000027b66895210, 0x0000027b66897c70, 0x0000027b6689a7d0,
+0x0000027b6689b220, 0x0000027b6689bda0, 0x0000027b6689c920, 0x0000027b6689d7d0,
+0x0000027b6689e260, 0x0000027b6a3c0800, 0x0000027b6ae0e770, 0x0000027b6f11fcb0,
+0x0000027b6f090080, 0x0000027b6f3af2b0, 0x0000027b6f3afd10, 0x0000027b6f3b0b80,
+0x0000027b6f26d380, 0x0000027b6f9bfc50, 0x0000027b6f9bf5c0, 0x0000027b6f9c02e0,
+0x0000027b6f9be8a0, 0x0000027b6f9c0970, 0x0000027b6f9c1000, 0x0000027b6f9be210,
+0x0000027b70abf580, 0x0000027b70abe860, 0x0000027b70abfc10, 0x0000027b70abeef0,
+0x0000027b70abd4b0, 0x0000027b7e422c80, 0x0000027b7e4239a0, 0x0000027b7e424030,
+0x0000027b7e4246c0, 0x0000027b6fa38150, 0x0000027b6fa3a8b0, 0x0000027b6fa3b5d0,
+0x0000027b6fa3af40, 0x0000027b80d71480, 0x0000027b80d70760, 0x0000027b80d73550,
+0x0000027b80d74f90, 0x0000027b80d721a0, 0x0000027b80d797c0, 0x0000027b80d76340,
+0x0000027b80d79e50, 0x0000027b80d7a4e0, 0x0000027b82396700, 0x0000027b82397ab0,
+0x0000027b82396070, 0x0000027b8239af30, 0x0000027b8239b5c0, 0x0000027b8239a8a0,
+0x0000027b82398140, 0x0000027b823987d0, 0x0000027b82399b80, 0x0000027b8239e3b0,
+0x0000027b8239f0d0, 0x0000027b8239ea40, 0x0000027b8346ebb0, 0x0000027b7e6c2820,
+0x0000027b7e6bff40, 0x0000027b7e6c4a30, 0x0000027b7e6c3c90, 0x0000027b7e6c13b0,
+0x0000027b7e6c5100, 0x0000027b7e6c5ea0, 0x0000027b7e6c7310, 0x0000027b7e6c6c40,
+0x0000027b813ab4c0, 0x0000027b813ac930, 0x0000027b813ae470, 0x0000027b813aeb40
+}
+
+Java Threads: ( => current thread )
+  0x0000027b47f367a0 JavaThread "main"                              [_thread_blocked, id=26996, stack(0x000000b9a4400000,0x000000b9a4500000) (1024K)]
+  0x0000027b66895210 JavaThread "Reference Handler"          daemon [_thread_blocked, id=21688, stack(0x000000b9a4c00000,0x000000b9a4d00000) (1024K)]
+  0x0000027b66897c70 JavaThread "Finalizer"                  daemon [_thread_blocked, id=28628, stack(0x000000b9a4d00000,0x000000b9a4e00000) (1024K)]
+  0x0000027b6689a7d0 JavaThread "Signal Dispatcher"          daemon [_thread_blocked, id=23484, stack(0x000000b9a4e00000,0x000000b9a4f00000) (1024K)]
+  0x0000027b6689b220 JavaThread "Attach Listener"            daemon [_thread_blocked, id=5552, stack(0x000000b9a4f00000,0x000000b9a5000000) (1024K)]
+  0x0000027b6689bda0 JavaThread "Service Thread"             daemon [_thread_blocked, id=14980, stack(0x000000b9a5000000,0x000000b9a5100000) (1024K)]
+  0x0000027b6689c920 JavaThread "Monitor Deflation Thread"   daemon [_thread_blocked, id=28840, stack(0x000000b9a5100000,0x000000b9a5200000) (1024K)]
+  0x0000027b6689d7d0 JavaThread "C2 CompilerThread0"         daemon [_thread_blocked, id=28184, stack(0x000000b9a5200000,0x000000b9a5300000) (1024K)]
+  0x0000027b6689e260 JavaThread "C1 CompilerThread0"         daemon [_thread_blocked, id=6348, stack(0x000000b9a5300000,0x000000b9a5400000) (1024K)]
+  0x0000027b6a3c0800 JavaThread "Common-Cleaner"             daemon [_thread_blocked, id=28420, stack(0x000000b9a5500000,0x000000b9a5600000) (1024K)]
+  0x0000027b6ae0e770 JavaThread "Orchestration Server"       daemon [_thread_in_native, id=25324, stack(0x000000b9a5c00000,0x000000b9a5d00000) (1024K)]
+  0x0000027b6f11fcb0 JavaThread "Orchestration Main"         daemon [_thread_blocked, id=29388, stack(0x000000b9a5d00000,0x000000b9a5e00000) (1024K)]
+  0x0000027b6f090080 JavaThread "Compose Hot Reload: Logger"        [_thread_blocked, id=14628, stack(0x000000b9a5e00000,0x000000b9a5f00000) (1024K)]
+  0x0000027b6f3af2b0 JavaThread "DevTools: Stdout"           daemon [_thread_in_native, id=17972, stack(0x000000b9a5f00000,0x000000b9a6000000) (1024K)]
+  0x0000027b6f3afd10 JavaThread "DevTools: Stderr"           daemon [_thread_in_native, id=24648, stack(0x000000b9a6000000,0x000000b9a6100000) (1024K)]
+  0x0000027b6f3b0b80 JavaThread "Notification Thread"        daemon [_thread_blocked, id=27932, stack(0x000000b9a6100000,0x000000b9a6200000) (1024K)]
+  0x0000027b6f26d380 JavaThread "Compose Runtime Analyzer"   daemon [_thread_blocked, id=13784, stack(0x000000b9a6d00000,0x000000b9a6e00000) (1024K)]
+  0x0000027b6f9bfc50 JavaThread "Java2D Disposer"            daemon [_thread_blocked, id=3476, stack(0x000000b9a7100000,0x000000b9a7200000) (1024K)]
+  0x0000027b6f9bf5c0 JavaThread "AWT-Shutdown"                      [_thread_blocked, id=23912, stack(0x000000b9a7200000,0x000000b9a7300000) (1024K)]
+  0x0000027b6f9c02e0 JavaThread "AWT-Windows"                daemon [_thread_in_native, id=25932, stack(0x000000b9a7300000,0x000000b9a7400000) (1024K)]
+=>0x0000027b6f9be8a0 JavaThread "AWT-EventQueue-0"                  [_thread_in_native, id=27476, stack(0x000000b9a7400000,0x000000b9a7500000) (1024K)]
+  0x0000027b6f9c0970 JavaThread "Orchestration Client Reader" daemon [_thread_in_native, id=26580, stack(0x000000b9a7500000,0x000000b9a7600000) (1024K)]
+  0x0000027b6f9c1000 JavaThread "Orchestration Client Writer (/127.0.0.1:36673)" daemon [_thread_blocked, id=2068, stack(0x000000b9a7600000,0x000000b9a7700000) (1024K)]
+  0x0000027b6f9be210 JavaThread "DefaultDispatcher-worker-1" daemon [_thread_blocked, id=18940, stack(0x000000b9a7700000,0x000000b9a7800000) (1024K)]
+  0x0000027b70abf580 JavaThread "DefaultDispatcher-worker-2" daemon [_thread_blocked, id=20620, stack(0x000000b9a7800000,0x000000b9a7900000) (1024K)]
+  0x0000027b70abe860 JavaThread "DefaultDispatcher-worker-3" daemon [_thread_blocked, id=12132, stack(0x000000b9a7900000,0x000000b9a7a00000) (1024K)]
+  0x0000027b70abfc10 JavaThread "kotlinx.coroutines.DefaultExecutor" daemon [_thread_blocked, id=17916, stack(0x000000b9a7a00000,0x000000b9a7b00000) (1024K)]
+  0x0000027b70abeef0 JavaThread "Reference Cleaner"          daemon [_thread_blocked, id=21972, stack(0x000000b9a7b00000,0x000000b9a7c00000) (1024K)]
+  0x0000027b70abd4b0 JavaThread "TimerQueue"                 daemon [_thread_blocked, id=24840, stack(0x000000b9a7c00000,0x000000b9a7d00000) (1024K)]
+  0x0000027b7e422c80 JavaThread "DefaultDispatcher-worker-4" daemon [_thread_blocked, id=24664, stack(0x000000b9a9c00000,0x000000b9a9d00000) (1024K)]
+  0x0000027b7e4239a0 JavaThread "DefaultDispatcher-worker-6" daemon [_thread_blocked, id=19580, stack(0x000000b9a9e00000,0x000000b9a9f00000) (1024K)]
+  0x0000027b7e424030 JavaThread "DefaultDispatcher-worker-7" daemon [_thread_blocked, id=24992, stack(0x000000b9a9f00000,0x000000b9aa000000) (1024K)]
+  0x0000027b7e4246c0 JavaThread "DefaultDispatcher-worker-8" daemon [_thread_blocked, id=18672, stack(0x000000b9aa000000,0x000000b9aa100000) (1024K)]
+  0x0000027b6fa38150 JavaThread "DefaultDispatcher-worker-10" daemon [_thread_blocked, id=11112, stack(0x000000b9aa200000,0x000000b9aa300000) (1024K)]
+  0x0000027b6fa3a8b0 JavaThread "DefaultDispatcher-worker-13" daemon [_thread_blocked, id=20920, stack(0x000000b9aa500000,0x000000b9aa600000) (1024K)]
+  0x0000027b6fa3b5d0 JavaThread "DefaultDispatcher-worker-15" daemon [_thread_in_native, id=6376, stack(0x000000b9aa700000,0x000000b9aa800000) (1024K)]
+  0x0000027b6fa3af40 JavaThread "DefaultDispatcher-worker-16" daemon [_thread_blocked, id=18408, stack(0x000000b9aa800000,0x000000b9aa900000) (1024K)]
+  0x0000027b80d71480 JavaThread "DefaultDispatcher-worker-29" daemon [_thread_blocked, id=596, stack(0x000000b9ab500000,0x000000b9ab600000) (1024K)]
+  0x0000027b80d70760 JavaThread "DefaultDispatcher-worker-25" daemon [_thread_blocked, id=8932, stack(0x000000b9abb00000,0x000000b9abc00000) (1024K)]
+  0x0000027b80d73550 JavaThread "DefaultDispatcher-worker-31" daemon [_thread_blocked, id=640, stack(0x000000b9abc00000,0x000000b9abd00000) (1024K)]
+  0x0000027b80d74f90 JavaThread "DefaultDispatcher-worker-24" daemon [_thread_blocked, id=15548, stack(0x000000b9abf00000,0x000000b9ac000000) (1024K)]
+  0x0000027b80d721a0 JavaThread "DefaultDispatcher-worker-23" daemon [_thread_blocked, id=21980, stack(0x000000b9ac000000,0x000000b9ac100000) (1024K)]
+  0x0000027b80d797c0 JavaThread "DefaultDispatcher-worker-9" daemon [_thread_blocked, id=24968, stack(0x000000b9ac500000,0x000000b9ac600000) (1024K)]
+  0x0000027b80d76340 JavaThread "DefaultDispatcher-worker-5" daemon [_thread_blocked, id=1744, stack(0x000000b9ac600000,0x000000b9ac700000) (1024K)]
+  0x0000027b80d79e50 JavaThread "DefaultDispatcher-worker-21" daemon [_thread_blocked, id=20348, stack(0x000000b9ac700000,0x000000b9ac800000) (1024K)]
+  0x0000027b80d7a4e0 JavaThread "DefaultDispatcher-worker-18" daemon [_thread_blocked, id=19952, stack(0x000000b9ac800000,0x000000b9ac900000) (1024K)]
+  0x0000027b82396700 JavaThread "DefaultDispatcher-worker-22" daemon [_thread_blocked, id=18108, stack(0x000000b9ad900000,0x000000b9ada00000) (1024K)]
+  0x0000027b82397ab0 JavaThread "DefaultDispatcher-worker-19" daemon [_thread_blocked, id=26608, stack(0x000000b9ada00000,0x000000b9adb00000) (1024K)]
+  0x0000027b82396070 JavaThread "DefaultDispatcher-worker-11" daemon [_thread_blocked, id=27964, stack(0x000000b9adb00000,0x000000b9adc00000) (1024K)]
+  0x0000027b8239af30 JavaThread "DefaultDispatcher-worker-27" daemon [_thread_blocked, id=26132, stack(0x000000b9adc00000,0x000000b9add00000) (1024K)]
+  0x0000027b8239b5c0 JavaThread "DefaultDispatcher-worker-28" daemon [_thread_blocked, id=9920, stack(0x000000b9add00000,0x000000b9ade00000) (1024K)]
+  0x0000027b8239a8a0 JavaThread "DefaultDispatcher-worker-14" daemon [_thread_blocked, id=3160, stack(0x000000b9ade00000,0x000000b9adf00000) (1024K)]
+  0x0000027b82398140 JavaThread "DefaultDispatcher-worker-30" daemon [_thread_blocked, id=15916, stack(0x000000b9adf00000,0x000000b9ae000000) (1024K)]
+  0x0000027b823987d0 JavaThread "DefaultDispatcher-worker-20" daemon [_thread_blocked, id=2712, stack(0x000000b9ae100000,0x000000b9ae200000) (1024K)]
+  0x0000027b82399b80 JavaThread "DefaultDispatcher-worker-32" daemon [_thread_blocked, id=29600, stack(0x000000b9ae300000,0x000000b9ae400000) (1024K)]
+  0x0000027b8239e3b0 JavaThread "DefaultDispatcher-worker-12" daemon [_thread_blocked, id=25840, stack(0x000000b9ae700000,0x000000b9ae800000) (1024K)]
+  0x0000027b8239f0d0 JavaThread "DefaultDispatcher-worker-26" daemon [_thread_blocked, id=24136, stack(0x000000b9ae800000,0x000000b9ae900000) (1024K)]
+  0x0000027b8239ea40 JavaThread "DefaultDispatcher-worker-17" daemon [_thread_blocked, id=29320, stack(0x000000b9ae900000,0x000000b9aea00000) (1024K)]
+  0x0000027b8346ebb0 JavaThread "pool-1-thread-2"            daemon [_thread_blocked, id=19848, stack(0x000000b9a4300000,0x000000b9a4400000) (1024K)]
+  0x0000027b7e6c2820 JavaThread "C2 CompilerThread1"         daemon [_thread_blocked, id=22808, stack(0x000000b9a5400000,0x000000b9a5500000) (1024K)]
+  0x0000027b7e6bff40 JavaThread "C2 CompilerThread2"         daemon [_thread_blocked, id=17732, stack(0x000000b9a5600000,0x000000b9a5700000) (1024K)]
+  0x0000027b7e6c4a30 JavaThread "C2 CompilerThread3"         daemon [_thread_blocked, id=15228, stack(0x000000b9a5900000,0x000000b9a5a00000) (1024K)]
+  0x0000027b7e6c3c90 JavaThread "C2 CompilerThread4"         daemon [_thread_blocked, id=1640, stack(0x000000b9a8600000,0x000000b9a8700000) (1024K)]
+  0x0000027b7e6c13b0 JavaThread "C2 CompilerThread5"         daemon [_thread_blocked, id=24456, stack(0x000000b9a8700000,0x000000b9a8800000) (1024K)]
+  0x0000027b7e6c5100 JavaThread "C2 CompilerThread6"         daemon [_thread_blocked, id=29660, stack(0x000000b9a8800000,0x000000b9a8900000) (1024K)]
+  0x0000027b7e6c5ea0 JavaThread "C2 CompilerThread7"         daemon [_thread_in_native, id=25432, stack(0x000000b9a8900000,0x000000b9a8a00000) (1024K)]
+  0x0000027b7e6c7310 JavaThread "C1 CompilerThread1"         daemon [_thread_blocked, id=29448, stack(0x000000b9a8e00000,0x000000b9a8f00000) (1024K)]
+  0x0000027b7e6c6c40 JavaThread "C1 CompilerThread2"         daemon [_thread_blocked, id=26644, stack(0x000000b9a9600000,0x000000b9a9700000) (1024K)]
+  0x0000027b813ab4c0 JavaThread "C2 CompilerThread8"         daemon [_thread_blocked, id=6068, stack(0x000000b9a9700000,0x000000b9a9800000) (1024K)]
+  0x0000027b813ac930 JavaThread "C2 CompilerThread9"         daemon [_thread_blocked, id=28828, stack(0x000000b9a9800000,0x000000b9a9900000) (1024K)]
+  0x0000027b813ae470 JavaThread "C1 CompilerThread3"         daemon [_thread_blocked, id=25084, stack(0x000000b9a9900000,0x000000b9a9a00000) (1024K)]
+  0x0000027b813aeb40 JavaThread "C1 CompilerThread4"         daemon [_thread_blocked, id=28100, stack(0x000000b9a9a00000,0x000000b9a9b00000) (1024K)]
+Total: 72
+
+Other Threads:
+  0x0000027b6687a0e0 VMThread "VM Thread"                           [id=24988, stack(0x000000b9a4b00000,0x000000b9a4c00000) (1024K)]
+  0x0000027b6a23ca00 WatcherThread "VM Periodic Task Thread"        [id=23060, stack(0x000000b9a4a00000,0x000000b9a4b00000) (1024K)]
+  0x0000027b666ff8d0 WorkerThread "GC Thread#0"                     [id=23660, stack(0x000000b9a4500000,0x000000b9a4600000) (1024K)]
+  0x0000027b6f3b1960 WorkerThread "GC Thread#1"                     [id=26788, stack(0x000000b9a6200000,0x000000b9a6300000) (1024K)]
+  0x0000027b6f3b2d10 WorkerThread "GC Thread#2"                     [id=27772, stack(0x000000b9a6300000,0x000000b9a6400000) (1024K)]
+  0x0000027b6f3b30b0 WorkerThread "GC Thread#3"                     [id=29596, stack(0x000000b9a6400000,0x000000b9a6500000) (1024K)]
+  0x0000027b6f3b3450 WorkerThread "GC Thread#4"                     [id=24164, stack(0x000000b9a6500000,0x000000b9a6600000) (1024K)]
+  0x0000027b6f3b7da0 WorkerThread "GC Thread#5"                     [id=22644, stack(0x000000b9a6600000,0x000000b9a6700000) (1024K)]
+  0x0000027b6f3b8140 WorkerThread "GC Thread#6"                     [id=22884, stack(0x000000b9a6700000,0x000000b9a6800000) (1024K)]
+  0x0000027b6f3b84e0 WorkerThread "GC Thread#7"                     [id=9280, stack(0x000000b9a6800000,0x000000b9a6900000) (1024K)]
+  0x0000027b6f3b8880 WorkerThread "GC Thread#8"                     [id=1312, stack(0x000000b9a6900000,0x000000b9a6a00000) (1024K)]
+  0x0000027b6f3b8c20 WorkerThread "GC Thread#9"                     [id=16176, stack(0x000000b9a6a00000,0x000000b9a6b00000) (1024K)]
+  0x0000027b6f3b8fc0 WorkerThread "GC Thread#10"                    [id=8936, stack(0x000000b9a6b00000,0x000000b9a6c00000) (1024K)]
+  0x0000027b6f3b9b70 WorkerThread "GC Thread#11"                    [id=27224, stack(0x000000b9a6c00000,0x000000b9a6d00000) (1024K)]
+  0x0000027b709bca00 WorkerThread "GC Thread#12"                    [id=26488, stack(0x000000b9a7d00000,0x000000b9a7e00000) (1024K)]
+  0x0000027b709bee40 WorkerThread "GC Thread#13"                    [id=1756, stack(0x000000b9a7e00000,0x000000b9a7f00000) (1024K)]
+  0x0000027b709bbf20 WorkerThread "GC Thread#14"                    [id=21684, stack(0x000000b9a7f00000,0x000000b9a8000000) (1024K)]
+  0x0000027b7592fcd0 WorkerThread "GC Thread#15"                    [id=16116, stack(0x000000b9a9000000,0x000000b9a9100000) (1024K)]
+  0x0000027b75932110 WorkerThread "GC Thread#16"                    [id=25220, stack(0x000000b9a9100000,0x000000b9a9200000) (1024K)]
+  0x0000027b75930ef0 WorkerThread "GC Thread#17"                    [id=28972, stack(0x000000b9a8f00000,0x000000b9a9000000) (1024K)]
+  0x0000027b75930b50 WorkerThread "GC Thread#18"                    [id=23152, stack(0x000000b9a9300000,0x000000b9a9400000) (1024K)]
+  0x0000027b759324b0 WorkerThread "GC Thread#19"                    [id=29644, stack(0x000000b9a9400000,0x000000b9a9500000) (1024K)]
+  0x0000027b7592eab0 WorkerThread "GC Thread#20"                    [id=25896, stack(0x000000b9a9500000,0x000000b9a9600000) (1024K)]
+  0x0000027b75bfa390 WorkerThread "GC Thread#21"                    [id=27908, stack(0x000000b9a5a00000,0x000000b9a5b00000) (1024K)]
+  0x0000027b75bfb950 WorkerThread "GC Thread#22"                    [id=1972, stack(0x000000b9a8d00000,0x000000b9a8e00000) (1024K)]
+  0x0000027b66700850 ConcurrentGCThread "G1 Main Marker"            [id=28920, stack(0x000000b9a4600000,0x000000b9a4700000) (1024K)]
+  0x0000027b47faf930 WorkerThread "G1 Conc#0"                       [id=3808, stack(0x000000b9a4700000,0x000000b9a4800000) (1024K)]
+  0x0000027b709bcda0 WorkerThread "G1 Conc#1"                       [id=18116, stack(0x000000b9a8000000,0x000000b9a8100000) (1024K)]
+  0x0000027b709bd4e0 WorkerThread "G1 Conc#2"                       [id=20892, stack(0x000000b9a8100000,0x000000b9a8200000) (1024K)]
+  0x0000027b709bd140 WorkerThread "G1 Conc#3"                       [id=21892, stack(0x000000b9a8200000,0x000000b9a8300000) (1024K)]
+  0x0000027b709bc2c0 WorkerThread "G1 Conc#4"                       [id=628, stack(0x000000b9a8300000,0x000000b9a8400000) (1024K)]
+  0x0000027b709bd880 WorkerThread "G1 Conc#5"                       [id=19760, stack(0x000000b9a8400000,0x000000b9a8500000) (1024K)]
+  0x0000027b6680fb00 ConcurrentGCThread "G1 Refine#0"               [id=17540, stack(0x000000b9a4800000,0x000000b9a4900000) (1024K)]
+  0x0000027b66810420 ConcurrentGCThread "G1 Service"                [id=21592, stack(0x000000b9a4900000,0x000000b9a4a00000) (1024K)]
+Total: 34
+
+Threads with active compile tasks:
+C2 CompilerThread7  140134 15237 %     4       org.objectweb.asm.ClassReader::readCode @ 2187 (5117 bytes)
+Total: 1
+
+VM state: not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000604400000, size: 8124 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000027b00000000-0x0000027b00d10000-0x0000027b00d10000), size 13697024, SharedBaseAddress: 0x0000027b00000000, ArchiveRelocationMode: 1.
+Compressed class space mapped at: 0x0000027b01000000-0x0000027b41000000, reserved size: 1073741824
+Narrow klass base: 0x0000027b00000000, Narrow klass shift: 0, Narrow klass range: 0x100000000
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 32 size 80 Howl #buckets 8 coarsen threshold 7372 Howl Bitmap #cards 1024 size 144 coarsen threshold 921 Card regions per heap region 1 cards per card region 8192
+ CPUs: 32 total, 32 available
+ Memory: 32481M
+ Large Page Support: Disabled
+ NUMA Support: Disabled
+ Compressed Oops: Enabled (Zero based)
+ Heap Region Size: 4M
+ Heap Min Capacity: 8M
+ Heap Initial Capacity: 508M
+ Heap Max Capacity: 8124M
+ Pre-touch: Disabled
+ Parallel Workers: 23
+ Concurrent Workers: 6
+ Concurrent Refinement Workers: 23
+ Periodic GC: Disabled
+
+Heap:
+ garbage-first heap   total 180224K, used 49305K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 2 young (8192K), 0 survivors (0K)
+ Metaspace       used 63377K, committed 64128K, reserved 1114112K
+  class space    used 6368K, committed 6656K, reserved 1048576K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, TAMS=top-at-mark-start, PB=parsable bottom
+|   0|0x0000000604400000, 0x00000006047ffff0, 0x0000000604800000| 99%| O|  |TAMS 0x0000000604400000| PB 0x0000000604400000| Untracked 
+|   1|0x0000000604800000, 0x0000000604bffff0, 0x0000000604c00000| 99%| O|  |TAMS 0x0000000604800000| PB 0x0000000604800000| Untracked 
+|   2|0x0000000604c00000, 0x0000000604ffbad0, 0x0000000605000000| 99%| O|  |TAMS 0x0000000604c00000| PB 0x0000000604c00000| Untracked 
+|   3|0x0000000605000000, 0x00000006053fffe8, 0x0000000605400000| 99%| O|  |TAMS 0x0000000605000000| PB 0x0000000605000000| Untracked 
+|   4|0x0000000605400000, 0x00000006057ff188, 0x0000000605800000| 99%| O|  |TAMS 0x0000000605400000| PB 0x0000000605400000| Untracked 
+|   5|0x0000000605800000, 0x0000000605c00000, 0x0000000605c00000|100%| O|  |TAMS 0x0000000605800000| PB 0x0000000605800000| Untracked 
+|   6|0x0000000605c00000, 0x0000000605fffac0, 0x0000000606000000| 99%| O|  |TAMS 0x0000000605c00000| PB 0x0000000605c00000| Untracked 
+|   7|0x0000000606000000, 0x00000006063ffff0, 0x0000000606400000| 99%| O|  |TAMS 0x0000000606000000| PB 0x0000000606000000| Untracked 
+|   8|0x0000000606400000, 0x00000006066f71d0, 0x0000000606800000| 74%| O|  |TAMS 0x0000000606400000| PB 0x0000000606400000| Untracked 
+|   9|0x0000000606800000, 0x0000000606a06a80, 0x0000000606c00000| 50%| O|  |TAMS 0x0000000606800000| PB 0x0000000606800000| Untracked 
+|  10|0x0000000606c00000, 0x0000000606eeaac8, 0x0000000607000000| 72%| O|  |TAMS 0x0000000606c00000| PB 0x0000000606c00000| Untracked 
+|  11|0x0000000607000000, 0x0000000607043658, 0x0000000607400000|  6%| O|  |TAMS 0x0000000607000000| PB 0x0000000607000000| Untracked 
+|  12|0x0000000607400000, 0x0000000607400000, 0x0000000607800000|  0%| F|  |TAMS 0x0000000607400000| PB 0x0000000607400000| Untracked 
+|  13|0x0000000607800000, 0x0000000607800000, 0x0000000607c00000|  0%| F|  |TAMS 0x0000000607800000| PB 0x0000000607800000| Untracked 
+|  14|0x0000000607c00000, 0x0000000607c00000, 0x0000000608000000|  0%| F|  |TAMS 0x0000000607c00000| PB 0x0000000607c00000| Untracked 
+|  15|0x0000000608000000, 0x0000000608000000, 0x0000000608400000|  0%| F|  |TAMS 0x0000000608000000| PB 0x0000000608000000| Untracked 
+|  16|0x0000000608400000, 0x0000000608400000, 0x0000000608800000|  0%| F|  |TAMS 0x0000000608400000| PB 0x0000000608400000| Untracked 
+|  17|0x0000000608800000, 0x0000000608800000, 0x0000000608c00000|  0%| F|  |TAMS 0x0000000608800000| PB 0x0000000608800000| Untracked 
+|  18|0x0000000608c00000, 0x0000000608c00000, 0x0000000609000000|  0%| F|  |TAMS 0x0000000608c00000| PB 0x0000000608c00000| Untracked 
+|  19|0x0000000609000000, 0x0000000609000000, 0x0000000609400000|  0%| F|  |TAMS 0x0000000609000000| PB 0x0000000609000000| Untracked 
+|  20|0x0000000609400000, 0x0000000609400000, 0x0000000609800000|  0%| F|  |TAMS 0x0000000609400000| PB 0x0000000609400000| Untracked 
+|  21|0x0000000609800000, 0x0000000609800000, 0x0000000609c00000|  0%| F|  |TAMS 0x0000000609800000| PB 0x0000000609800000| Untracked 
+|  22|0x0000000609c00000, 0x0000000609c00000, 0x000000060a000000|  0%| F|  |TAMS 0x0000000609c00000| PB 0x0000000609c00000| Untracked 
+|  23|0x000000060a000000, 0x000000060a000000, 0x000000060a400000|  0%| F|  |TAMS 0x000000060a000000| PB 0x000000060a000000| Untracked 
+|  24|0x000000060a400000, 0x000000060a400000, 0x000000060a800000|  0%| F|  |TAMS 0x000000060a400000| PB 0x000000060a400000| Untracked 
+|  25|0x000000060a800000, 0x000000060a800000, 0x000000060ac00000|  0%| F|  |TAMS 0x000000060a800000| PB 0x000000060a800000| Untracked 
+|  26|0x000000060ac00000, 0x000000060ac00000, 0x000000060b000000|  0%| F|  |TAMS 0x000000060ac00000| PB 0x000000060ac00000| Untracked 
+|  27|0x000000060b000000, 0x000000060b000000, 0x000000060b400000|  0%| F|  |TAMS 0x000000060b000000| PB 0x000000060b000000| Untracked 
+|  28|0x000000060b400000, 0x000000060b400000, 0x000000060b800000|  0%| F|  |TAMS 0x000000060b400000| PB 0x000000060b400000| Untracked 
+|  29|0x000000060b800000, 0x000000060b800000, 0x000000060bc00000|  0%| F|  |TAMS 0x000000060b800000| PB 0x000000060b800000| Untracked 
+|  30|0x000000060bc00000, 0x000000060bc00000, 0x000000060c000000|  0%| F|  |TAMS 0x000000060bc00000| PB 0x000000060bc00000| Untracked 
+|  31|0x000000060c000000, 0x000000060c000000, 0x000000060c400000|  0%| F|  |TAMS 0x000000060c000000| PB 0x000000060c000000| Untracked 
+|  32|0x000000060c400000, 0x000000060c400000, 0x000000060c800000|  0%| F|  |TAMS 0x000000060c400000| PB 0x000000060c400000| Untracked 
+|  33|0x000000060c800000, 0x000000060c800000, 0x000000060cc00000|  0%| F|  |TAMS 0x000000060c800000| PB 0x000000060c800000| Untracked 
+|  34|0x000000060cc00000, 0x000000060cc00000, 0x000000060d000000|  0%| F|  |TAMS 0x000000060cc00000| PB 0x000000060cc00000| Untracked 
+|  35|0x000000060d000000, 0x000000060d000000, 0x000000060d400000|  0%| F|  |TAMS 0x000000060d000000| PB 0x000000060d000000| Untracked 
+|  36|0x000000060d400000, 0x000000060d400000, 0x000000060d800000|  0%| F|  |TAMS 0x000000060d400000| PB 0x000000060d400000| Untracked 
+|  37|0x000000060d800000, 0x000000060d800000, 0x000000060dc00000|  0%| F|  |TAMS 0x000000060d800000| PB 0x000000060d800000| Untracked 
+|  38|0x000000060dc00000, 0x000000060dc00000, 0x000000060e000000|  0%| F|  |TAMS 0x000000060dc00000| PB 0x000000060dc00000| Untracked 
+|  39|0x000000060e000000, 0x000000060e000000, 0x000000060e400000|  0%| F|  |TAMS 0x000000060e000000| PB 0x000000060e000000| Untracked 
+|  40|0x000000060e400000, 0x000000060e400000, 0x000000060e800000|  0%| F|  |TAMS 0x000000060e400000| PB 0x000000060e400000| Untracked 
+|  41|0x000000060e800000, 0x000000060e806988, 0x000000060ec00000|  0%| E|  |TAMS 0x000000060e800000| PB 0x000000060e800000| Complete 
+|  42|0x000000060ec00000, 0x000000060f000000, 0x000000060f000000|100%| E|CS|TAMS 0x000000060ec00000| PB 0x000000060ec00000| Complete 
+|  56|0x0000000612400000, 0x0000000612800000, 0x0000000612800000|100%|HS|  |TAMS 0x0000000612400000| PB 0x0000000612400000| Untracked 
+
+Card table byte_map: [0x0000027b5d6a0000,0x0000027b5e680000] _byte_map_base: 0x0000027b5a67e000
+
+Marking Bits: (CMBitMap*) 0x0000027b666ffee0
+ Bits: [0x0000027b5e680000, 0x0000027b66570000)
+
+Polling page: 0x0000027b476c0000
+
+Metaspace:
+
+Usage:
+  Non-class:     55.67 MB used.
+      Class:      6.22 MB used.
+       Both:     61.89 MB used.
+
+Virtual space:
+  Non-class space:       64.00 MB reserved,      56.12 MB ( 88%) committed,  1 nodes.
+      Class space:        1.00 GB reserved,       6.50 MB ( <1%) committed,  1 nodes.
+             Both:        1.06 GB reserved,      62.62 MB (  6%) committed. 
+
+Chunk freelists:
+   Non-Class:  7.73 MB
+       Class:  9.31 MB
+        Both:  17.05 MB
+
+MaxMetaspaceSize: unlimited
+CompressedClassSpaceSize: 1.00 GB
+Initial GC threshold: 21.00 MB
+Current GC threshold: 104.19 MB
+CDS: on
+ - commit_granule_bytes: 65536.
+ - commit_granule_words: 8192.
+ - virtual_space_node_default_size: 8388608.
+ - enlarge_chunks_in_place: 1.
+ - use_allocation_guard: 0.
+
+
+Internal statistics:
+
+num_allocs_failed_limit: 9.
+num_arena_births: 1120.
+num_arena_deaths: 4.
+num_vsnodes_births: 2.
+num_vsnodes_deaths: 0.
+num_space_committed: 1002.
+num_space_uncommitted: 0.
+num_chunks_returned_to_freelist: 15.
+num_chunks_taken_from_freelist: 3202.
+num_chunk_merges: 9.
+num_chunk_splits: 2280.
+num_chunks_enlarged: 1702.
+num_inconsistent_stats: 0.
+
+CodeHeap 'non-profiled nmethods': size=118848Kb used=4287Kb max_used=9456Kb free=114560Kb
+ bounds [0x0000027b53f70000, 0x0000027b548b0000, 0x0000027b5b380000]
+CodeHeap 'profiled nmethods': size=118848Kb used=5768Kb max_used=25600Kb free=113079Kb
+ bounds [0x0000027b4c380000, 0x0000027b4dc90000, 0x0000027b53790000]
+CodeHeap 'non-nmethods': size=8064Kb used=5448Kb max_used=5577Kb free=2615Kb
+ bounds [0x0000027b53790000, 0x0000027b53d10000, 0x0000027b53f70000]
+ total_blobs=6515 nmethods=4642 adapters=1772
+ compilation: enabled
+              stopped_count=0, restarted_count=0
+ full_count=0
+
+Compilation events (20 events):
+Event: 140.056 Thread 0x0000027b7e6bff40 17374   !   4       org.jetbrains.skia.Paint::getColor (31 bytes)
+Event: 140.056 Thread 0x0000027b813ae470 17407       3       androidx.compose.ui.graphics.layer.GraphicsLayerKt::drawLayer (51 bytes)
+Event: 140.056 Thread 0x0000027b813aeb40 nmethod 17405 0x0000027b4c635390 code [0x0000027b4c635540, 0x0000027b4c635738]
+Event: 140.056 Thread 0x0000027b813aeb40 17408       3       androidx.compose.ui.graphics.layer.GraphicsLayer::draw$ui_graphics (52 bytes)
+Event: 140.056 Thread 0x0000027b7e6c2820 nmethod 17384 0x0000027b5400c790 code [0x0000027b5400c920, 0x0000027b5400caa0]
+Event: 140.056 Thread 0x0000027b7e6c2820 17388       4       androidx.compose.ui.graphics.ColorKt::toArgb-8_81llA (22 bytes)
+Event: 140.056 Thread 0x0000027b7e6c6c40 nmethod 17392 0x0000027b4c633510 code [0x0000027b4c6338a0, 0x0000027b4c634ca0]
+Event: 140.056 Thread 0x0000027b7e6c7310 nmethod 17402 0x0000027b4c631f10 code [0x0000027b4c6321e0, 0x0000027b4c633100]
+Event: 140.056 Thread 0x0000027b7e6c6c40 17409   !   3       org.jetbrains.skiko.node.RenderNode::drawInto (43 bytes)
+Event: 140.056 Thread 0x0000027b7e6c7310 17410       3       org.jetbrains.skiko.node.RenderNodeKt::access$RenderNode_nDrawInto (6 bytes)
+Event: 140.056 Thread 0x0000027b7e6c7310 nmethod 17410 0x0000027b4c631b90 code [0x0000027b4c631d40, 0x0000027b4c631e58]
+Event: 140.056 Thread 0x0000027b7e6c7310 17411       1       androidx.compose.ui.text.SpanStyle::getDrawStyle (5 bytes)
+Event: 140.056 Thread 0x0000027b7e6bff40 nmethod 17374 0x0000027b5400c410 code [0x0000027b5400c5a0, 0x0000027b5400c690]
+Event: 140.056 Thread 0x0000027b7e6c7310 nmethod 17411 0x0000027b5400c110 code [0x0000027b5400c2a0, 0x0000027b5400c370]
+Event: 140.056 Thread 0x0000027b7e6bff40 17386       4       androidx.compose.ui.node.LayoutNodeDrawScope::getDrawContext (8 bytes)
+Event: 140.056 Thread 0x0000027b7e6c7310 17412       3       androidx.compose.ui.node.LayoutNodeDrawScope::getLayoutDirection (8 bytes)
+Event: 140.056 Thread 0x0000027b813ae470 nmethod 17407 0x0000027b4c630490 code [0x0000027b4c630780, 0x0000027b4c6314a8]
+Event: 140.056 Thread 0x0000027b813ae470 17413       3       androidx.compose.ui.graphics.drawscope.CanvasDrawScope::getLayoutDirection (8 bytes)
+Event: 140.056 Thread 0x0000027b813aeb40 nmethod 17408 0x0000027b4d621d10 code [0x0000027b4d622020, 0x0000027b4d622ea8]
+Event: 140.056 Thread 0x0000027b813aeb40 17414       3       androidx.compose.ui.graphics.Color$Companion::getBlack-0d7_KjU (4 bytes)
+
+GC Heap History (20 events):
+Event: 13.404 GC heap before
+{Heap before GC invocations=15 (full 0):
+ garbage-first heap   total 86016K, used 63604K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 8 young (32768K), 2 survivors (8192K)
+ Metaspace       used 59264K, committed 59968K, reserved 1114112K
+  class space    used 6070K, committed 6400K, reserved 1048576K
+}
+Event: 13.407 GC heap after
+{Heap after GC invocations=16 (full 0):
+ garbage-first heap   total 303104K, used 40970K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 1 young (4096K), 1 survivors (4096K)
+ Metaspace       used 59264K, committed 59968K, reserved 1114112K
+  class space    used 6070K, committed 6400K, reserved 1048576K
+}
+Event: 13.411 GC heap before
+{Heap before GC invocations=16 (full 0):
+ garbage-first heap   total 303104K, used 40970K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 2 young (8192K), 1 survivors (4096K)
+ Metaspace       used 59360K, committed 60096K, reserved 1114112K
+  class space    used 6081K, committed 6400K, reserved 1048576K
+}
+Event: 13.412 GC heap after
+{Heap after GC invocations=17 (full 0):
+ garbage-first heap   total 303104K, used 40921K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 1 young (4096K), 1 survivors (4096K)
+ Metaspace       used 59360K, committed 60096K, reserved 1114112K
+  class space    used 6081K, committed 6400K, reserved 1048576K
+}
+Event: 13.645 GC heap before
+{Heap before GC invocations=18 (full 0):
+ garbage-first heap   total 151552K, used 143321K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 27 young (110592K), 1 survivors (4096K)
+ Metaspace       used 61400K, committed 62208K, reserved 1114112K
+  class space    used 6267K, committed 6592K, reserved 1048576K
+}
+Event: 13.648 GC heap after
+{Heap after GC invocations=19 (full 0):
+ garbage-first heap   total 176128K, used 60205K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 6 young (24576K), 6 survivors (24576K)
+ Metaspace       used 61400K, committed 62208K, reserved 1114112K
+  class space    used 6267K, committed 6592K, reserved 1048576K
+}
+Event: 13.707 GC heap before
+{Heap before GC invocations=19 (full 0):
+ garbage-first heap   total 176128K, used 129837K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 23 young (94208K), 6 survivors (24576K)
+ Metaspace       used 61902K, committed 62656K, reserved 1114112K
+  class space    used 6324K, committed 6656K, reserved 1048576K
+}
+Event: 13.710 GC heap after
+{Heap after GC invocations=20 (full 0):
+ garbage-first heap   total 176128K, used 68971K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 3 young (12288K), 3 survivors (12288K)
+ Metaspace       used 61902K, committed 62656K, reserved 1114112K
+  class space    used 6324K, committed 6656K, reserved 1048576K
+}
+Event: 13.754 GC heap before
+{Heap before GC invocations=20 (full 0):
+ garbage-first heap   total 176128K, used 130411K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 19 young (77824K), 3 survivors (12288K)
+ Metaspace       used 62046K, committed 62848K, reserved 1114112K
+  class space    used 6332K, committed 6656K, reserved 1048576K
+}
+Event: 13.756 GC heap after
+{Heap after GC invocations=21 (full 0):
+ garbage-first heap   total 225280K, used 79745K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 3 young (12288K), 3 survivors (12288K)
+ Metaspace       used 62046K, committed 62848K, reserved 1114112K
+  class space    used 6332K, committed 6656K, reserved 1048576K
+}
+Event: 13.826 GC heap before
+{Heap before GC invocations=21 (full 0):
+ garbage-first heap   total 225280K, used 169857K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 26 young (106496K), 3 survivors (12288K)
+ Metaspace       used 62164K, committed 62912K, reserved 1114112K
+  class space    used 6333K, committed 6656K, reserved 1048576K
+}
+Event: 13.829 GC heap after
+{Heap after GC invocations=22 (full 0):
+ garbage-first heap   total 225280K, used 98954K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 4 young (16384K), 4 survivors (16384K)
+ Metaspace       used 62164K, committed 62912K, reserved 1114112K
+  class space    used 6333K, committed 6656K, reserved 1048576K
+}
+Event: 20.158 GC heap before
+{Heap before GC invocations=23 (full 0):
+ garbage-first heap   total 241664K, used 234122K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 23 young (94208K), 4 survivors (16384K)
+ Metaspace       used 63097K, committed 63808K, reserved 1114112K
+  class space    used 6345K, committed 6656K, reserved 1048576K
+}
+Event: 20.161 GC heap after
+{Heap after GC invocations=24 (full 0):
+ garbage-first heap   total 262144K, used 163791K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 3 young (12288K), 3 survivors (12288K)
+ Metaspace       used 63097K, committed 63808K, reserved 1114112K
+  class space    used 6345K, committed 6656K, reserved 1048576K
+}
+Event: 30.519 GC heap before
+{Heap before GC invocations=24 (full 0):
+ garbage-first heap   total 262144K, used 176079K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 7 young (28672K), 3 survivors (12288K)
+ Metaspace       used 63101K, committed 63808K, reserved 1114112K
+  class space    used 6345K, committed 6656K, reserved 1048576K
+}
+Event: 30.552 GC heap after
+{Heap after GC invocations=25 (full 1):
+ garbage-first heap   total 192512K, used 45211K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 63101K, committed 63808K, reserved 1114112K
+  class space    used 6345K, committed 6656K, reserved 1048576K
+}
+Event: 110.010 GC heap before
+{Heap before GC invocations=25 (full 1):
+ garbage-first heap   total 192512K, used 49307K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 2 young (8192K), 0 survivors (0K)
+ Metaspace       used 63200K, committed 63936K, reserved 1114112K
+  class space    used 6355K, committed 6656K, reserved 1048576K
+}
+Event: 110.039 GC heap after
+{Heap after GC invocations=26 (full 2):
+ garbage-first heap   total 180224K, used 45082K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 63200K, committed 63936K, reserved 1114112K
+  class space    used 6355K, committed 6656K, reserved 1048576K
+}
+Event: 139.889 GC heap before
+{Heap before GC invocations=26 (full 2):
+ garbage-first heap   total 180224K, used 49178K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 2 young (8192K), 0 survivors (0K)
+ Metaspace       used 63268K, committed 64000K, reserved 1114112K
+  class space    used 6360K, committed 6656K, reserved 1048576K
+}
+Event: 139.911 GC heap after
+{Heap after GC invocations=27 (full 3):
+ garbage-first heap   total 180224K, used 45209K [0x0000000604400000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 63268K, committed 64000K, reserved 1114112K
+  class space    used 6360K, committed 6656K, reserved 1048576K
+}
+
+Dll operation events (4 events):
+Event: 0.004 Loaded shared library C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\java.dll
+Event: 0.018 Loaded shared library C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\jsvml.dll
+Event: 0.055 Loaded shared library C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\zip.dll
+Event: 0.231 Loaded shared library C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\verify.dll
+
+Deoptimization events (20 events):
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b4d60fafc sp=0x000000b9aa0ff210
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe6c8 mode 0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b4c47d694 sp=0x000000b9aa0ff2d0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe780 mode 0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b4c621d44 sp=0x000000b9aa0ff330
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe860 mode 0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b541b0324 sp=0x000000b9aa0ff510
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe958 mode 0
+Event: 140.042 Thread 0x0000027b6fa3b5d0 DEOPT PACKING pc=0x0000027b5403bab4 sp=0x000000b9aa7ff500
+Event: 140.042 Thread 0x0000027b6fa3b5d0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa7fe910 mode 0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b53f7e764 sp=0x000000b9aa0ff540
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe990 mode 0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT PACKING pc=0x0000027b545044b4 sp=0x000000b9aa0ff5b0
+Event: 140.042 Thread 0x0000027b7e4246c0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9aa0fe908 mode 0
+Event: 140.043 Thread 0x0000027b80d721a0 DEOPT PACKING pc=0x0000027b5403bab4 sp=0x000000b9ac0ff190
+Event: 140.043 Thread 0x0000027b80d721a0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9ac0fe5a0 mode 0
+Event: 140.043 Thread 0x0000027b8239e3b0 DEOPT PACKING pc=0x0000027b5403bab4 sp=0x000000b9ae7ff600
+Event: 140.043 Thread 0x0000027b8239af30 DEOPT PACKING pc=0x0000027b5403bab4 sp=0x000000b9adcff2c0
+Event: 140.043 Thread 0x0000027b8239e3b0 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9ae7fea10 mode 0
+Event: 140.043 Thread 0x0000027b8239af30 DEOPT UNPACKING pc=0x0000027b537e4e42 sp=0x000000b9adcfe6d0 mode 0
+
+Classes loaded (20 events):
+Event: 13.477 Loading class sun/awt/image/ShortComponentRaster
+Event: 13.477 Loading class sun/awt/image/ShortComponentRaster done
+Event: 13.477 Loading class sun/awt/image/ByteComponentRaster
+Event: 13.477 Loading class sun/awt/image/ByteComponentRaster done
+Event: 17.440 Loading class sun/awt/windows/WComponentPeer$1
+Event: 17.440 Loading class sun/awt/windows/WComponentPeer$1 done
+Event: 17.452 Loading class sun/java2d/opengl/OGLSurfaceData
+Event: 17.452 Loading class sun/java2d/opengl/OGLSurfaceData done
+Event: 109.924 Loading class java/io/SerialCallbackContext
+Event: 109.924 Loading class java/io/SerialCallbackContext done
+Event: 109.925 Loading class java/util/HashMap$UnsafeHolder
+Event: 109.925 Loading class java/util/HashMap$UnsafeHolder done
+Event: 109.925 Loading class java/io/FileFilter
+Event: 109.925 Loading class java/io/FileFilter done
+Event: 140.001 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet
+Event: 140.001 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet done
+Event: 140.002 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$1
+Event: 140.002 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$1 done
+Event: 140.002 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$UnmodifiableEntry
+Event: 140.002 Loading class java/util/Collections$UnmodifiableMap$UnmodifiableEntrySet$UnmodifiableEntry done
+
+Classes unloaded (2 events):
+Event: 13.419 Thread 0x0000027b6687a0e0 Unloading class 0x0000027b014f2000 'jdk/internal/reflect/GeneratedSerializationConstructorAccessor20'
+Event: 13.419 Thread 0x0000027b6687a0e0 Unloading class 0x0000027b014f1400 'jdk/internal/reflect/GeneratedSerializationConstructorAccessor18'
+
+Classes redefined (6 events):
+Event: 109.959 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt, count=1
+Event: 109.959 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1$invokeSuspend$$inlined$listener$default$1, count=1
+Event: 109.959 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1, count=1
+Event: 139.857 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt, count=2
+Event: 139.857 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1, count=2
+Event: 139.857 Thread 0x0000027b6687a0e0 redefined class name=io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1$invokeSuspend$$inlined$listener$default$1, count=2
+
+Internal exceptions (20 events):
+Event: 13.358 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x000000061573c698}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, int)'> (0x000000061573c698) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.393 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000608139a30}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, double, java.lang.Object)'> (0x0000000608139a30) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.401 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000607d98570}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, int, int, java.lang.Object, java.lang.Object)'> (0x0000000607d98570) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.402 Thread 0x0000027b8239a8a0 Exception <a 'sun/nio/fs/WindowsException'{0x0000000607f66a10}> (0x0000000607f66a10) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 13.411 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000623d113a0}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.lang.Object, long, int, java.lang.Object)'> (0x0000000623d113a0) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.413 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000623c14f30}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, long, int)'> (0x0000000623c14f30) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.413 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000623c19650}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, long, int)'> (0x0000000623c19650) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 784]
+Event: 13.478 Thread 0x0000027b6f9be8a0 Exception <a 'java/lang/NoClassDefFoundError'{0x000000060c747b80}: io/silv/sp2yt/colorthief/ColorThief> (0x000000060c747b80) 
+thrown [s\src\hotspot\share\classfile\systemDictionary.cpp, line 301]
+Event: 13.865 Thread 0x0000027b6f9be8a0 Implicit null exception at 0x0000027b54351741 to 0x0000027b54351e4c
+Event: 17.726 Thread 0x0000027b6f9be8a0 Implicit null exception at 0x0000027b542f7c82 to 0x0000027b542f7d10
+Event: 18.185 Thread 0x0000027b6f9be8a0 Implicit null exception at 0x0000027b547c96ed to 0x0000027b547c9998
+Event: 18.193 Thread 0x0000027b6f9be8a0 Implicit null exception at 0x0000027b547ca442 to 0x0000027b547ca6e4
+Event: 104.177 Thread 0x0000027b834719a0 Implicit null exception at 0x0000027b542549da to 0x0000027b54254a10
+Event: 109.635 Thread 0x0000027b6f9be8a0 Implicit null exception at 0x0000027b54870de3 to 0x0000027b54872d1c
+Event: 109.926 Thread 0x0000027b8346ff60 Exception <a 'java/io/IOException'{0x000000060f4a1300}> (0x000000060f4a1300) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 110.051 Thread 0x0000027b834733e0 Exception <a 'java/io/IOException'{0x000000060ede7200}> (0x000000060ede7200) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 110.052 Thread 0x0000027b8346e520 Exception <a 'java/io/IOException'{0x000000060edf6290}> (0x000000060edf6290) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 110.053 Thread 0x0000027b834719a0 Exception <a 'java/io/IOException'{0x000000060ed3c048}> (0x000000060ed3c048) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 139.938 Thread 0x0000027b8346cae0 Exception <a 'java/io/IOException'{0x000000060ee3e2d8}> (0x000000060ee3e2d8) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+Event: 139.938 Thread 0x0000027b8346ff60 Exception <a 'java/io/IOException'{0x000000060ee5d9b0}> (0x000000060ee5d9b0) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 535]
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (20 events):
+Event: 120.333 Executing VM operation: RendezvousGCThreads
+Event: 120.333 Executing VM operation: RendezvousGCThreads done
+Event: 123.367 Executing VM operation: Cleanup
+Event: 123.367 Executing VM operation: Cleanup done
+Event: 132.471 Executing VM operation: Cleanup
+Event: 132.471 Executing VM operation: Cleanup done
+Event: 135.504 Executing VM operation: Cleanup
+Event: 135.504 Executing VM operation: Cleanup done
+Event: 136.519 Executing VM operation: Cleanup
+Event: 136.519 Executing VM operation: Cleanup done
+Event: 137.531 Executing VM operation: Cleanup
+Event: 137.531 Executing VM operation: Cleanup done
+Event: 139.558 Executing VM operation: Cleanup
+Event: 139.558 Executing VM operation: Cleanup done
+Event: 139.857 Executing VM operation: RedefineClasses (Heap Inspection Initiated GC)
+Event: 139.911 Executing VM operation: RedefineClasses (Heap Inspection Initiated GC) done
+Event: 139.971 Executing VM operation: ICBufferFull
+Event: 139.971 Executing VM operation: ICBufferFull done
+Event: 140.023 Executing VM operation: ICBufferFull
+Event: 140.023 Executing VM operation: ICBufferFull done
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (20 events):
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da3e810
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da3f110
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da45390
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da47a10
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da4ab90
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da7a710
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da81610
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4da98090
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc13210
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc49b10
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc54790
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc55210
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc55a10
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc56390
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc56e10
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc57190
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc58890
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc78b90
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc7c410
+Event: 139.902 Thread 0x0000027b6687a0e0 flushing  nmethod 0x0000027b4dc7cb10
+
+Events (20 events):
+Event: 139.028 Thread 0x0000027b7e6c13b0 Thread exited: 0x0000027b7e6c13b0
+Event: 139.816 Thread 0x0000027b6ae0e770 Thread added: 0x0000027b83472d50
+Event: 139.817 Thread 0x0000027b6f11fcb0 Thread added: 0x0000027b834733e0
+Event: 139.826 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c2820
+Event: 139.827 Thread 0x0000027b7e6c2820 Thread added: 0x0000027b7e6bff40
+Event: 139.827 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c4a30
+Event: 139.827 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c3c90
+Event: 139.827 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c13b0
+Event: 139.827 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c5100
+Event: 139.827 Thread 0x0000027b6689e260 Thread added: 0x0000027b7e6c5ea0
+Event: 139.828 Thread 0x0000027b7e6c13b0 Thread added: 0x0000027b7e6c7310
+Event: 139.828 Thread 0x0000027b7e6c13b0 Thread added: 0x0000027b7e6c6c40
+Event: 139.911 Thread 0x0000027b7e6c5ea0 Thread added: 0x0000027b813ab4c0
+Event: 139.911 Thread 0x0000027b7e6c5ea0 Thread added: 0x0000027b813ac930
+Event: 139.911 Thread 0x0000027b7e6c5ea0 Thread added: 0x0000027b813ae470
+Event: 139.937 Thread 0x0000027b7e6c6c40 Thread added: 0x0000027b813aeb40
+Event: 139.937 Thread 0x0000027b834733e0 Thread exited: 0x0000027b834733e0
+Event: 139.938 Thread 0x0000027b83472d50 Thread exited: 0x0000027b83472d50
+Event: 139.938 Thread 0x0000027b8346cae0 Thread exited: 0x0000027b8346cae0
+Event: 139.940 Thread 0x0000027b8346ff60 Thread exited: 0x0000027b8346ff60
+
+
+Dynamic libraries:
+0x00007ff644d20000 - 0x00007ff644d2a000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\java.exe
+0x00007ffd257c0000 - 0x00007ffd25a26000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffd241e0000 - 0x00007ffd242a9000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffd22c40000 - 0x00007ffd2300c000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffd22af0000 - 0x00007ffd22c3b000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffd0a780000 - 0x00007ffd0a798000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\jli.dll
+0x00007ffcf5540000 - 0x00007ffcf555b000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\VCRUNTIME140.dll
+0x00007ffd236b0000 - 0x00007ffd2387a000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffd0c280000 - 0x00007ffd0c51a000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.3912_none_3e07963ce335137e\COMCTL32.dll
+0x00007ffd22950000 - 0x00007ffd22977000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffd23600000 - 0x00007ffd236a9000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffd255a0000 - 0x00007ffd255cb000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffd233b0000 - 0x00007ffd234e2000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffd22a40000 - 0x00007ffd22ae3000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffd242b0000 - 0x00007ffd242e0000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffd13cc0000 - 0x00007ffd13ccc000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\vcruntime140_1.dll
+0x00007ffcc0890000 - 0x00007ffcc091d000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\msvcp140.dll
+0x00007ffc5bbe0000 - 0x00007ffc5c9a1000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\server\jvm.dll
+0x00007ffd24120000 - 0x00007ffd241d2000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffd24070000 - 0x00007ffd24116000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffd24c80000 - 0x00007ffd24d96000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffd24da0000 - 0x00007ffd24e14000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffd215c0000 - 0x00007ffd2161e000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffd1c070000 - 0x00007ffd1c07b000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffd15a00000 - 0x00007ffd15a36000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffd21540000 - 0x00007ffd21554000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffd21750000 - 0x00007ffd2176a000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffd13c90000 - 0x00007ffd13c9a000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\jimage.dll
+0x00007ffd14cb0000 - 0x00007ffd14ef1000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffd23980000 - 0x00007ffd23d04000 	C:\WINDOWS\System32\combase.dll
+0x00007ffd24e20000 - 0x00007ffd24f00000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffd099b0000 - 0x00007ffd099e9000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffd23190000 - 0x00007ffd23229000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffd0a770000 - 0x00007ffd0a77e000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\instrument.dll
+0x00007ffcf4090000 - 0x00007ffcf40b0000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\java.dll
+0x00007ffd242f0000 - 0x00007ffd24a1d000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffd23230000 - 0x00007ffd233a4000 	C:\WINDOWS\System32\wintypes.dll
+0x00007ffd205a0000 - 0x00007ffd20df6000 	C:\WINDOWS\SYSTEM32\windows.storage.dll
+0x00007ffd23880000 - 0x00007ffd2396f000 	C:\WINDOWS\System32\SHCORE.dll
+0x00007ffd25530000 - 0x00007ffd25599000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ffd22860000 - 0x00007ffd2288f000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007ffc7bd10000 - 0x00007ffc7bde7000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\jsvml.dll
+0x00007ffcf4070000 - 0x00007ffcf4088000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\zip.dll
+0x00007ffd03a80000 - 0x00007ffd03a90000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\net.dll
+0x00007ffd1c9a0000 - 0x00007ffd1cabe000 	C:\WINDOWS\SYSTEM32\WINHTTP.dll
+0x00007ffd21d40000 - 0x00007ffd21daa000 	C:\WINDOWS\system32\mswsock.dll
+0x00007ffcf4000000 - 0x00007ffcf4016000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\nio.dll
+0x00007ffd00c70000 - 0x00007ffd00c79000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\extnet.dll
+0x00007ffd22100000 - 0x00007ffd2211c000 	C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0x00007ffd21770000 - 0x00007ffd217aa000 	C:\WINDOWS\system32\rsaenh.dll
+0x00007ffd21de0000 - 0x00007ffd21e0b000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffd22830000 - 0x00007ffd22856000 	C:\WINDOWS\SYSTEM32\bcrypt.dll
+0x00007ffd21f70000 - 0x00007ffd21f7c000 	C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0x00007ffd210f0000 - 0x00007ffd21123000 	C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL
+0x00007ffd24c20000 - 0x00007ffd24c2a000 	C:\WINDOWS\System32\NSI.dll
+0x00007ffcf3ff0000 - 0x00007ffcf4000000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\verify.dll
+0x00007ffceb460000 - 0x00007ffceb469000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\prefs.dll
+0x00007ffc7bb70000 - 0x00007ffc7bd08000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\awt.dll
+0x00007ffcbdfb0000 - 0x00007ffcbdff4000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\nvdaControllerClient64.dll
+0x00007ffd1ff00000 - 0x00007ffd1ff36000 	C:\WINDOWS\SYSTEM32\dwmapi.dll
+0x00007ffd1f980000 - 0x00007ffd1fa1e000 	C:\WINDOWS\SYSTEM32\apphelp.dll
+0x00007ffd1fb50000 - 0x00007ffd1fbff000 	C:\WINDOWS\system32\uxtheme.dll
+0x00007ffd23ed0000 - 0x00007ffd2402f000 	C:\WINDOWS\System32\MSCTF.dll
+0x00007ffd255d0000 - 0x00007ffd2576f000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffd1fa30000 - 0x00007ffd1fa46000 	C:\WINDOWS\system32\Wtsapi32.dll
+0x00007ffd214b0000 - 0x00007ffd21517000 	C:\WINDOWS\SYSTEM32\WINSTA.dll
+0x00007ffce58e0000 - 0x00007ffce59ec000 	C:\WINDOWS\system32\opengl32.dll
+0x00007ffcf4020000 - 0x00007ffcf404d000 	C:\WINDOWS\SYSTEM32\GLU32.dll
+0x00007ffd1fd50000 - 0x00007ffd1fd97000 	C:\WINDOWS\SYSTEM32\dxcore.dll
+0x00007ffc6ee50000 - 0x00007ffc6fa71000 	C:\Users\david\.skiko\dbbc4000b2fac87041fc3b9d72cde150b7becb45c29d2086da4411b731013cc6\skiko-windows-x64.dll
+0x00007ffd1d060000 - 0x00007ffd1d15c000 	C:\WINDOWS\SYSTEM32\PROPSYS.dll
+0x00007ffd1e840000 - 0x00007ffd1eaa9000 	C:\WINDOWS\SYSTEM32\dwrite.dll
+0x00007ffd0c5e0000 - 0x00007ffd0c7b7000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.26100.4061_none_6ef7a4863dc2ecac\gdiplus.dll
+0x00007ffcb6d70000 - 0x00007ffcb6df7000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\freetype.dll
+0x00007ffc7ba90000 - 0x00007ffc7bb6e000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\fontmanager.dll
+0x00007ffd23d10000 - 0x00007ffd23db8000 	C:\WINDOWS\System32\clbcatq.dll
+0x00007ffd1dfc0000 - 0x00007ffd1e1fa000 	C:\WINDOWS\SYSTEM32\WindowsCodecs.dll
+0x00007ffce93e0000 - 0x00007ffce943a000 	C:\WINDOWS\system32\dataexchange.dll
+0x00007ffd13750000 - 0x00007ffd1398c000 	C:\WINDOWS\system32\twinapi.appcore.dll
+0x00007ffceb450000 - 0x00007ffceb457000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\jawt.dll
+0x00007ffd1fda0000 - 0x00007ffd1fed3000 	C:\WINDOWS\SYSTEM32\Dxgi.dll
+0x00007ffd1fce0000 - 0x00007ffd1fd40000 	C:\WINDOWS\SYSTEM32\directxdatabasehelper.dll
+0x00007ffd22590000 - 0x00007ffd225e7000 	C:\WINDOWS\SYSTEM32\cfgmgr32.dll
+0x00007ffc75030000 - 0x00007ffc75053000 	C:\WINDOWS\SYSTEM32\D3D12.dll
+0x00007ffc6ebb0000 - 0x00007ffc6ee23000 	C:\WINDOWS\SYSTEM32\D3D12Core.dll
+0x00007ffd22160000 - 0x00007ffd22173000 	C:\WINDOWS\SYSTEM32\msasn1.dll
+0x00007ffd1be20000 - 0x00007ffd1be5b000 	C:\WINDOWS\SYSTEM32\cryptnet.dll
+0x00007ffd23010000 - 0x00007ffd23187000 	C:\WINDOWS\System32\CRYPT32.dll
+0x00007ffd22010000 - 0x00007ffd2206d000 	C:\WINDOWS\SYSTEM32\wldp.dll
+0x00007ffd1ba80000 - 0x00007ffd1bbfc000 	C:\WINDOWS\SYSTEM32\drvstore.dll
+0x00007ffd225f0000 - 0x00007ffd2261d000 	C:\WINDOWS\SYSTEM32\devobj.dll
+0x00007ffd234f0000 - 0x00007ffd23570000 	C:\WINDOWS\System32\wintrust.dll
+0x00007ffd24040000 - 0x00007ffd24060000 	C:\WINDOWS\System32\imagehlp.dll
+0x00007ffce87a0000 - 0x00007ffce8aa4000 	C:\WINDOWS\system32\nvspcap64.dll
+0x00007ffd21910000 - 0x00007ffd21945000 	C:\WINDOWS\SYSTEM32\ntmarta.dll
+0x00007ffd1b020000 - 0x00007ffd1b0e2000 	C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4\nvldumdx.dll
+0x00007ffd16a50000 - 0x00007ffd1a1ea000 	C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4\nvgpucomp64.dll
+0x00007ffd13b00000 - 0x00007ffd13bd7000 	C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4\NvMemMapStoragex.dll
+0x00007ffd0cd10000 - 0x00007ffd12021000 	C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4\nvwgf2umx.dll
+0x00007ffce55c0000 - 0x00007ffce5774000 	C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4\nvppex.dll
+0x00007ffc74ff0000 - 0x00007ffc7501e000 	C:\WINDOWS\SYSTEM32\D3DSCache.dll
+0x00007ffce72a0000 - 0x00007ffce72ae000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\sunmscapi.dll
+0x00007ffd22250000 - 0x00007ffd22280000 	C:\WINDOWS\SYSTEM32\ncrypt.dll
+0x00007ffd22200000 - 0x00007ffd2223f000 	C:\WINDOWS\SYSTEM32\NTASN1.dll
+0x00007ffcb8900000 - 0x00007ffcb8908000 	C:\WINDOWS\system32\wshunix.dll
+0x00007ffd1eab0000 - 0x00007ffd1ecd6000 	C:\WINDOWS\SYSTEM32\dcomp.dll
+0x00007ffd1db00000 - 0x00007ffd1db19000 	C:\WINDOWS\SYSTEM32\Microsoft.Internal.WarpPal.dll
+0x00007ffc78be0000 - 0x00007ffc79098000 	C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\d3dcompiler_47.dll
+0x00007ffd092f0000 - 0x00007ffd0943d000 	C:\WINDOWS\SYSTEM32\textinputframework.dll
+0x00007ffd1f590000 - 0x00007ffd1f6b6000 	C:\WINDOWS\SYSTEM32\CoreMessaging.dll
+0x00007ffd1c080000 - 0x00007ffd1c363000 	C:\WINDOWS\SYSTEM32\CoreUIComponents.dll
+0x00007ffcf9550000 - 0x00007ffcf9561000 	C:\WINDOWS\SYSTEM32\wtdccm.dll
+0x00007ffd21130000 - 0x00007ffd21257000 	C:\WINDOWS\SYSTEM32\DNSAPI.dll
+0x00007ffd1a6b0000 - 0x00007ffd1a6bb000 	C:\Windows\System32\rasadhlp.dll
+0x00007ffd1bc00000 - 0x00007ffd1bc86000 	C:\WINDOWS\System32\fwpuclnt.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.3912_none_3e07963ce335137e;C:\Users\david\.gradle\jdks\jetbrains_s_r_o_-21-amd64-windows.2\bin\server;C:\Users\david\.skiko\dbbc4000b2fac87041fc3b9d72cde150b7becb45c29d2086da4411b731013cc6;C:\WINDOWS\WinSxS\amd64_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.26100.4061_none_6ef7a4863dc2ecac;C:\WINDOWS\System32\DriverStore\FileRepository\nvmdi.inf_amd64_5a20cb50c0e752a4
+
+VM Arguments:
+jvm_args: -Dcompose.reload.argfile=C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\desktopMain.argfile -Dcompose.reload.build.continuous=true -Dcompose.reload.buildSystem=Gradle -Dcompose.reload.devToolsClasspath=C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-devtools\1.0.0-alpha10\ee507b92edfc2f6d141c99fef34f72bbd6edffe6\hot-reload-devtools-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-api-jvm\1.0.0-alpha10\e784fec47791cba1a21f056aed2408a90bb72576\hot-reload-runtime-api-jvm-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-jvm\1.0.0-alpha10\19cd5339659ab9ec29090d0e6df7c3fcf6b88d5d\hot-reload-runtime-jvm-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.desktop\desktop-jvm\1.8.0\7a5516c08efe9fef2e6aa38a10e5fc17fb556148\desktop-jvm-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material3\material3-desktop\1.8.0\127c5b21d15ddb0a91765d59d02c68d69130cdd0\material3-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.components\components-resources-desktop\1.8.0\10110d785f486bc13235f40e1d0b91a48b5f3ee6\library-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.sellmair\evas-compose-jvm\1.3.0\1214dcce9040d1b9f856b02b443cf8c2ebe1573a\evas-compose-jvm-1.3.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-desktop\1.8.0\eb68e7add6287443a90854fa65af432823e8271e\material-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-ripple-desktop\1.8.0\5364a917218879742c9f08f55791adb3a7c26c8a\material-ripple-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.foundation\foundation-desktop\1.8.0\95a4ab44a0b846ca6889e76ee974abe09e940fc7\foundation-desktop-1.8.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-icons-core-desktop\1.7.3\414b3096050fe647b0638832eace80f-Dcompose.reload.devToolsEnabled=true -Dcompose.reload.devToolsTransparencyEnabled=true -Dcompose.reload.dirtyResolveDepthLimit=5 -Dcompose.reload.launchMode=GradleBlocking -Dcompose.reload.mainClass=io.silv.sp2yt.MainKt -Dcompose.reload.pidFile=C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\desktopMain.pid -Dcompose.reload.virtualMethodResolveEnabled=true -Dgradle.build.project=:composeApp -Dgradle.build.root=C:\Users\david\dev\kotlin\Sp2yt -Dgradle.build.task=hotReloadDesktopMain -Dorg.gradle.java.home=C:\Users\david\.jdks\corretto-17.0.14 -XX:+IgnoreUnrecognizedVMOptions -XX:+AllowEnhancedClassRedefinition -javaagent:C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-agent\1.0.0-alpha10\37d1bd8b8b8f9efc0f1cad3762448e2e1251cacf\hot-reload-agent-1.0.0-alpha10.jar -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant 
+java_command: io.silv.sp2yt.MainKt
+java_class_path (initial): C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-agent\1.0.0-alpha10\37d1bd8b8b8f9efc0f1cad3762448e2e1251cacf\hot-reload-agent-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-orchestration\1.0.0-alpha10\d2e2fb059c16965c981287377d65b611b18fd384\hot-reload-orchestration-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-analysis\1.0.0-alpha10\1bbdbc744f476a133d42b4dfc7180952e471a393\hot-reload-analysis-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-core\1.0.0-alpha10\4595272e9c8e6f52b59ca141dbe9e40cba6059e4\hot-reload-core-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.17\d9e58ac9c7779ba3bf8142aff6c830617a7fe60f\slf4j-api-2.0.17.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.javassist\javassist\3.30.2-GA\284580b5e42dfa1b8267058566435d9e93fae7f7\javassist-3.30.2-GA.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\2.1.20\aa8ca79cd50578314f6d1180c47cbe14c0fee567\kotlin-stdlib-2.1.20.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.8\18419ca5b77a2f81097c741e7872e6ab8d2f40d\asm-tree-9.8.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.8\dc19ecb3f7889b7860697215cae99c0f9b6f6b4b\asm-9.8.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar;C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\classpath\hot;C:\Users\david\dev\kotlin\Sp2yt\composeApp\build\run\desktopMain\classpath\classes;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.github.kevinnzou\compose-webview-multiplatform-desktop\1.9.40\d5c2ca152a9803bd939ae2f75843f69192a23889\webview-desktop.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material3\material3-desktop\1.8.1\763803ef38c846a60dadabe187bd402c5a52222e\material3-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.components\components-resources-desktop\1.8.1\10110d785f486bc13235f40e1d0b91a48b5f3ee6\library-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.desktop\desktop-jvm\1.8.1\7a5516c08efe9fef2e6aa38a10e5fc17fb556148\desktop-jvm-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-desktop\1.8.1\ef0aa2ceffba36f64a1ba916c1d0116fd3c383c6\material-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.material\material-ripple-desktop\1.8.1\5364a917218879742c9f08f55791adb3a7c26c8a\material-ripple-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-compose-jvm\3.2.0\bd4de889e3ee1bf1acc2ff030721a8a40ece55a0\coil-compose-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-compose-core-jvm\3.2.0\e14fe6391bff9406da0578f0c68f5a1dbf1ea369\coil-compose-core-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.foundation\foundation-desktop\1.8.1\43f4d514df27ef16c4fbe77807c2a7e12e18b6fd\foundation-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.navigation\navigation-compose-desktop\2.9.0-beta01\c6ecec6600e9342dac4cdf0d0900e784b521d912\navigation-compose-desktop-2.9.0-beta01.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.lifecycle\lifecycle-viewmodel-compose-desktop\2.9.0\209637c8208660f46fd3f8fd5f2a32e9dd40d162\lifecycle-viewmodel-compose-desktop-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.animation\animation-desktop\1.8.1\29a0e3ff19c37e121840db37f984c74cbab1e480\animation-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.foundation\foundation-layout-desktop\1.8.1\493312c9bba0d7ce31f71211f069338edb75674b\foundation-layout-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.animation\animation-core-desktop\1.8.1\d0f4df5aa6af2ba7b8b72173d46c248c0d4f7d5a\animation-core-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-desktop\1.8.1\56dc109fa60970bea9d33bc54e01e7a63cf76cf8\ui-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.navigation\navigation-runtime-desktop\2.9.0-beta01\829095cb5582290fbbd033f6475fbc2df905c1ab\navigation-runtime-desktop-2.9.0-beta01.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.navigation\navigation-common-desktop\2.9.0-beta01\c61514d9318b74c842e25b0912ac8b08e994fd8d\navigation-common-desktop-2.9.0-beta01.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-backhandler-desktop\1.8.1\cc5d993298a1e08c7532c046991aceb0fc2675c3\ui-backhandler-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.lifecycle\lifecycle-runtime-compose-desktop\2.9.0\223c530ac6df84c0917e1b00a47edcb8bad31abe\lifecycle-runtime-compose-desktop-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\app.cash.molecule\molecule-runtime-jvm\2.1.0\558cda6dfb20608dc225e93a4c9a6a4d959a4281\molecule-runtime-jvm-2.1.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-api-jvm\1.0.0-alpha10\e784fec47791cba1a21f056aed2408a90bb72576\hot-reload-runtime-api-jvm-1.0.0-alpha10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.hot-reload\hot-reload-runtime-jvm\1.0.0-alpha10\6e76278e494e9574d1902a0c2ba827fd3a5e7c05\hot-reload-runtime-jvm-1.0.0-alpha10-dev.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-text-desktop\1.8.1\2685be46f1df382dbf175d75a7061640bde8a848\ui-text-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-graphics-desktop\1.8.1\8970dad2e556a7fac4a454c2158d3c6a94372ef7\ui-graphics-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.runtime\runtime-saveable-desktop\1.8.1\c746b6378de826d1201ee33ef7f48f3537d7e9ad\runtime-saveable-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-unit-desktop\1.8.1\65eee0086e59109657cc7a7ad7569e1be78f1a93\ui-unit-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-geometry-desktop\1.8.1\6301b97db2ec7ea140bf185f0712891cfa1f480d\ui-geometry-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.androidx.savedstate\savedstate-compose-desktop\1.3.0-beta01\9c68ee94b7cb31ec02ec4782718c8101e9e4ad8\savedstate-compose-desktop-1.3.0-beta01.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-tooling-preview-desktop\1.8.1\7e1d509da90394d063aef5b444bf218024b13250\ui-tooling-preview-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.runtime\runtime-desktop\1.8.1\ab97b0865e86b38fc0db7b3f9e44ba2d32f9e56a\runtime-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-client-cio-jvm\3.1.2\264adf1f8570ee5661c9df568a3d10011868280d\ktor-client-cio-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-network-ktor3-jvm\3.2.0\68837e23f55e13dc7191367e8b3e7db8b32b83b1\coil-network-ktor3-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\dev.datlag\kcef\2024.04.20.3\d44c9cc02c52619cfc0d31a1ea150f479ecce6a\kcef-2024.04.20.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-client-content-negotiation-jvm\3.1.2\4b14e9a412f0d2bac71f3d67a85e390b3c327cd6\ktor-client-content-negotiation-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-client-logging-jvm\3.1.2\1d85fd59c38f377a94a1580cc5348d320e2175a9\ktor-client-logging-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-client-okhttp-jvm\3.0.0\aa7b190b6797a33b245454b95de5f200605be0bc\ktor-client-okhttp-jvm-3.0.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-client-core-jvm\3.1.2\b8dd5220d8926f3173a78e38d66b9e8bcfa65379\ktor-client-core-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-kotlinx-json-jvm\3.1.2\709336a7d29be3877fbf35b9228bd66798c32904\ktor-serialization-kotlinx-json-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-netty-jvm\3.1.3\a572549ef2e34eab7a034e02683c73d3b49dd19\ktor-server-netty-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-server-core-jvm\3.1.3\fe59c0964bf32bba16611a3d7f4842677b64c24f\ktor-server-core-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-viewmodel-savedstate-desktop\2.9.0\188dcbffee7149142eed824410bea27534ddcd5b\lifecycle-viewmodel-savedstate-desktop-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-runtime-desktop\2.9.0\c010649ff159d1ff67088df715dee3f05cacbf72\lifecycle-runtime-desktop-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.savedstate\savedstate-desktop\1.3.0\93a03d7f3c778788d849a6421bf93dc48de1d8db\savedstate-desktop-1.3.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-common-jvm\2.9.0\ab739bccdb3541983385af169565c7c035d897e7\lifecycle-common-jvm-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-viewmodel-desktop\2.9.0\18c77caf844dda6e3580fc67a931f395d300001c\lifecycle-viewmodel-desktop-2.9.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.skiko\skiko-awt-runtime-windows-x64\0.9.4.2\fac06bd2c94db6c4eeb9f44e64290a38e9246da0\skiko-awt-runtime-windows-x64-0.9.4.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-jvm\3.2.0\432f72329ae925b191ed015aacbb1052c9077d2\coil-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-network-core-jvm\3.2.0\2447c49caf4600460b15a76f7f649be184ad0998\coil-network-core-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.coil-kt.coil3\coil-core-jvm\3.2.0\1c42d649e54989e17f75b090281a8237fa53a710\coil-core-jvm-3.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.skiko\skiko-awt\0.9.4.2\1c5d9ec55031cef90d7874c20f001b179a0f656c\skiko-awt-0.9.4.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-slf4j\1.10.2\1271f9d4a929150bb87ab8d1dc1e86d4bcf039f3\kotlinx-coroutines-slf4j-1.10.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-websocket-serialization-jvm\3.1.2\87c55402a3052f3e79e91dd4a351f42f4a7c9e1d\ktor-websocket-serialization-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-sse-jvm\3.1.2\123a95750614d4654de185f217dd75004ac57d0a\ktor-sse-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-network-tls-jvm\3.1.2\6f978a70161f547e4092a2b818865f832a2df410\ktor-network-tls-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-kotlinx-jvm\3.1.2\9a351a96bea820af4cada9efbd4320e6de4960e7\ktor-serialization-kotlinx-jvm-3.1.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-http-cio-jvm\3.1.3\a38e4f73b7ca3fb65acd040d95b0d3dd935505fc\ktor-http-cio-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-serialization-jvm\3.1.3\ecdbdd352b01b9bf7ff37d2b41d3c32ee470b58d\ktor-serialization-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-websockets-jvm\3.1.3\ba5d56f7ecfd3347b351dcc3bfd519233aaa22b\ktor-websockets-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-http-jvm\3.1.3\881944d6731e34f5a90e9d9ac3e942f45d41761c\ktor-http-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-events-jvm\3.1.3\ebce4d94edc41cd8ca119da9152af8aa63f706c7\ktor-events-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-network-jvm\3.1.3\6c3bc178f66874bf4883dd1ac7e8a92871b02a4f\ktor-network-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-utils-jvm\3.1.3\d2e56dca809c965fa498df86a570fc9ed5b9551f\ktor-utils-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.ktor\ktor-io-jvm\3.1.3\24be84462406569be2359e5a013a4fa8770a1c0c\ktor-io-jvm-3.1.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.10.2\4a9f78ef49483748e2c129f3d124b8fa249dafbf\kotlinx-coroutines-core-jvm-1.10.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-swing\1.10.2\ccb5a2e7c83fa76da0ba4677f05678d3bd3eed57\kotlinx-coroutines-swing-1.10.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.components\components-ui-tooling-preview-desktop\1.8.1\a4a2a2895122b4e880ad5a7c143aee17c81af432\library-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\com.russhwolf\multiplatform-settings-jvm\1.3.0\76fe39b1cbb2b2b951ec230ab85e610ae179aab7\multiplatform-settings-jvm-1.3.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-json-io-jvm\1.8.1\de4e31bfc7ddf8585418f8d4fca649feca574cdf\kotlinx-serialization-json-io-jvm-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-core-jvm\1.8.1\510cb839cce9a3e708052d480a6fbf4a7274dfcd\kotlinx-serialization-core-jvm-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-json-jvm\1.8.1\4de3bace4b175753df5484d2acd74c14bfeb5be9\kotlinx-serialization-json-jvm-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.compose.ui\ui-util-desktop\1.8.1\2a882d6cfc3d1228c1284ca34a2ebfc2b5ca3815\ui-util-desktop-1.8.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-sse\4.12.0\eca9c68c54ae7fd18d465beba65d80a44e9667e4\okhttp-sse-4.12.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\4.12.0\2f4525d4a200e97e1b87449c2cd9bd2e25b7e8cd\okhttp-4.12.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\2.1.10\3009fa6a21ebb400fe38c70eaf218a0c669ddbe2\kotlin-stdlib-jdk8-2.1.10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\2.1.20\3c1003045c4f2a72f987a147abac8e7058be1183\kotlin-reflect-2.1.20.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\dev.datlag\jcef\2024.04.20.3\82e19e36ae093826766c03851df72c866097c11\jcef-2024.04.20.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\co.touchlab\kermit-jvm\2.0.3\e6998ae01e162e652dd7dd17934f8a4ad0c41718\kermit-jvm-2.0.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\atomicfu-jvm\0.23.2\a4601dc42dceb031a586058e8356ff778a57dea0\atomicfu-jvm-0.23.2.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-datetime-jvm\0.6.0\a6362032556c0fa4a06be6105a21e944f120fd2d\kotlinx-datetime-jvm-0.6.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.arch.core\core-common\2.2.0\5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3\core-common-2.2.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.collection\collection-jvm\1.5.0\7ba2c69414d46ebc2dd76598bdd0a75c54281a57\collection-jvm-1.5.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.9.1\b17951747e38bf3986a24431b9ba0d039958aa5f\annotation-jvm-1.9.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\2.1.10\c9d8cb43c1d65c500ffbbb6eb591b9c8928caf6d\kotlin-stdlib-jdk7-2.1.10.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\co.touchlab\kermit-core-jvm\2.0.3\e6b0cd7d1584d4f1f39bfea745d2a4a506892511\kermit-core-jvm-2.0.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio-jvm\3.11.0\e19f243ee46335ab089613a25f3ea1f65df285b1\okio-jvm-3.11.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-io-core-jvm\0.7.0\1d9595ed390f6304ce90a049e6b2f1fab3b408c4\kotlinx-io-core-jvm-0.7.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-io-bytestring-jvm\0.7.0\ffe5bd231da40d21870250703326113277dbf9c3\kotlinx-io-bytestring-jvm-0.7.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\2.1.21\97a0975aa19d925e109537af60eb46902920015c\kotlin-stdlib-2.1.21.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-classic\1.5.18\fc371f3fc97a639de2d67947cffb7518ec5e3d40\logback-classic-1.5.18.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\23.0.0\8cc20c07506ec18e0834947b84a864bfc094484e\annotations-23.0.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.5.18\6c0375624f6f36b4e089e2488ba21334a11ef13f\logback-core-1.5.18.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http2\4.1.119.Final\648b066861723b60635bef2047229ed73d0cbd04\netty-codec-http2-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.eclipse.jetty.alpn\alpn-api\1.1.3.v20160715\a1bf3a937f91b4c953acd13e8c9552347adc2198\alpn-api-1.1.3.v20160715.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-kqueue\4.1.119.Final\a421ce234f856ff9b84bfd350138523e9ffd70bd\netty-transport-native-kqueue-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-epoll\4.1.119.Final\c4b9339262b59f4808674d3b4ba4d5c4846921df\netty-transport-native-epoll-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.4.3\b57e0fbdc7270d8ea59c1ba367457a5cc7ba0e98\config-1.4.3.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.fusesource.jansi\jansi\2.4.1\d5774f204d990c9f5da2809b88f928515577beb4\jansi-2.4.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.27.1\a19151084758e2fbb6b41eddaa88e7b8ff4e6599\commons-compress-1.27.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec-http\4.1.119.Final\23196984df6083cc39bef22a54c6cf5b157f3824\netty-codec-http-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-handler\4.1.119.Final\a0059b8d779ce566b524efd6d73ba4fcff3cd5d9\netty-handler-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-codec\4.1.119.Final\337ca8e8c3ef23925e02d56347b414d7616d1d02\netty-codec-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-kqueue\4.1.119.Final\e3e70378ab16b97af83b79dc67227299ae20c90\netty-transport-classes-kqueue-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-classes-epoll\4.1.119.Final\1d2d986ae0615d50f5cee338f0e9e73f46e8158\netty-transport-classes-epoll-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport-native-unix-common\4.1.119.Final\55afdeb456bccf8eecb06431f3c1537269afe9af\netty-transport-native-unix-common-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-transport\4.1.119.Final\d05df879054297962d056b77460fc4ff20e30073\netty-transport-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-buffer\4.1.119.Final\5864149b2e5a2af7b05fe9e9dc3e4b70d3060a7c\netty-buffer-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-resolver\4.1.119.Final\e1f7c90aff71bdf0e2294a200b5f89244f88dcf7\netty-resolver-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\io.netty\netty-common\4.1.119.Final\2f7c360b03c0aceab7efc1f7c2b75274f0f35909\netty-common-4.1.119.Final.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.17.1\973638b7149d333563584137ebf13a691bb60579\commons-codec-1.17.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.16.1\377d592e740dc77124e0901291dbfaa6810a200e\commons-io-2.16.1.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.16.0\3eb54effe40946dfb06dc5cd6c7ce4116cd51ea4\commons-lang3-3.16.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jogamp.gluegen\gluegen-rt\2.5.0\683e9d628c2ca32c4b56249034e164e593bf37b3\gluegen-rt-2.5.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jogamp.jogl\jogl-all\2.5.0\68dc55e290bd5456e87f5d47834de47633dbe754\jogl-all-2.5.0.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\antlr\antlr\2.7.7\83cd2cd674a217ade95a4bb83a8a14f351f48bd0\antlr-2.7.7.jar;C:\Users\david\.gradle\caches\modules-2\files-2.1\org.jspecify\jspecify\1.0.0\7425a601c1c7ec76645a78d22b8c6a627edee507\jspecify-1.0.0.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     bool AllowEnhancedClassRedefinition           = true                                      {product} {command line}
+     intx CICompilerCount                          = 15                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 6                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 23                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+     bool IgnoreUnrecognizedVMOptions              = true                                      {product} {command line}
+   size_t InitialHeapSize                          = 532676608                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 8518631424                                {product} {ergonomic}
+   size_t MaxNewSize                               = 5108662272                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 8192380                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 121732930                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 121732930                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 8518631424                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+JAVA_HOME=C:\Users\david\.jdks\corretto-17.0.14
+PATH=C:\Program Files (x86)\oh-my-posh\bin\;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\Program Files (x86)\Python\Scripts;C:\TDM-GCC-64\bin;C:\Program Files\PuTTY\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Windows\System32;C:\Users\david\dev\bin;;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Go\bin;C:\WINDOWS\system32;C:\Program Files\glzr.io\Zebar\;C:\Users\david\scoop\apps\vscodium\current\bin;C:\Users\david\AppData\Local\Programs\oh-my-posh\bin\;C:\Users\david\scoop\shims;C:\Users\david\AppData\Local\pnpm;C:\Users\david\AppData\Local\Microsoft\WindowsApps;C:\Users\david\go\bin;C:\Users\david\AppData\Roaming\npm;C:\Program Files (x86)\Python312-32\scripts;C:\Program Files (x86)\Python\Scripts;C:\Program Files\mitmproxy\bin;C:\Users\david\AppData\Local\JetBrains\Toolbox\scripts;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3\bin;;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.5\bin;;C:\Users\david\.jdks\corretto-17.0.12\bin;C:\Users\david\.jdks\corretto-17.0.14\bin;C:\Program Files (x86)\Nmap;C:\Users\david\dev\bin;C:\Users\david\dev\bin\kotlinc\bin;C:\Users\david\dev\bin\dist;C:\Program Files (x86)\GnuWin32\bin;C:\Users\david\AppData\Local\Android\Sdk\platform-tools;C:\Users\david\dev\bin\upx-4.2.4-win64;C:\Users\david\.jdks\corretto-17.0.14\bin;C:\Users\david\go\bin;C:\Users\david\AppData\Local\Microsoft\WindowsApps;C:\Users\david\AppData\Local\Programs\cursor\resources\app\bin
+USERNAME=david
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+TMP=C:\Users\david\AppData\Local\Temp
+TEMP=C:\Users\david\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+JNI global refs:
+JNI global refs: 162, weak refs: 13
+
+JNI global refs memory usage: 2099, weak refs: 1465
+
+Process memory usage:
+Resident Set Size: 665440K (2% of 33260640K total physical memory with 13937832K free physical memory)
+
+OOME stack traces (most recent first):
+Classloader memory used:
+Loader jdk.internal.loader.ClassLoaders$AppClassLoader                                 : 45949K
+Loader bootstrap                                                                       : 17034K
+Loader jdk.internal.loader.ClassLoaders$PlatformClassLoader                            : 317K
+Loader jdk.internal.reflect.DelegatingClassLoader                                      : 77472B
+
+Classes loaded by more than one classloader:
+Class io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1                   : loaded 3 times (x 91B)
+Class io.silv.sp2yt.ui.DominantColor_desktopKt$getDominantColor$1$1$invokeSuspend$$inlined$listener$default$1: loaded 3 times (x 75B)
+Class io.silv.sp2yt.ui.DominantColor_desktopKt                                        : loaded 3 times (x 67B)
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.3912)
+OS uptime: 0 days 13:49 hours
+Hyper-V role detected
+
+CPU: total 32 (initial active 32) (16 cores per cpu, 2 threads per core) family 6 model 183 stepping 1 microcode 0x12b, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb, hv, serialize, rdtscp, rdpid, fsrm, f16c, cet_ibt, cet_ss
+Processor Information for the first 32 processors :
+  Max Mhz: 3000, Current Mhz: 3000, Mhz Limit: 3000
+
+Memory: 4k page, system-wide physical 32481M (13615M free)
+TotalPageFile size 37089M (AvailPageFile size 11956M)
+current process WorkingSet (physical memory assigned to process): 645M, peak: 686M
+current process commit charge ("private bytes"): 748M, peak: 848M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.7+9-b895.130) for windows-amd64 JRE (21.0.7+9-b895.130), built on 2025-05-13 by "builduser" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.

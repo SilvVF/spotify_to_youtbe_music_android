@@ -1,4 +1,4 @@
-package io.silv.sp2yt
+package io.silv.sp2yt.ui.playlist
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -19,6 +19,7 @@ import app.cash.molecule.RecompositionMode
 import app.cash.molecule.launchMolecule
 import io.silv.sp2yt.api.SpotifyApi
 import io.silv.sp2yt.api.YoutubeMusicApi
+import io.silv.sp2yt.appGraph
 import io.silv.sp2yt.types.Playlist
 import io.silv.sp2yt.types.SongItem
 import io.silv.sp2yt.types.Track
